@@ -1,0 +1,177 @@
+package com.example.accountspayable
+
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Environment
+import android.widget.Toast
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.core.content.ContextCompat
+import java.io.File
+import java.time.LocalDateTime
+import java.util.*
+
+
+val STORAGE_PERMISSION_CODE = 100
+
+fun getTodayDate(): LocalDateTime? {
+
+    val calendar = Calendar.getInstance()
+
+    return LocalDateTime.of(
+        calendar.get(Calendar.YEAR),
+        calendar.get(Calendar.MONTH),
+        calendar.get(Calendar.DAY_OF_MONTH - 1),
+        calendar.get(Calendar.HOUR_OF_DAY),
+        calendar.get(Calendar.MINUTE),
+        calendar.get(Calendar.SECOND)
+    )
+
+
+}
+
+fun getItemDropDown(str: String) : String {
+
+    return when(str) {
+
+        "Water" -> {
+            "Conta de Água"
+        }
+
+        "Light" -> {
+            "Conta de Luz"
+        }
+
+        "Market" -> {
+            "Supermercado"
+        }
+
+        "Router" -> {
+            "Internet"
+        }
+
+        "Card" -> {
+            "Cartão de Crédito"
+        }
+
+        "Restaurant" -> {
+            "Restaurante"
+        }
+
+        "Game" -> {
+            "Jogo"
+        }
+
+        "Other" -> {
+            "Outros"
+        }
+
+        else -> {
+            "Outros"
+        }
+
+    }
+
+}
+
+@Composable
+fun getPainterIcon(str: String): Painter {
+
+    return when(str) {
+
+        "Water" -> {
+            painterResource(R.drawable.icon_water)
+        }
+
+        "Light" -> {
+            painterResource(R.drawable.icon_luz)
+        }
+
+        "Market" -> {
+            painterResource(R.drawable.icon_market)
+        }
+
+        "Router" -> {
+            painterResource(R.drawable.icon_router)
+        }
+
+        "Card" -> {
+            painterResource(R.drawable.icon_card)
+        }
+
+        "Restaurant" -> {
+            painterResource(R.drawable.icon_restaurant)
+        }
+
+        "Game" -> {
+            painterResource(R.drawable.icon_game)
+        }
+
+        "Other" -> {
+            painterResource(R.drawable.icon_bag)
+        }
+
+        else -> {
+            painterResource(R.drawable.icon_bag)
+        }
+
+    }
+
+
+}
+
+fun returnMonthString(number: Int): String{
+
+  return when(number){
+
+      1 ->  "Janeiro"
+      2 ->  "Fevereiro"
+      3 ->  "Março"
+      4 ->  "Abril"
+      5 ->  "Maio"
+      6 ->  "Junho"
+      7 ->  "Julho"
+      8 ->  "Agosto"
+      9 ->  "Setembro"
+      10 -> "Outubro"
+      11 -> "Novembro"
+      12 -> "Dezembro"
+      else -> ""
+
+  }
+
+}
+
+fun createFolder(){
+    //folder name
+    val folderName = "conta_smart"
+
+    //create folder using name we just input
+    val file = File("${Environment.getExternalStorageDirectory()}/$folderName")
+    //create folder
+    val folderCreated = file.mkdir()
+
+    //show if folder created or not
+    if (folderCreated) {
+        print("Folder Created: ${file.absolutePath}")
+    } else {
+        print("Folder not created....")
+    }
+}
+
+fun checkPermissionRWDisk(
+    context: Context
+): Boolean{
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+        //Android is 11(R) or above
+        Environment.isExternalStorageManager()
+    }
+    else{
+        //Android is below 11(R)
+        val write = ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val read = ContextCompat.checkSelfPermission(context.applicationContext, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        write == PackageManager.PERMISSION_GRANTED && read == PackageManager.PERMISSION_GRANTED
+    }
+}
