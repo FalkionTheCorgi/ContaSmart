@@ -10,15 +10,6 @@ class ExportDataBase(appContext: Context, workerParams: WorkerParameters):
 
     val backupDataBase : BackupDataBase = BackupDataBase()
 
-    companion object{
-        /**
-         * Constantes com alguns dados da configuração
-         * inicial de WorkManager.
-         */
-        const val NAME = "sync_local_database"
-        const val REPEAT_INTERVAL : Long = 60
-    }
-
     override fun doWork(): Result {
 
         backupDataBase.exportDatabase(

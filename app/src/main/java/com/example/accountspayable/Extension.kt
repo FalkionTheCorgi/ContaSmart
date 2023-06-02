@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
-import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -60,6 +59,10 @@ fun getItemDropDown(str: String) : String {
             "Restaurante"
         }
 
+        "Phone" -> {
+            "Celular"
+        }
+
         "Game" -> {
             "Jogo"
         }
@@ -107,6 +110,10 @@ fun getPainterIcon(str: String): Painter {
 
         "Game" -> {
             painterResource(R.drawable.icon_game)
+        }
+        
+        "Phone" -> {
+            painterResource(id = R.drawable.icon_phone)
         }
 
         "Other" -> {

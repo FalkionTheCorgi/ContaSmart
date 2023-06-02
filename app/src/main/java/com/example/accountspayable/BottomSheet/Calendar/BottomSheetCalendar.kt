@@ -40,7 +40,7 @@ fun BottomSheetCalendar(
         ) {
 
             Row(
-                modifier = Modifier.weight(2f)
+                modifier = Modifier.weight(1f)
             ){
                 ExposedDropdownMenuMonth()
             }

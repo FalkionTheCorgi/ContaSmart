@@ -36,7 +36,7 @@ class BackupDataBase {
                 FileInputStream(databasePath).use { inputStream ->
                     FileOutputStream(backupFile).use { outputStream ->
                         inputStream.copyTo(outputStream)
-                        Toast.makeText(context, "Banco de dados $dado exportado com sucesso!", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "Banco de dados $dado exportado com sucesso!", Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: IOException) {

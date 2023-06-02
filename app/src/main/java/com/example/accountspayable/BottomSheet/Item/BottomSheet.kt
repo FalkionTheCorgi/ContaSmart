@@ -215,12 +215,25 @@ fun AddItemScreen(
         scope.launch {
 
             if(model.state.textButton.value == "SALVAR") {
+
                 model.addItem(
                     context = context,
                     month = activityViewModel.monthSelected.value ?: 1,
-                    year = activityViewModel.yearSelected.value ?: 2023
+                    year = activityViewModel.yearSelected.value ?: 2023,
+                    onSuccess = {
+                        scope.launch {
+                            listModel.onAppearScreen(
+                                context,
+                                month = activityViewModel.monthSelected.value ?: 1,
+                                year = activityViewModel.yearSelected.value ?: 2023
+                            )
+                            activityViewModel.updateBottomSheet.value = true
+                            activityViewModel.updateSummaryAllPerson.value = true
+                            callBack.invoke()
+                        }
+                    },
+                    onFailure = {}
                 )
-                activityViewModel.updateSummaryAllPerson.value = true
 
             } else {
 
@@ -230,48 +243,23 @@ fun AddItemScreen(
                     checkBefore1 = check1,
                     checkBefore2 = check2,
                     checkBefore3 = check3,
-                    checkBefore4 = check4
+                    checkBefore4 = check4,
+                    onSuccess = {
+                        scope.launch {
+                            listModel.onAppearScreen(
+                                context,
+                                month = activityViewModel.monthSelected.value ?: 1,
+                                year = activityViewModel.yearSelected.value ?: 2023
+                            )
+                            activityViewModel.updateBottomSheet.value = true
+                            activityViewModel.updateSummaryAllPerson.value = true
+                            callBack.invoke()
+                        }
+                    },
+                    onFailure = {}
                 )
-                /*listModel.updateCheckPersonList(
-                    id = idItem,
-                    check1 = model.verifyCheckPerson(
-                        model.state.person1.value,
-                        check1,
-                        model.state.checkPerson1.value
-                    ),
-                    check2 = model.verifyCheckPerson(
-                        model.state.person2.value,
-                        check2,
-                        model.state.checkPerson2.value
-                    ),
-                    check3 = model.verifyCheckPerson(
-                        model.state.person3.value,
-                        check3,
-                        model.state.checkPerson3.value
-                    ),
-                    check4 = model.verifyCheckPerson(
-                        model.state.person4.value,
-                        check4,
-                        model.state.checkPerson4.value
-                    )
-                )*/
-                listModel.onAppearScreen(
-                    context,
-                    month = activityViewModel.monthSelected.value ?: 1,
-                    year = activityViewModel.yearSelected.value ?: 2023
-                )
-                activityViewModel.updateBottomSheet.value = true
-                activityViewModel.updateSummaryAllPerson.value = true
 
             }
-
-            listModel.onAppearScreen(
-                context,
-                month = activityViewModel.monthSelected.value ?: 1,
-                year = activityViewModel.yearSelected.value ?: 2023
-            )
-
-            callBack.invoke()
 
         }
 

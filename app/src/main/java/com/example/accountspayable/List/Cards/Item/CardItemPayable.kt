@@ -108,7 +108,7 @@ fun CardItemPayable(
                         Spacer(modifier = Modifier.weight(1f))
 
                         Text(
-                            modifier = Modifier.padding(top = 4.dp),
+                            modifier = Modifier.padding(top = 6.dp),
                             text = "R$ $valor",
                             color = MaterialTheme.colors.secondary
                         )

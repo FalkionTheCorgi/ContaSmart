@@ -180,8 +180,8 @@ fun CardSummaryNotExist(){
             ) {
 
                 Text(
-                    text = "Cadastre seu sumário mensal",
-                    modifier = Modifier.padding(top = 15.dp),
+                    text = "Sumário mensal",
+                    modifier = Modifier.padding(top = 13.dp),
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colors.secondary
                 )

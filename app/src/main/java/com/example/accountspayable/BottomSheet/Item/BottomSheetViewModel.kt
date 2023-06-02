@@ -16,7 +16,9 @@ class BottomSheetViewModel : ViewModel() {
     suspend fun addItem(
         context: Context,
         month: Int,
-        year: Int
+        year: Int,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
     ){
         state.progressBtn.value = true
         state.textButton.value = "AGUARDAR"
@@ -58,16 +60,20 @@ class BottomSheetViewModel : ViewModel() {
                 Toast.LENGTH_LONG
             ).show()
 
+            onSuccess()
+
         } else {
 
             Toast.makeText(
                 context,
-                "Por favor preencha o campo de Item e preço",
+                "Por favor preencha o campo Item e preço",
                 Toast.LENGTH_LONG
             ).show()
 
             state.progressBtn.value = false
             state.textButton.value = "SALVAR"
+
+            onFailure()
         }
 
 
@@ -79,7 +85,10 @@ class BottomSheetViewModel : ViewModel() {
         checkBefore2: Boolean,
         checkBefore3: Boolean,
         checkBefore4: Boolean,
-        id: Int
+        id: Int,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+
     ){
 
         if (
@@ -115,6 +124,8 @@ class BottomSheetViewModel : ViewModel() {
                 Toast.LENGTH_LONG
             ).show()
 
+            onSuccess()
+
         } else {
 
             Toast.makeText(
@@ -125,6 +136,8 @@ class BottomSheetViewModel : ViewModel() {
 
             state.progressBtn.value = false
             state.textButton.value = "EDITAR"
+
+            onFailure()
 
         }
 

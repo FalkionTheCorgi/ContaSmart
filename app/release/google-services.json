@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "625051453361",
+    "project_id": "contasmartprd-2327b",
+    "storage_bucket": "contasmartprd-2327b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625051453361:android:82c81cd21ad38254b35f90",
+        "android_client_info": {
+          "package_name": "com.finance.contasmart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjxTpBwoOJmGFPrCVu7Oo7GTFU5ZIRls8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

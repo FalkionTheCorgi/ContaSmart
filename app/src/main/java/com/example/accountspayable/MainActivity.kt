@@ -55,6 +55,10 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -66,6 +70,7 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
 
+    lateinit var firebaseAnalytics: FirebaseAnalytics
     @OptIn(ExperimentalMaterialApi::class)
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +80,9 @@ class MainActivity : ComponentActivity() {
         WorkManager.getInstance(this).enqueue(
             periodicWorkRequest
         )
+
+        firebaseAnalytics = Firebase.analytics
+
 
         setContent {
 
