@@ -12,7 +12,7 @@ class BottomSheetState {
     var description = mutableStateOf("")
     var textButton = mutableStateOf("SALVAR")
     var progressBtn = mutableStateOf(false)
-    var listItemRadioButton = mutableListOf("Light", "Water", "Market", "Router", "Card", "Restaurant", "Phone", "Game", "Other")
+    var listItemRadioButton = mutableListOf("Light", "Water", "Market", "Router", "Card", "Restaurant", "Phone", "House", "Game", "Other")
     var checkPerson1 = mutableStateOf(false)
     var checkPerson2 = mutableStateOf(false)
     var checkPerson3 = mutableStateOf(false)
@@ -23,6 +23,11 @@ class BottomSheetState {
     var person2 = mutableStateOf("")
     var person3 = mutableStateOf("")
     var person4 = mutableStateOf("")
+    var itemDeadline = mutableStateOf("")
+
+    var redFieldItemName = mutableStateOf(false)
+    var redFieldItemValue = mutableStateOf(false)
+    var redFieldItemDeadline = mutableStateOf(false)
 
 
 }

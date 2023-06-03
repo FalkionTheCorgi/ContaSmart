@@ -7,7 +7,7 @@ import com.example.accountspayable.Room.Data.DataSummary
 import com.example.accountspayable.Room.Data.MonthYear
 import com.example.accountspayable.Room.DataBase
 import com.example.accountspayable.Room.Item.ItemEntity
-import com.example.accountspayable.getTodayDate
+import com.example.accountspayable.getDaysInMonth
 
 class BottomSheetViewModel : ViewModel() {
 
@@ -22,11 +22,13 @@ class BottomSheetViewModel : ViewModel() {
     ){
         state.progressBtn.value = true
         state.textButton.value = "AGUARDAR"
+        verifyFieldItemName(state.itemName.value)
+        verifyFieldItemValue(state.itemValue.value)
+        verifyFieldItemDeadline(state.itemDeadline.value)
 
 
         if (
-            state.itemName.value.isNotEmpty() &&
-            state.itemValue.value.isNotEmpty()
+            verifyItem()
         ) {
 
             val dataBase = DataBase.getDataBase(context).item()
@@ -37,6 +39,7 @@ class BottomSheetViewModel : ViewModel() {
                     price = state.itemValue.value.toFloat(),
                     description = state.description.value,
                     icon = state.iconOption.value,
+                    vencimento = state.itemDeadline.value.toInt(),
                     month = month,
                     year = year,
                     person1 = if (state.checkPerson1.value) { state.person1.value } else { "" },
@@ -66,7 +69,7 @@ class BottomSheetViewModel : ViewModel() {
 
             Toast.makeText(
                 context,
-                "Por favor preencha o campo Item e preço",
+                "Por favor verifique os campos em vermelho.",
                 Toast.LENGTH_LONG
             ).show()
 
@@ -90,10 +93,14 @@ class BottomSheetViewModel : ViewModel() {
         onFailure: () -> Unit
 
     ){
+        state.progressBtn.value = true
+        state.textButton.value = "AGUARDAR"
+        verifyFieldItemName(state.itemName.value)
+        verifyFieldItemValue(state.itemValue.value)
+        verifyFieldItemDeadline(state.itemDeadline.value)
 
         if (
-            state.itemName.value.isNotEmpty() &&
-            state.itemValue.value.isNotEmpty()
+            verifyItem()
         ) {
 
             val dataBase = DataBase.getDataBase(context).item()
@@ -104,6 +111,7 @@ class BottomSheetViewModel : ViewModel() {
                 price = state.itemValue.value.toFloat(),
                 description = state.description.value,
                 icon = state.iconOption.value,
+                vencimento = state.itemDeadline.value.toInt(),
                 person1 = if (state.checkPerson1.value) { state.person1.value } else { "" },
                 person2 = if (state.checkPerson2.value) { state.person2.value } else { "" },
                 person3 = if (state.checkPerson3.value) { state.person3.value } else { "" },
@@ -130,7 +138,7 @@ class BottomSheetViewModel : ViewModel() {
 
             Toast.makeText(
                 context,
-                "Por favor preencha o campo de Item e preço",
+                "Por favor verifique os campos em vermelho.",
                 Toast.LENGTH_LONG
             ).show()
 
@@ -174,7 +182,8 @@ class BottomSheetViewModel : ViewModel() {
                 person4 = summary?.person4 ?: "",
                 mYear = MonthYear(
                     year = summary?.year ?: 2023,
-                    month = summary?.month ?: 1
+                    month = summary?.month ?: 1,
+                    vencimento = 0
                 )
             )
         )
@@ -186,6 +195,7 @@ class BottomSheetViewModel : ViewModel() {
         price: String,
         description: String,
         icon: String,
+        vencimento: String,
         person1 : String,
         person2 : String,
         person3 : String,
@@ -201,6 +211,7 @@ class BottomSheetViewModel : ViewModel() {
         state.itemName.value = itemName
         state.description.value = description
         state.itemValue.value = price
+        state.itemDeadline.value = vencimento
         state.textButton.value = if (isEdit) { "EDITAR" } else { "SALVAR" }
         state.person1.value = person1
         state.person2.value = person2
@@ -228,6 +239,64 @@ class BottomSheetViewModel : ViewModel() {
 
         return aux
     }
+
+    fun verifyItem(): Boolean{
+
+        if (state.itemName.value.isNotEmpty() &&
+            state.itemValue.value.isNotEmpty()){
+
+            if (state.itemDeadline.value.isNotEmpty() && getDaysInMonth() < state.itemDeadline.value.toInt()) {
+
+                return false
+
+            } else if(state.itemDeadline.value.isNotEmpty() && getDaysInMonth() >= state.itemDeadline.value.toInt()) {
+
+                return true
+
+            } else if (state.itemDeadline.value.isEmpty()) {
+
+                return true
+
+            } else {
+
+                return true
+
+            }
+
+        } else {
+
+            return false
+
+        }
+
+    }
+
+    fun verifyFieldItemName(
+        str: String
+    ){
+
+        state.redFieldItemName.value = str.isEmpty()
+
+    }
+
+    fun verifyFieldItemValue(
+        str: String
+    ){
+
+        state.redFieldItemValue.value = str.isEmpty()
+
+    }
+
+    fun verifyFieldItemDeadline(
+        str: String
+    ){
+
+        state.redFieldItemDeadline.value =
+            !(str.isEmpty() || (str.isNotEmpty() && getDaysInMonth() >= str.toInt()))
+
+    }
+
+
 
 
 }

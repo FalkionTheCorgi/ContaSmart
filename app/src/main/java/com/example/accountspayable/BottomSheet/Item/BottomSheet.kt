@@ -38,6 +38,7 @@ fun BottomSheetAddItem(
     idItem: Int = 0,
     idSummary: Int = 0,
     itemName: String = "",
+    vencimento: String = "",
     description: String = "",
     price : String = "",
     person1 : String = "",
@@ -68,6 +69,7 @@ fun BottomSheetAddItem(
             iconSelected = iconSelected,
             itemName = itemName,
             description = description,
+            vencimento = vencimento,
             price = price,
             person1 = person1,
             person2 = person2,
@@ -91,6 +93,7 @@ fun AddItemScreen(
     idSummary: Int = 0,
     itemName: String = "",
     description: String = "",
+    vencimento: String = "",
     price : String = "",
     person1 : String = "",
     person2 : String = "",
@@ -121,6 +124,7 @@ fun AddItemScreen(
             price = price,
             description = description,
             isEdit = isEdit,
+            vencimento = vencimento,
             person1 = if(modelSummary.state.dataSummary.isNotEmpty()) { modelSummary.state.dataSummary.first().person1 } else { "" } ,
             person2 = if(modelSummary.state.dataSummary.isNotEmpty()) { modelSummary.state.dataSummary.first().person2 } else { "" } ,
             person3 = if(modelSummary.state.dataSummary.isNotEmpty()) { modelSummary.state.dataSummary.first().person3 } else { "" } ,
@@ -147,15 +151,26 @@ fun AddItemScreen(
             value = model.state.itemName.value,
             onValueChange = {
                 model.state.itemName.value = it
+                model.verifyFieldItemName(model.state.itemName.value)
             },
             singleLine = true,
             label = { Text(text = "Item") },
             placeholder =  { Text(text = "Entre com o nome")},
             keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
-            modifier = Modifier.weight(3f)
+            modifier = Modifier.fillMaxWidth(),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = if (!model.state.redFieldItemName.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) } else { Color.Red },
+                focusedBorderColor = if (!model.state.redFieldItemName.value) { MaterialTheme.colors.primary } else { Color.Red }
+            )
         )
 
-        Spacer(modifier = Modifier.width(8.dp))
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    Row(
+        modifier = Modifier.fillMaxWidth()
+    ) {
 
         OutlinedTextField(
             value = model.state.itemValue.value,
@@ -165,12 +180,36 @@ fun AddItemScreen(
                 } else {
                     model.state.itemValue.value = it
                 }
+                model.verifyFieldItemValue(model.state.itemValue.value)
             },
             singleLine = true,
             label = { Text(text = "Valor") },
             placeholder =  { Text(text = "Valor")},
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
-            modifier = Modifier.weight(2f)
+            modifier = Modifier.weight(1f),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = if (!model.state.redFieldItemValue.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) } else { Color.Red },
+                focusedBorderColor = if (!model.state.redFieldItemValue.value) { MaterialTheme.colors.primary } else { Color.Red }
+            )
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        OutlinedTextField(
+            value = model.state.itemDeadline.value,
+            onValueChange = {
+                if (it.length <= 2) model.state.itemDeadline.value = it
+                model.verifyFieldItemDeadline(model.state.itemDeadline.value)
+            },
+            singleLine = true,
+            label = { Text(text = "Vencimento") },
+            placeholder =  { Text(text = "Vencimento")},
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
+            modifier = Modifier.weight(1f),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = if (!model.state.redFieldItemDeadline.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) }else { Color.Red },
+                focusedBorderColor = if (!model.state.redFieldItemDeadline.value) { MaterialTheme.colors.primary } else { Color.Red }
+            )
         )
 
     }

@@ -31,6 +31,7 @@ fun CardItemPayable(
     title: String,
     valor: String,
     descricao: String,
+    vencimento: String,
     person1: String,
     check1: Boolean,
     person2: String,
@@ -118,7 +119,35 @@ fun CardItemPayable(
                     AnimatedVisibility(visible = expandItem) {
                         Column {
 
-                            Spacer(modifier = Modifier.padding(vertical = 4.dp))
+                            Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+                            if(vencimento.isNotEmpty()){
+
+                                Row(modifier = Modifier.fillMaxWidth()) {
+
+                                    Image(
+                                        painter = painterResource(id = R.drawable.icon_deadline),
+                                        contentDescription = "",
+                                        modifier = Modifier
+                                            .width(28.dp)
+                                            .height(28.dp)
+                                            .padding(start = 2.dp),
+                                    )
+
+                                    Spacer(modifier = Modifier.width(2.dp))
+
+                                    Text(
+                                        modifier = Modifier.padding(start = 6.dp, top =6.dp),
+                                        text = "Vencimento: $vencimento",
+                                        color = MaterialTheme.colors.secondary
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+                            }
+
+
 
                             if (descricao.isNotEmpty()) {
 
@@ -135,8 +164,8 @@ fun CardItemPayable(
                                     Spacer(modifier = Modifier.width(2.dp))
 
                                     Text(
-                                        modifier = Modifier.padding(start = 6.dp, top =6.dp),
-                                        text = descricao,
+                                        modifier = Modifier.padding(start = 2.dp, top =6.dp),
+                                        text = "Descrição $descricao",
                                         color = MaterialTheme.colors.secondary
                                     )
                                 }
@@ -183,7 +212,8 @@ fun CardItemPayable(
                                             check4 = check4,
                                             mYear = MonthYear(
                                                 month = 0,
-                                                year = 0
+                                                year = 0,
+                                                vencimento = vencimento.toInt()
                                             )
                                         )
                                         activityViewModel.bottomSheetType.value =
@@ -201,6 +231,7 @@ fun CardItemPayable(
                                             context = context,
                                             id = idCard
                                         )
+                                        activityViewModel.resetCardSummary.value = true
                                     }
                                 }) {
                                     Text("DELETAR", color = MaterialTheme.colors.primary)
@@ -465,7 +496,8 @@ fun ShowCardItemPayable(){
         person3 = "teste",
         check3 = false,
         person4 = "teste",
-        check4 = false
+        check4 = false,
+        vencimento = ""
     )
 
 }

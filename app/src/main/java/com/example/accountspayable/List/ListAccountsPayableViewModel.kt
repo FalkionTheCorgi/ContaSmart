@@ -51,7 +51,8 @@ class ListAccountsPayableViewModel: ViewModel(){
                     check4 = item.checkedPerson4,
                     mYear = MonthYear(
                         month = item.month,
-                        year = item.year
+                        year = item.year,
+                        vencimento = item.vencimento
                     )
                 )
             )
@@ -88,7 +89,7 @@ class ListAccountsPayableViewModel: ViewModel(){
 
         }
 
-        return sum.toString()
+        return String.format("%.2f", sum)
 
     }
 

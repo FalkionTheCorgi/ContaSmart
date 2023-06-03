@@ -39,7 +39,8 @@ class CardSummaryViewModel : ViewModel() {
                     person4 = summary[0].person4,
                     mYear = MonthYear(
                         month = summary[0].month,
-                        year = summary[0].year
+                        year = summary[0].year,
+                        vencimento = 0
                     )
                 )
             )
@@ -219,9 +220,18 @@ class CardSummaryViewModel : ViewModel() {
 
     }
 
-    private fun clearCardSummary(){
+    fun returnValueOrStatus(value: Double): String {
 
-        state.dataSummary.clear()
+        return if (value > 0.0) {
+            String.format("%.2f", value)
+        } else {
+            "Pago"
+        }
+    }
+
+    fun revenueLess(despesa: Double): String {
+
+        return String.format("%.2f", state.dataSummary.first().revenue - despesa)
 
     }
 

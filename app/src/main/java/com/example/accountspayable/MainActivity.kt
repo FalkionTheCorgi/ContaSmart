@@ -44,10 +44,12 @@ import com.example.accountspayable.DataStore.DataStore
 import com.example.accountspayable.List.BottomSheetAddItem
 import com.example.accountspayable.List.Cards.Item.AlertDialogCreateSummary
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
+import com.example.accountspayable.Payment.Payment
 import com.example.accountspayable.Room.BackupDataBase
 import com.example.accountspayable.TopBar.TopBarApp
 import com.example.accountspayable.UpdateApp.InAppUpdate
 import com.example.accountspayable.WorkManager.ExportDataBase
+import com.example.accountspayable.WorkManager.NotificationDeadline
 import com.example.accountspayable.ui.theme.AccountsPayableTheme
 import com.example.gamesprices.Navigation.NavigationView
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -77,8 +79,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val periodicWorkRequest = PeriodicWorkRequestBuilder<ExportDataBase>(1, TimeUnit.HOURS).build()
+        val deadlineWorkRequest = PeriodicWorkRequestBuilder<NotificationDeadline>(2, TimeUnit.MINUTES).build()
+        val list = listOf(
+            periodicWorkRequest,
+            deadlineWorkRequest
+        )
         WorkManager.getInstance(this).enqueue(
-            periodicWorkRequest
+            list
         )
 
         firebaseAnalytics = Firebase.analytics
@@ -88,6 +95,7 @@ class MainActivity : ComponentActivity() {
 
             val navController = rememberNavController()
             val inAppUpdate : InAppUpdate by inject { parametersOf(this) }
+            val payment: Payment by inject { parametersOf(this) }
             val bottomSheetState =
                 rememberModalBottomSheetState(
                     initialValue = ModalBottomSheetValue.Hidden,
@@ -171,6 +179,7 @@ class MainActivity : ComponentActivity() {
                                     description = model.editCardObj.value.descricao,
                                     price = model.editCardObj.value.valor.toString(),
                                     iconSelected = model.editCardObj.value.icon,
+                                    vencimento = if(model.editCardObj.value.mYear.vencimento > 0) { model.editCardObj.value.mYear.vencimento.toString() } else { "" },
                                     check1 = model.editCardObj.value.check1,
                                     check2 = model.editCardObj.value.check2,
                                     check3 = model.editCardObj.value.check3,
@@ -247,7 +256,7 @@ class MainActivity : ComponentActivity() {
 
                             BottomSheetTypes.DONATION -> {
 
-                                BottomSheetDonation {
+                                BottomSheetDonation(payment = payment) {
                                     coroutineScope.launch {
                                         bottomSheetState.hide()
                                         model.bottomSheetType.value = BottomSheetTypes.NONE

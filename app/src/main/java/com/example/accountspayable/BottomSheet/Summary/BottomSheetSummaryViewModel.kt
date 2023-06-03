@@ -120,6 +120,7 @@ class BottomSheetSummaryViewModel: ViewModel() {
                    price = item.price,
                    description = item.description,
                    icon = item.icon,
+                   vencimento = item.vencimento,
                    person1 = if(item.person1.isNotEmpty()){ state.person1.value } else { "" },
                    person2 = if(item.person2.isNotEmpty()){ state.person2.value } else { "" },
                    person3 = if(item.person3.isNotEmpty()){ state.person3.value } else { "" },

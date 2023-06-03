@@ -31,14 +31,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "ADMOB_ID", "\"ca-app-pub-7979390513759902~7612850148\""
             buildConfigField "String", "ADUNIT_ID", "\"ca-app-pub-7979390513759902/3425358970\""
+            signingConfig signingConfigs.debug
         }
 
         debug{
             manifestPlaceholders = [ADMOB_ID:"ca-app-pub-3940256099942544~3347511713"]
             initWith debug
-            applicationIdSuffix ".debug"
+            debuggable true
             buildConfigField "String", "ADMOB_ID", "\"ca-app-pub-3940256099942544~3347511713\""
             buildConfigField "String", "ADUNIT_ID", "\"ca-app-pub-3940256099942544/6300978111\""
+            signingConfig signingConfigs.debug
         }
 
         staging{
@@ -46,6 +48,7 @@ android {
             applicationIdSuffix ".staging"
             buildConfigField "String", "ADMOB_ID", "\"ca-app-pub-3940256099942544~3347511713\""
             buildConfigField "String", "ADUNIT_ID", "\"ca-app-pub-3940256099942544/6300978111\""
+            signingConfig signingConfigs.debug
         }
 
         dev{
@@ -123,7 +126,10 @@ dependencies {
     // For Kotlin users also add the Kotlin extensions library for Play In-App Update:
     implementation 'com.google.android.play:app-update-ktx:2.0.1'
 
+    //workmanager
     implementation "androidx.work:work-runtime-ktx:2.5.0"
+
+    //splashscreen
     implementation "androidx.core:core-splashscreen:1.0.0"
 
     //Firebase
@@ -133,5 +139,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     //BillingClient
-    implementation "com.android.billingclient:billing-ktx:5.0.0"
+    implementation "com.android.billingclient:billing-ktx:6.0.0"
 }

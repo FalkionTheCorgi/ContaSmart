@@ -20,6 +20,7 @@ data class ItemEntity(
     val person4: String,
     val checkedPerson4: Boolean,
     val priceOfPerson: Float,
+    val vencimento: Int,
     val month : Int,
     val year : Int
 

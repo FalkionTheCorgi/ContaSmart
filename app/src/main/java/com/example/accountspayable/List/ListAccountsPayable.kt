@@ -79,7 +79,7 @@ fun ListAccountsPayable(){
                             idCard = item.id,
                             icon = item.icon,
                             title = item.name,
-                            valor = item.valor.toString(),
+                            valor = String.format("%.2f", item.valor),
                             descricao = item.descricao,
                             person1 = item.person1,
                             check1 = item.check1,
@@ -88,7 +88,8 @@ fun ListAccountsPayable(){
                             person3 = item.person3,
                             check3 = item.check3,
                             person4 = item.person4,
-                            check4 = item.check4
+                            check4 = item.check4,
+                            vencimento = if (item.mYear.vencimento > 0) { item.mYear.vencimento.toString() } else { "" }
                         )
 
                     }

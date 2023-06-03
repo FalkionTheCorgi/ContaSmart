@@ -22,7 +22,8 @@ data class DataItem(
 data class MonthYear(
 
     var month: Int,
-    var year: Int
+    var year: Int,
+    var vencimento: Int
 
 
 )

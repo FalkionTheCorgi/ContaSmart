@@ -2,36 +2,43 @@ package com.example.accountspayable.Payment
 
 import android.app.Activity
 import android.content.Context
+import android.widget.Toast
 import com.android.billingclient.api.*
+import com.android.billingclient.api.BillingClient.BillingResponseCode
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import com.google.common.collect.ImmutableList
+import kotlinx.coroutines.*
 
 
 class Payment(
-    act: Activity
+    act: Activity,
+    context: Context
 ){
 
-    private lateinit var billingClient: BillingClient
     val activity = act
 
-
-    fun startNewBuilder(
-        context: Context
-    ){
-
-        billingClient = BillingClient.newBuilder(context)
-            .enablePendingPurchases()
-            .setListener { result, list ->
-                if (result.responseCode == BillingClient.BillingResponseCode.OK && !list.isNullOrEmpty()) {
-                    list.forEach { purchase ->
-                        //verifyPurchase(purchase)
-                    }
+    @OptIn(DelicateCoroutinesApi::class)
+    private val purchasesUpdatedListener =
+        PurchasesUpdatedListener { billingResult, purchases ->
+            if (billingResult.responseCode == BillingResponseCode.OK && purchases != null) {
+                Toast.makeText(context, "Processando...", Toast.LENGTH_LONG).show()
+                GlobalScope.launch {
+                    consumeItem(
+                        purchase = purchases.first(),
+                        activity = activity
+                    )
                 }
-            }.build()
+            } else if (billingResult.responseCode == BillingResponseCode.USER_CANCELED) {
+                Toast.makeText(context, "Compra cancelada", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(context, "Ocorreu um problema ao tentar fazer a doação", Toast.LENGTH_LONG).show()
+            }
+        }
 
-        estabilishedConnection()
-
-    }
+    private var billingClient = BillingClient.newBuilder(context)
+        .setListener(purchasesUpdatedListener)
+        .enablePendingPurchases()
+        .build()
 
     fun estabilishedConnection(){
 
@@ -54,69 +61,68 @@ class Payment(
 
     fun showProducts(){
 
-        val productList = ImmutableList.of(
+        val queryProductDetailsParams =
+            QueryProductDetailsParams.newBuilder()
+                .setProductList(
+                    ImmutableList.of(
+                        QueryProductDetailsParams.Product.newBuilder()
+                            .setProductId("donate5")
+                            .setProductType(BillingClient.ProductType.INAPP)
+                            .build()))
+                .build()
 
-            QueryProductDetailsParams.Product.newBuilder()
-                .setProductId("donate1")
-                .setProductType(BillingClient.ProductType.INAPP)
-                .build(),
+       billingClient.queryProductDetailsAsync(queryProductDetailsParams) {
+           billingResult,
+           productDetailsList ->
 
-            QueryProductDetailsParams.Product.newBuilder()
-                .setProductId("donate3")
-                .setProductType(BillingClient.ProductType.INAPP)
-                .build(),
+           launchPurchaseFlow(productDetailsList.first())
 
-            QueryProductDetailsParams.Product.newBuilder()
-                .setProductId("donate5")
-                .setProductType(BillingClient.ProductType.INAPP)
-                .build(),
-
-            QueryProductDetailsParams.Product.newBuilder()
-                .setProductId("donate10")
-                .setProductType(BillingClient.ProductType.INAPP)
-                .build(),
-
-            QueryProductDetailsParams.Product.newBuilder()
-                .setProductId("donate15")
-                .setProductType(BillingClient.ProductType.INAPP)
-                .build(),
-
-        )
-
-
-        val params = QueryProductDetailsParams.newBuilder()
-            .setProductList(productList)
-            .build()
-
-        billingClient.queryProductDetailsAsync(
-            params
-        ) { result, list ->
-            list.forEach {
-
-                launchPurchaseFlow(it)
-
-            }
-        }
+       }
 
     }
 
     fun launchPurchaseFlow(
         productDetails: ProductDetails
-    ) {
+    ){
 
-        assert(productDetails.subscriptionOfferDetails != null)
-        val productDetailsParamsList: List<ProductDetailsParams> = ImmutableList.of(
+        assert(productDetails.name.isNotEmpty())
+        val productDetailsParamsList = listOf(
             ProductDetailsParams.newBuilder()
+                // retrieve a value for "productDetails" by calling queryProductDetailsAsync()
                 .setProductDetails(productDetails)
-                .setOfferToken(productDetails.subscriptionOfferDetails!![0].offerToken)
+                // to get an offer token, call ProductDetails.subscriptionOfferDetails()
+                // for a list of offers that are available to the user
+                .setOfferToken(productDetails.subscriptionOfferDetails?.first()?.offerToken ?: "")
                 .build()
         )
+
 
         val billingFlowParams = BillingFlowParams.newBuilder()
             .setProductDetailsParamsList(productDetailsParamsList)
             .build()
 
         billingClient.launchBillingFlow(activity, billingFlowParams)
+
+    }
+
+    suspend fun consumeItem(purchase: Purchase, activity: Activity) {
+
+        val consumeParams = ConsumeParams.newBuilder()
+            .setPurchaseToken(purchase.purchaseToken)
+            .build()
+
+        val consumeResult = withContext(Dispatchers.IO){
+            billingClient.consumeAsync(consumeParams
+            ) { result, p1 ->
+                activity.runOnUiThread {
+                    Toast.makeText(
+                        activity.applicationContext,
+                        "Obrigado por nos ajudar com o projeto :)",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
 
     }
 

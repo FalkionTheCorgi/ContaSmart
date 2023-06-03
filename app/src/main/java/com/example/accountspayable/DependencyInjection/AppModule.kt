@@ -10,6 +10,7 @@ import com.example.accountspayable.List.Cards.Item.CardItemPayableViewModel
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
 import com.example.accountspayable.List.ListAccountsPayableViewModel
 import com.example.accountspayable.MainActivityViewModel
+import com.example.accountspayable.Payment.Payment
 import com.example.accountspayable.Room.BackupDataBase
 import com.example.accountspayable.UpdateApp.InAppUpdate
 import org.koin.android.ext.koin.androidContext
@@ -41,6 +42,13 @@ val appModule = module {
     single{ (view: Activity) ->
         InAppUpdate(
             activity = view,
+            context = androidContext()
+        )
+    }
+
+    single {  (view: Activity) ->
+        Payment(
+            act = view,
             context = androidContext()
         )
     }

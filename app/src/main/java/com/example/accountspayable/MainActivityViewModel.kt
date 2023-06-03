@@ -31,7 +31,8 @@ class MainActivityViewModel: ViewModel(){
             check4 = false,
             mYear = MonthYear(
                 month = 0,
-                year = 0
+                year = 0,
+                vencimento = 0
             )
         )
     )
@@ -46,7 +47,8 @@ class MainActivityViewModel: ViewModel(){
             person4 = "",
             mYear = MonthYear(
                 month = 0,
-                year = 0
+                year = 0,
+                vencimento = 0
             )
         )
     )

@@ -1,26 +1,36 @@
 package com.example.accountspayable.BottomSheet.Donation
 
+import android.app.Activity
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.accountspayable.Payment.Payment
+import org.koin.androidx.compose.get
+import org.koin.core.parameter.parametersOf
+import org.koin.java.KoinJavaComponent.inject
 
 @Composable
 fun BottomSheetDonation(
+    payment: Payment,
     callBack: () -> Unit
 ){
 
     Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -41,7 +51,9 @@ fun BottomSheetDonation(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { callBack.invoke() },
+            onClick = {
+                payment.estabilishedConnection()
+            },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
         ) {
@@ -60,12 +72,13 @@ fun BottomSheetDonation(
 
 }
 
-@Composable
+/*@Composable
 @Preview
 fun PreviewBottomSheetDonation(){
 
     BottomSheetDonation(
+        activity = Activity(),
         callBack = {}
     )
 
-}
+}*/

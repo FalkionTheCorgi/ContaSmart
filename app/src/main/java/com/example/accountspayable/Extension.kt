@@ -10,10 +10,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.core.content.ContextCompat
 import java.io.File
 import java.time.LocalDateTime
+import java.time.YearMonth
 import java.util.*
 
 
 val STORAGE_PERMISSION_CODE = 100
+val NOTIFICATION_CHANNEL_ID = "NotificationDeadline"
+val NOTIFICATION_ID = 0
 
 fun getTodayDate(): LocalDateTime? {
 
@@ -22,7 +25,7 @@ fun getTodayDate(): LocalDateTime? {
     return LocalDateTime.of(
         calendar.get(Calendar.YEAR),
         calendar.get(Calendar.MONTH),
-        calendar.get(Calendar.DAY_OF_MONTH - 1),
+        calendar.get(Calendar.DAY_OF_MONTH),
         calendar.get(Calendar.HOUR_OF_DAY),
         calendar.get(Calendar.MINUTE),
         calendar.get(Calendar.SECOND)
@@ -61,6 +64,10 @@ fun getItemDropDown(str: String) : String {
 
         "Phone" -> {
             "Celular"
+        }
+
+        "House" -> {
+            "Aluguel"
         }
 
         "Game" -> {
@@ -106,6 +113,10 @@ fun getPainterIcon(str: String): Painter {
 
         "Restaurant" -> {
             painterResource(R.drawable.icon_restaurant)
+        }
+
+        "House" -> {
+            painterResource(id = R.drawable.icon_house)
         }
 
         "Game" -> {
@@ -181,4 +192,13 @@ fun checkPermissionRWDisk(
         val read = ContextCompat.checkSelfPermission(context.applicationContext, android.Manifest.permission.READ_EXTERNAL_STORAGE)
         write == PackageManager.PERMISSION_GRANTED && read == PackageManager.PERMISSION_GRANTED
     }
+}
+
+fun getDaysInMonth(): Int {
+
+    val x = getTodayDate()
+    val yearMonthObject = YearMonth.of(x?.year ?: 2023, x?.month)
+
+    return yearMonthObject.lengthOfMonth() - 1
+
 }

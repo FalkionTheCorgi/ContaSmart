@@ -11,42 +11,6 @@ class CardItemPayableViewModel : ViewModel(){
 
     val state = CardItemPayableState()
 
-    suspend fun getSummary(
-        context: Context
-    ){
-
-        state.dataSummary.clear()
-
-        val dateToday = getTodayDate()
-
-        val summaryDao = DataBase.getDataBase(context).summary()
-
-        val summary = summaryDao.getASummaryByMonthAndYear(
-            month = dateToday?.monthValue ?: 1,
-            year = dateToday?.year.toString().toInt()
-        )
-
-        if (summary.isNotEmpty()) {
-
-            state.dataSummary.add(
-                DataSummary(
-                    id = summary[0].id,
-                    revenue = summary[0].revenue,
-                    person1 = summary[0].person1,
-                    person2 = summary[0].person2,
-                    person3 = summary[0].person3,
-                    person4 = summary[0].person4,
-                    mYear = MonthYear(
-                        month = summary[0].month,
-                        year = summary[0].year
-                    )
-                )
-            )
-
-        }
-
-    }
-
     suspend fun checkBoxUpdateCard(
         context: Context,
         id: Int

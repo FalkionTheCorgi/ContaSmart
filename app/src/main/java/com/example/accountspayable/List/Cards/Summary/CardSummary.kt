@@ -87,6 +87,7 @@ fun CardSummary() {
                 month = activityViewModel.monthSelected.value ?: 1
             )
 
+
             activityViewModel.updateSummaryPerson2.value = false
 
         }
@@ -301,6 +302,27 @@ fun CardSummaryExist(
 
                     }
 
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(modifier = Modifier.fillMaxWidth()) {
+
+                        Image(
+                            painter = painterResource(id = R.drawable.icon_cash),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .width(24.dp)
+                                .height(24.dp)
+                                .padding(3.dp)
+                        )
+                        Spacer(modifier = Modifier.width(2.dp))
+                        Text(
+                            text = "Restante: ${model.revenueLess(listModel.sumExpenditure().toDouble())}",
+                            modifier = Modifier.padding(top = 3.dp),
+                            color = MaterialTheme.colors.secondary
+                        )
+
+                    }
+
 
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -441,7 +463,7 @@ fun People(){
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = model.state.priceOfPerson1.value.toString(),
+                    text = model.returnValueOrStatus(model.state.priceOfPerson1.value),
                     modifier = Modifier.padding(top = 2.dp, end = 16.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -472,7 +494,7 @@ fun People(){
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = model.state.priceOfPerson2.value.toString(),
+                    text = model.returnValueOrStatus(model.state.priceOfPerson2.value),
                     modifier = Modifier.padding(top = 2.dp, end = 16.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -503,7 +525,7 @@ fun People(){
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = model.state.priceOfPerson3.value.toString(),
+                    text = model.returnValueOrStatus(model.state.priceOfPerson3.value),
                     modifier = Modifier.padding(top = 2.dp, end = 16.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -534,7 +556,7 @@ fun People(){
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = model.state.priceOfPerson4.value.toString(),
+                    text = model.returnValueOrStatus(model.state.priceOfPerson4.value),
                     modifier = Modifier.padding(top = 2.dp, end = 16.dp),
                     color = MaterialTheme.colors.secondary
                 )
