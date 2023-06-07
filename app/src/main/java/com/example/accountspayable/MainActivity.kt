@@ -20,10 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,6 +55,9 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.android.play.core.ktx.requestReview
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -115,6 +115,12 @@ class MainActivity : ComponentActivity() {
                 onResult = {
                 }
             )
+            val reviewManager = remember {
+                ReviewManagerFactory.create(applicationContext)
+            }
+            var reviewInfo: ReviewInfo? by remember {
+                mutableStateOf(null)
+            }
 
             MobileAds.initialize(this) {}
 
@@ -131,11 +137,42 @@ class MainActivity : ComponentActivity() {
                     dataStore.saveOpenFirstTime(true)
                 }
 
+                if(dataStore.getReviewApp.first().mod(3) != 0){
+
+                    val dateToday = getTodayDate()?.dayOfMonth
+
+                    dataStore.saveReviewApp(
+                        dateReviewApp = dateToday ?: -1
+                    )
+
+                } else {
+
+                    reviewManager.requestReviewFlow().addOnCompleteListener {
+                        if (it.isSuccessful) {
+
+                            reviewInfo = it.result
+
+                        }
+
+                    }
+
+                    dataStore.saveReviewApp(
+                        dateReviewApp = getTodayDate()?.dayOfMonth ?: -1
+                    )
+
+                }
+
                 model.darkMode.value = dataStore.getDarkMode.first()
                 model.backupData.value = dataStore.getBackupMode.first()
 
                 inAppUpdate.verify()
 
+            }
+
+            LaunchedEffect(key1 = reviewInfo) {
+                reviewInfo?.let {
+                    reviewManager.launchReviewFlow(this@MainActivity, it)
+                }
             }
 
             LaunchedEffect(model.bottomSheetType.value) {

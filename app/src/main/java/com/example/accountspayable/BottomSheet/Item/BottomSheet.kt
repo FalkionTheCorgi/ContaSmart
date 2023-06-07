@@ -232,7 +232,9 @@ fun AddItemScreen(
 
     Text(text = "Escolha o Icone")
 
-    ExposedDropdownMenuBox()
+    ExposedDropdownMenuBox(
+        iconSelected = iconSelected
+    )
 
     Spacer(modifier = Modifier.height(16.dp))
 
@@ -321,11 +323,13 @@ fun AddItemScreen(
 }
 
 @Composable
-fun ExposedDropdownMenuBox() {
+fun ExposedDropdownMenuBox(
+    iconSelected: String
+) {
 
     val model: BottomSheetViewModel = koinViewModel()
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(model.state.listItemRadioButton[0]) }
+    var selectedText by remember { mutableStateOf(model.state.listItemRadioButton[getOptionSelected(iconSelected)]) }
     var textfieldSize by remember { mutableStateOf(Size.Zero)}
     val icon = if (expanded)
         Icons.Filled.ArrowDropUp
@@ -537,34 +541,50 @@ fun getOptionSelected(
     str: String
 ): Int {
 
-    when(str) {
+    return when(str) {
 
         "Water" -> {
-            return 1
+            1
         }
 
         "Light" -> {
-            return 0
+            0
         }
 
         "Market" -> {
-            return 2
+            2
         }
 
         "Router" -> {
-            return 3
+            3
         }
 
         "Card" -> {
-            return 4
+            4
+        }
+
+        "Restaurant" -> {
+            5
+        }
+
+        "House" -> {
+           7
+        }
+
+        "Game" -> {
+            8
+        }
+
+        "Phone" -> {
+           6
         }
 
         "Other" -> {
-            return 5
+            9
         }
 
         else -> {
-            return 5
+            9
         }
 
     }

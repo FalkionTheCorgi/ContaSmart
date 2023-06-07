@@ -23,7 +23,7 @@ android {
         applicationId "com.finance.contasmart"
         minSdk 26
         targetSdk 33
-        versionCode 12
+        versionCode 14
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -150,4 +150,7 @@ dependencies {
 
     //BillingClient
     implementation "com.android.billingclient:billing-ktx:6.0.0"
+
+    //AppReview
+    implementation 'com.google.android.play:review-ktx:2.0.0'
 }

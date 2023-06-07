@@ -6,6 +6,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,6 +19,7 @@ class DataStore(private val context: Context){
         private val DARK_MODE_KEY = booleanPreferencesKey("dark_mode")
         private val BACKUP_MODE_KEY = booleanPreferencesKey("backup_mode")
         private val OPEN_FIRST_TIME = booleanPreferencesKey("open_first_time")
+        private val OPEN_REVIEW_APP = intPreferencesKey("open_review_app")
     }
 
     val getDarkMode: Flow<Boolean> = context.dataStore.data.map { preferences ->
@@ -30,6 +32,10 @@ class DataStore(private val context: Context){
 
     val getOpenFirstTime: Flow<Boolean> = context.dataStore.data.map { preferences ->
         preferences[OPEN_FIRST_TIME] ?: false
+    }
+
+    val getReviewApp: Flow<Int> = context.dataStore.data.map { preferences ->
+        preferences[OPEN_REVIEW_APP] ?: -1
     }
 
     suspend fun saveDarkMode(isDarkMode: Boolean) {
@@ -47,6 +53,12 @@ class DataStore(private val context: Context){
     suspend fun saveOpenFirstTime(isOpenFirstTime: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[OPEN_FIRST_TIME] = isOpenFirstTime
+        }
+    }
+
+    suspend fun saveReviewApp(dateReviewApp: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[OPEN_REVIEW_APP] = dateReviewApp
         }
     }
 

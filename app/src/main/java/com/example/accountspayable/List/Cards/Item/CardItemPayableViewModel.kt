@@ -1,6 +1,8 @@
 package com.example.accountspayable.List.Cards.Item
 
 import android.content.Context
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.accountspayable.Room.Data.DataSummary
 import com.example.accountspayable.Room.Data.MonthYear
@@ -41,28 +43,54 @@ class CardItemPayableViewModel : ViewModel(){
 
     }
 
-    fun sumQuantityOfPeople(
-        p1: String,
-        p2: String,
-        p3: String,
-        p4: String
-    ): Int{
+    fun getSizeIcon(icon: String): Dp {
 
-        var sum = 0
+        return when(icon) {
 
-        if(p1.isNotEmpty())
-            sum += 1
-        if(p2.isNotEmpty())
-            sum += 1
-        if(p3.isNotEmpty())
-            sum += 1
-        if(p4.isNotEmpty())
-            sum += 1
+            "Water" -> {
+                24.dp
+            }
 
-        return sum
+            "Light" -> {
+                32.dp
+            }
 
+            "Market" -> {
+                32.dp
+            }
 
+            "Router" -> {
+                32.dp
+            }
+
+            "Card" -> {
+                32.dp
+            }
+
+            "Restaurant" -> {
+                32.dp
+            }
+
+            "House" -> {
+                32.dp
+            }
+
+            "Game" -> {
+                32.dp
+            }
+
+            "Phone" -> {
+                32.dp
+            }
+
+            "Other" -> {
+                32.dp
+            }
+
+            else -> {
+                32.dp
+            }
+        }
     }
-
 
 }
