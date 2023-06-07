@@ -122,7 +122,7 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(null)
             }
 
-            //MobileAds.initialize(this) {}
+            MobileAds.initialize(this) {}
 
             LaunchedEffect(true){
 
@@ -379,7 +379,7 @@ class MainActivity : ComponentActivity() {
                         floatingActionButtonPosition = FabPosition.End,
                         bottomBar = {
 
-                            /*AndroidView(
+                            AndroidView(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .wrapContentHeight(),
@@ -390,7 +390,7 @@ class MainActivity : ComponentActivity() {
                                         loadAd(AdRequest.Builder().build())
                                     }
                                 }
-                            )*/
+                            )
 
                         }
                     )
