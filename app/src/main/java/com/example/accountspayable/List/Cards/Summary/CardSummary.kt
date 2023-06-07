@@ -8,8 +8,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
-import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,12 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.accountspayable.*
-import com.example.accountspayable.List.Cards.Item.CardItemPayableViewModel
 import com.example.accountspayable.List.Cards.Summary.AlertDialogSummary
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
 import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataSummary
-import com.example.accountspayable.Room.Data.MonthYear
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -278,7 +274,7 @@ fun CardSummaryExist(
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = "Receita: ${model.state.dataSummary.first().revenue}",
+                            text = "Receita: ${String.format("%.2f", model.state.dataSummary.first().revenue)}",
                             modifier = Modifier.padding(top = 3.dp),
                             color = MaterialTheme.colors.secondary
                         )
@@ -295,7 +291,7 @@ fun CardSummaryExist(
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = "Despesas: ${listModel.sumExpenditure()}",
+                            text = "Despesas: ${String.format("%.2f", listModel.sumExpenditure())}",
                             modifier = Modifier.padding(top = 3.dp),
                             color = MaterialTheme.colors.secondary
                         )
@@ -316,7 +312,7 @@ fun CardSummaryExist(
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = "Restante: ${model.revenueLess(listModel.sumExpenditure().toDouble())}",
+                            text = "Restante: ${model.revenueLess(listModel.sumExpenditure())}",
                             modifier = Modifier.padding(top = 3.dp),
                             color = MaterialTheme.colors.secondary
                         )

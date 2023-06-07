@@ -231,7 +231,7 @@ class CardSummaryViewModel : ViewModel() {
 
     fun revenueLess(despesa: Double): String {
 
-        return String.format("%.2f", state.dataSummary.first().revenue - despesa)
+        return String.format("%.2f", state.dataSummary.first().revenue.toDouble() - despesa)
 
     }
 

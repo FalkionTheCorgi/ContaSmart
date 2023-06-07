@@ -8,7 +8,7 @@ data class ItemEntity(
 
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val itemName : String,
-    val price : Float,
+    val price : Double,
     val description : String,
     val icon : String,
     val person1: String,
@@ -19,7 +19,7 @@ data class ItemEntity(
     val checkedPerson3: Boolean,
     val person4: String,
     val checkedPerson4: Boolean,
-    val priceOfPerson: Float,
+    val priceOfPerson: Double,
     val vencimento: Int,
     val month : Int,
     val year : Int

@@ -76,20 +76,20 @@ class ListAccountsPayableViewModel: ViewModel(){
         Toast.makeText(context, "Removido com sucesso", Toast.LENGTH_LONG).show()
     }
 
-    fun sumExpenditure(): String{
+    fun sumExpenditure(): Double{
 
-        var sum = 0f
+        var sum = 0.0
 
         state.dataItem.forEach{
 
             it?.valor.let {
-                sum += it ?: 0f
+                sum += it ?: 0.0
             }
 
 
         }
 
-        return String.format("%.2f", sum)
+        return sum
 
     }
 

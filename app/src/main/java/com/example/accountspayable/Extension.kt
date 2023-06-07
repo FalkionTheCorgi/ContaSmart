@@ -128,11 +128,11 @@ fun getPainterIcon(str: String): Painter {
         }
 
         "Other" -> {
-            painterResource(R.drawable.icon_bag)
+            painterResource(R.drawable.icon_other)
         }
 
         else -> {
-            painterResource(R.drawable.icon_bag)
+            painterResource(R.drawable.icon_other)
         }
 
     }

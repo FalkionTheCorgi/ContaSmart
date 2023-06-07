@@ -2,6 +2,7 @@ package com.example.accountspayable.DependencyInjection
 
 import android.app.Activity
 import com.example.accountspayable.BottomSheet.Calendar.BottomSheetCalendarViewModel
+import com.example.accountspayable.BottomSheet.Donation.BottomSheetDonationViewModel
 import com.example.accountspayable.BottomSheet.Item.BottomSheetViewModel
 import com.example.accountspayable.BottomSheet.Sugestao.BottomSheetSugestaoViewModel
 import com.example.accountspayable.BottomSheet.Summary.BottomSheetSummaryViewModel
@@ -71,6 +72,9 @@ val appModule = module {
 
     viewModel {
         BottomSheetSugestaoViewModel()
+    }
+    viewModel {
+        BottomSheetDonationViewModel()
     }
 
 }

@@ -2,11 +2,15 @@ package com.example.accountspayable.BottomSheet.Donation
 
 import android.app.Activity
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.accountspayable.Payment.Payment
 import org.koin.androidx.compose.get
+import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.java.KoinJavaComponent.inject
 
@@ -26,6 +31,13 @@ fun BottomSheetDonation(
     payment: Payment,
     callBack: () -> Unit
 ){
+
+    val donation = remember{
+        mutableStateOf(DonationType.Donate5)
+    }
+    val model : BottomSheetDonationViewModel = koinViewModel()
+    val radioOptions = listOf(DonationType.Donate5, DonationType.Donate10, DonationType.Donate20, DonationType.Donate50, DonationType.Donate100)
+    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0] ) }
 
     Column(
         modifier = Modifier
@@ -50,15 +62,41 @@ fun BottomSheetDonation(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+
+            Row(
+                Modifier
+                    .fillMaxWidth()
+            ) {
+                radioOptions.forEach { text ->
+                    RadioButton(
+                        selected = (text == selectedOption),
+                        onClick = { onOptionSelected(text) }
+                    )
+                    Text(
+                        text = model.returnNumberDonationType(text),
+                        style = MaterialTheme.typography.body1.merge(),
+                        modifier = Modifier.padding(top = 11.dp),
+                        color = MaterialTheme.colors.secondary
+                    )
+                }
+            }
+
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Button(
             onClick = {
-                payment.estabilishedConnection()
+                payment.estabilishedConnection(
+                    selectedOption
+                )
             },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
         ) {
             Text(text = "DOAR", color = MaterialTheme.colors.onSecondary)
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = { callBack.invoke() },

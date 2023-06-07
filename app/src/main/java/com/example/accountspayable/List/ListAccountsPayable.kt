@@ -67,7 +67,9 @@ fun ListAccountsPayable(){
 
         Spacer(modifier = Modifier.height(8.dp))
         
-        LazyColumn(modifier = Modifier.fillMaxHeight()) {
+        LazyColumn(
+            modifier = Modifier.fillMaxHeight()
+        ) {
 
 
             items(items = model.state.dataItem,
@@ -79,7 +81,7 @@ fun ListAccountsPayable(){
                             idCard = item.id,
                             icon = item.icon,
                             title = item.name,
-                            valor = String.format("%.2f", item.valor),
+                            valor = item.valor,
                             descricao = item.descricao,
                             person1 = item.person1,
                             check1 = item.check1,

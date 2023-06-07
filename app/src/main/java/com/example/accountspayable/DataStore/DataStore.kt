@@ -29,7 +29,7 @@ class DataStore(private val context: Context){
     }
 
     val getOpenFirstTime: Flow<Boolean> = context.dataStore.data.map { preferences ->
-        preferences[BACKUP_MODE_KEY] ?: false
+        preferences[OPEN_FIRST_TIME] ?: false
     }
 
     suspend fun saveDarkMode(isDarkMode: Boolean) {

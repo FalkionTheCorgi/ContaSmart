@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.android.billingclient.api.*
 import com.android.billingclient.api.BillingClient.BillingResponseCode
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
+import com.example.accountspayable.BottomSheet.Donation.DonationType
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.*
 
@@ -40,17 +41,23 @@ class Payment(
         .enablePendingPurchases()
         .build()
 
-    fun estabilishedConnection(){
+    fun estabilishedConnection(
+        product: DonationType
+    ){
 
         billingClient.startConnection(object: BillingClientStateListener{
             override fun onBillingServiceDisconnected() {
-                estabilishedConnection()
+                estabilishedConnection(
+                    product
+                )
             }
 
             override fun onBillingSetupFinished(result: BillingResult) {
                 if (result.responseCode == BillingClient.BillingResponseCode.OK){
 
-                    showProducts()
+                    showProducts(
+                        product
+                    )
 
                 }
             }
@@ -59,14 +66,16 @@ class Payment(
 
     }
 
-    fun showProducts(){
+    fun showProducts(
+        product: DonationType
+    ){
 
         val queryProductDetailsParams =
             QueryProductDetailsParams.newBuilder()
                 .setProductList(
                     ImmutableList.of(
                         QueryProductDetailsParams.Product.newBuilder()
-                            .setProductId("donate5")
+                            .setProductId(transformDonate(product))
                             .setProductType(BillingClient.ProductType.INAPP)
                             .build()))
                 .build()
@@ -122,6 +131,22 @@ class Payment(
                     ).show()
                 }
             }
+        }
+
+    }
+
+    fun transformDonate(
+        type: DonationType
+    ): String{
+
+        return when(type){
+
+            DonationType.Donate5 -> "donation5"
+            DonationType.Donate10 -> "donation10"
+            DonationType.Donate20 -> "donation20"
+            DonationType.Donate50 -> "donation50"
+            DonationType.Donate100-> "donation100"
+
         }
 
     }

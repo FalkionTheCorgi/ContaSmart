@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +32,7 @@ fun CardItemPayable(
     idCard: Int,
     icon: String,
     title: String,
-    valor: String,
+    valor: Double,
     descricao: String,
     vencimento: String,
     person1: String,
@@ -110,7 +113,7 @@ fun CardItemPayable(
 
                         Text(
                             modifier = Modifier.padding(top = 6.dp),
-                            text = "R$ $valor",
+                            text = "R$ ${String.format("%.2f", valor)}",
                             color = MaterialTheme.colors.secondary
                         )
 
@@ -165,7 +168,7 @@ fun CardItemPayable(
 
                                     Text(
                                         modifier = Modifier.padding(start = 2.dp, top =6.dp),
-                                        text = "Descrição $descricao",
+                                        text = "Descrição: $descricao",
                                         color = MaterialTheme.colors.secondary
                                     )
                                 }
@@ -199,7 +202,7 @@ fun CardItemPayable(
                                         activityViewModel.editCardObj.value = DataItem(
                                             id = idCard,
                                             name = title,
-                                            valor = valor.toFloat(),
+                                            valor = valor.toDouble(),
                                             descricao = descricao,
                                             icon = icon,
                                             person1 = person1,
@@ -213,7 +216,7 @@ fun CardItemPayable(
                                             mYear = MonthYear(
                                                 month = 0,
                                                 year = 0,
-                                                vencimento = vencimento.toInt()
+                                                vencimento = if(vencimento.isNotEmpty()) { vencimento.toInt() } else { 0 }
                                             )
                                         )
                                         activityViewModel.bottomSheetType.value =
@@ -487,7 +490,7 @@ fun ShowCardItemPayable(){
         idCard = 0,
         icon = "Market",
         title = "Título",
-        valor = "12.60",
+        valor = 12.60,
         descricao = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         person1 = "teste",
         check1 = false,

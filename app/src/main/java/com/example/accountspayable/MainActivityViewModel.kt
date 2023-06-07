@@ -18,7 +18,7 @@ class MainActivityViewModel: ViewModel(){
         DataItem(
             id = 0,
             name = "",
-            valor = 0f,
+            valor = 0.0,
             descricao = "",
             icon = "Light",
             person1 = "",

@@ -4,7 +4,7 @@ data class DataItem(
 
     var id: Int,
     var name : String,
-    var valor : Float,
+    var valor : Double,
     var descricao : String,
     var icon : String,
     var person1 : String,

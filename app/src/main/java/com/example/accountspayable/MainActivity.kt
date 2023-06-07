@@ -11,6 +11,7 @@ import android.os.Environment
 import android.provider.Settings
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -79,7 +80,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val periodicWorkRequest = PeriodicWorkRequestBuilder<ExportDataBase>(1, TimeUnit.HOURS).build()
-        val deadlineWorkRequest = PeriodicWorkRequestBuilder<NotificationDeadline>(2, TimeUnit.MINUTES).build()
+        val deadlineWorkRequest = PeriodicWorkRequestBuilder<NotificationDeadline>(16, TimeUnit.HOURS).build()
         val list = listOf(
             periodicWorkRequest,
             deadlineWorkRequest
@@ -109,13 +110,24 @@ class MainActivity : ComponentActivity() {
             val dataStore: DataStore = get()
             val systemUiController = rememberSystemUiController()
 
+            val permissionLauncher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.RequestPermission(),
+                onResult = {
+                }
+            )
+
             MobileAds.initialize(this) {}
 
             LaunchedEffect(true){
 
-                if (!checkPermissionRWDisk(applicationContext) && !dataStore.getOpenFirstTime.first()) {
+                if (!dataStore.getOpenFirstTime.first()) {
                     requestPermission()
                     backupDataBase.importarDataBase(applicationContext)
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+                        permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+
+                    }
                     dataStore.saveOpenFirstTime(true)
                 }
 

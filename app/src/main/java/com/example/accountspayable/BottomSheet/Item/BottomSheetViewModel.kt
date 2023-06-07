@@ -36,10 +36,10 @@ class BottomSheetViewModel : ViewModel() {
             dataBase.insertItem(
                 ItemEntity(
                     itemName = state.itemName.value,
-                    price = state.itemValue.value.toFloat(),
+                    price = state.itemValue.value.toDouble(),
                     description = state.description.value,
                     icon = state.iconOption.value,
-                    vencimento = state.itemDeadline.value.toInt(),
+                    vencimento = if(state.itemDeadline.value.isNotEmpty()){state.itemDeadline.value.toInt()}else{0},
                     month = month,
                     year = year,
                     person1 = if (state.checkPerson1.value) { state.person1.value } else { "" },
@@ -50,7 +50,7 @@ class BottomSheetViewModel : ViewModel() {
                     checkedPerson2 = false,
                     checkedPerson3 = false,
                     checkedPerson4 = false,
-                    priceOfPerson = (state.itemValue.value.toFloat() / returnDiv() )
+                    priceOfPerson = (state.itemValue.value.toDouble() / returnDiv() )
                 )
             )
 
@@ -108,15 +108,15 @@ class BottomSheetViewModel : ViewModel() {
             dataBase.updateItem(
                 id = id,
                 name = state.itemName.value,
-                price = state.itemValue.value.toFloat(),
+                price = state.itemValue.value.toDouble(),
                 description = state.description.value,
                 icon = state.iconOption.value,
-                vencimento = state.itemDeadline.value.toInt(),
+                vencimento = if(state.itemDeadline.value.isNotEmpty()){state.itemDeadline.value.toInt()}else{0},
                 person1 = if (state.checkPerson1.value) { state.person1.value } else { "" },
                 person2 = if (state.checkPerson2.value) { state.person2.value } else { "" },
                 person3 = if (state.checkPerson3.value) { state.person3.value } else { "" },
                 person4 = if (state.checkPerson4.value) { state.person4.value } else { "" },
-                priceOfPerson = (state.itemValue.value.toFloat()/returnDiv()),
+                priceOfPerson = (state.itemValue.value.toDouble()/returnDiv()),
                 checkedPerson1 = verifyCheckPerson(state.person1.value, checkBefore1, state.checkPerson1.value),
                 checkedPerson2 = verifyCheckPerson(state.person2.value, checkBefore2, state.checkPerson2.value),
                 checkedPerson3 = verifyCheckPerson(state.person3.value, checkBefore3, state.checkPerson3.value),
