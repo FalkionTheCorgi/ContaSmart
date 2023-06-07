@@ -26,6 +26,7 @@ fun AlertDialogSummary(
                 color = MaterialTheme.colors.secondary
             )
         },
+        containerColor = MaterialTheme.colors.background,
         text = {
             Text(
                 text = "Ao deletar o sumário todos os itens também serão deletados. Você tem certeza?",
