@@ -49,6 +49,16 @@
     <string name="summary_value">Valor</string>
     <string name="summary_pay">Pago</string>
 
+    <!-- TopBar -->
+    <string name= "topbar_calendar">Calendário</string>
+    <string name= "topbar_more_itens">Mais itens</string>
+    <string name= "topbar_icon_settings">Icone de Ajustes</string>
+    <string name= "topbar_settings">Ajustes</string>
+    <string name= "topbar_icon_suggestion">Icone de Sugestão</string>
+    <string name="topbar_suggestion">Sugestão</string>
+    <string name= "topbar_icon_donation">Icone de Apoio</string>
+    <string name= "topbar_donation">Apoie</string>
+
     <!-- Extension -->
     <string name="water">Água</string>
     <string name="light">Lâmpada</string>
