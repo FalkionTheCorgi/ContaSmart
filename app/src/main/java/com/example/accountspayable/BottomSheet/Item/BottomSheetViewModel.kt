@@ -221,6 +221,9 @@ class BottomSheetViewModel : ViewModel() {
         state.checkPerson2.value = checkedPerson2
         state.checkPerson3.value = checkedPerson3
         state.checkPerson4.value = checkedPerson4
+        state.redFieldItemDeadline.value = false
+        state.redFieldItemName.value = false
+        state.redFieldItemValue.value = false
 
     }
 
@@ -291,8 +294,13 @@ class BottomSheetViewModel : ViewModel() {
         str: String
     ){
 
-        state.redFieldItemDeadline.value =
-            !(str.isEmpty() || (str.isNotEmpty() && getDaysInMonth() >= str.toInt()))
+        if (str.isNotEmpty() && str.toInt() == 0){
+
+            state.redFieldItemDeadline.value = true
+
+        } else state.redFieldItemDeadline.value =
+            !((str.isEmpty()) || (str.isNotEmpty() && getDaysInMonth() >= str.toInt()))
+
 
     }
 

@@ -33,7 +33,6 @@ import com.example.accountspayable.R
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BottomSheetSummary(
     isEdit: Boolean = false,
@@ -81,6 +80,7 @@ fun BottomSheetSummary(
                 } else {
                     model.state.revenue.value = it
                 }
+                model.verifyFieldItemValue(it)
             },
             singleLine = true,
             label = { Text(text = "Receita") },
@@ -89,7 +89,12 @@ fun BottomSheetSummary(
             modifier = Modifier.fillMaxWidth(),
             leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_cash), contentDescription = "", modifier = Modifier
                 .width(24.dp)
-                .height(24.dp)) }
+                .height(24.dp)) },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = if (!model.state.redFieldRevenue.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) } else { Color.Red },
+                focusedBorderColor = if (!model.state.redFieldRevenue.value) { MaterialTheme.colors.primary } else { Color.Red },
+                focusedLabelColor = if (!model.state.redFieldRevenue.value) { MaterialTheme.colors.primary } else { Color.Red }
+            )
 
         )
 

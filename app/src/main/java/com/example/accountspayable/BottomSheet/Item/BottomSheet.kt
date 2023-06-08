@@ -160,7 +160,8 @@ fun AddItemScreen(
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = if (!model.state.redFieldItemName.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) } else { Color.Red },
-                focusedBorderColor = if (!model.state.redFieldItemName.value) { MaterialTheme.colors.primary } else { Color.Red }
+                focusedBorderColor = if (!model.state.redFieldItemName.value) { MaterialTheme.colors.primary } else { Color.Red },
+                focusedLabelColor = if (!model.state.redFieldItemName.value) { MaterialTheme.colors.primary } else { Color.Red }
             )
         )
 
@@ -189,7 +190,8 @@ fun AddItemScreen(
             modifier = Modifier.weight(1f),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = if (!model.state.redFieldItemValue.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) } else { Color.Red },
-                focusedBorderColor = if (!model.state.redFieldItemValue.value) { MaterialTheme.colors.primary } else { Color.Red }
+                focusedBorderColor = if (!model.state.redFieldItemValue.value) { MaterialTheme.colors.primary } else { Color.Red },
+                focusedLabelColor =  if (!model.state.redFieldItemValue.value) { MaterialTheme.colors.primary } else { Color.Red }
             )
         )
 
@@ -208,7 +210,8 @@ fun AddItemScreen(
             modifier = Modifier.weight(1f),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = if (!model.state.redFieldItemDeadline.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) }else { Color.Red },
-                focusedBorderColor = if (!model.state.redFieldItemDeadline.value) { MaterialTheme.colors.primary } else { Color.Red }
+                focusedBorderColor = if (!model.state.redFieldItemDeadline.value) { MaterialTheme.colors.primary } else { Color.Red },
+                focusedLabelColor = if (!model.state.redFieldItemDeadline.value) { MaterialTheme.colors.primary } else { Color.Red }
             )
         )
 

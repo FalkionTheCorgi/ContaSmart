@@ -22,6 +22,7 @@ class BottomSheetSummaryViewModel: ViewModel() {
         person4: String = ""
     ){
 
+        state.redFieldRevenue.value = false
         state.revenue.value = revenue
         state.person1.value = person1
         state.person2.value = person2
@@ -43,11 +44,13 @@ class BottomSheetSummaryViewModel: ViewModel() {
         onSuccess: () -> Unit
     ){
 
+        verifyFieldItemValue(state.revenue.value)
+
         val dataBase = DataBase.getDataBase(context).summary()
         state.progressBtn.value = true
         state.textButton.value = "AGUARDAR"
 
-        if (state.revenue.value.isNotEmpty()){
+        if (!state.redFieldRevenue.value){
 
             dataBase.insertSummary(
                 SummaryEntity(
@@ -157,6 +160,14 @@ class BottomSheetSummaryViewModel: ViewModel() {
             state.textButton.value = "EDITAR"
 
         }
+
+    }
+
+    fun verifyFieldItemValue(
+        str: String
+    ){
+
+        state.redFieldRevenue.value = str.isEmpty()
 
     }
 
