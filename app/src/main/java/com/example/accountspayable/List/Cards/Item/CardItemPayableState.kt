@@ -6,7 +6,6 @@ import com.example.accountspayable.Room.Data.DataSummary
 
 class CardItemPayableState {
 
-    val dataSummary = mutableStateListOf<DataSummary>()
     var checkBoxPerson1 = mutableStateOf(false)
     var checkBoxPerson2 = mutableStateOf(false)
     var checkBoxPerson3 = mutableStateOf(false)

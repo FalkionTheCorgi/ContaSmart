@@ -1,13 +1,8 @@
 package com.example.accountspayable.List.Cards.Item
 
 import android.content.Context
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
-import com.example.accountspayable.Room.Data.DataSummary
-import com.example.accountspayable.Room.Data.MonthYear
 import com.example.accountspayable.Room.DataBase
-import com.example.accountspayable.getTodayDate
 
 class CardItemPayableViewModel : ViewModel(){
 
@@ -43,54 +38,5 @@ class CardItemPayableViewModel : ViewModel(){
 
     }
 
-    fun getSizeIcon(icon: String): Dp {
-
-        return when(icon) {
-
-            "Water" -> {
-                24.dp
-            }
-
-            "Light" -> {
-                32.dp
-            }
-
-            "Market" -> {
-                32.dp
-            }
-
-            "Router" -> {
-                32.dp
-            }
-
-            "Card" -> {
-                32.dp
-            }
-
-            "Restaurant" -> {
-                32.dp
-            }
-
-            "House" -> {
-                32.dp
-            }
-
-            "Game" -> {
-                32.dp
-            }
-
-            "Phone" -> {
-                32.dp
-            }
-
-            "Other" -> {
-                32.dp
-            }
-
-            else -> {
-                32.dp
-            }
-        }
-    }
 
 }

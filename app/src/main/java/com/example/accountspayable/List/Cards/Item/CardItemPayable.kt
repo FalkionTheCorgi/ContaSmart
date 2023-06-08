@@ -13,16 +13,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.accountspayable.BottomSheetTypes
+import com.example.accountspayable.*
 import com.example.accountspayable.List.Cards.Item.CardItemPayableViewModel
-import com.example.accountspayable.MainActivityViewModel
 import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataItem
 import com.example.accountspayable.Room.Data.MonthYear
-import com.example.accountspayable.getPainterIcon
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -101,7 +100,9 @@ fun CardItemPayable(
                         .width(32.dp)
                         .height(32.dp),
                     painter = getPainterIcon(str = icon),
-                    contentDescription = ""
+                    contentDescription = stringResource(id = R.string.choose_icon_item, getTypeIcon(
+                        str = icon
+                    ))
                 )
 
                 Text(
@@ -114,7 +115,7 @@ fun CardItemPayable(
 
                 Text(
                     modifier = Modifier.padding(top = 6.dp),
-                    text = "R$ ${String.format("%.2f", valor)}",
+                    text = stringResource(id = R.string.price_item, "R$", String.format("%.2f", valor)),
                     color = MaterialTheme.colors.secondary
                 )
 
@@ -131,7 +132,7 @@ fun CardItemPayable(
 
                             Image(
                                 painter = painterResource(id = R.drawable.icon_deadline),
-                                contentDescription = "",
+                                contentDescription = stringResource(id = R.string.icon_deadline),
                                 modifier = Modifier
                                     .width(28.dp)
                                     .height(28.dp)
@@ -142,7 +143,7 @@ fun CardItemPayable(
 
                             Text(
                                 modifier = Modifier.padding(start = 6.dp, top =6.dp),
-                                text = "Vencimento: $vencimento",
+                                text = stringResource(id = R.string.day_deadline, vencimento),
                                 color = MaterialTheme.colors.secondary
                             )
                         }
@@ -159,7 +160,7 @@ fun CardItemPayable(
 
                             Image(
                                 painter = painterResource(id = R.drawable.icon_descricao),
-                                contentDescription = "",
+                                contentDescription = stringResource(id = R.string.icon_description),
                                 modifier = Modifier
                                     .width(28.dp)
                                     .height(28.dp)
@@ -170,7 +171,7 @@ fun CardItemPayable(
 
                             Text(
                                 modifier = Modifier.padding(start = 6.dp, top =6.dp),
-                                text = "Descrição: $descricao",
+                                text = stringResource(id = R.string.description_item, descricao),
                                 color = MaterialTheme.colors.secondary
                             )
                         }
@@ -225,7 +226,7 @@ fun CardItemPayable(
                                     BottomSheetTypes.EDIT
                             }
                         }) {
-                            Text("EDITAR", color = MaterialTheme.colors.primary)
+                            Text(stringResource(id = R.string.edit), color = MaterialTheme.colors.primary)
                         }
 
                         Spacer(modifier = Modifier.weight(1f))
@@ -239,7 +240,7 @@ fun CardItemPayable(
                                 activityViewModel.resetCardSummary.value = true
                             }
                         }) {
-                            Text("DELETAR", color = MaterialTheme.colors.primary)
+                            Text(stringResource(id = R.string.delete), color = MaterialTheme.colors.primary)
                         }
 
                     }
@@ -274,7 +275,7 @@ fun Dividido(
 
         Image(
             painter = painterResource(id = R.drawable.icon_people),
-            contentDescription = "",
+            contentDescription = stringResource(id = R.string.icon_group_people),
             modifier = Modifier
                 .width(32.dp)
                 .height(32.dp)
@@ -283,7 +284,7 @@ fun Dividido(
         Spacer(modifier = Modifier.width(2.dp))
 
         Text(
-            text = "Dividido com:",
+            text = stringResource(id = R.string.group_people_text),
             modifier = Modifier.padding(start = 3.dp, top = 6.dp),
             color = MaterialTheme.colors.secondary
         )
@@ -291,7 +292,7 @@ fun Dividido(
         Spacer(modifier = Modifier.weight(1f))
 
         Text(
-            text = "Pago?",
+            text = stringResource(id = R.string.group_people_status),
             modifier = Modifier.padding(top = 6.dp),
             color = MaterialTheme.colors.secondary
         )
@@ -308,10 +309,13 @@ fun Dividido(
             modifier = Modifier.fillMaxWidth()
         ) {
 
-            Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
-                .width(24.dp)
-                .height(24.dp)
-                .padding(start = 8.dp)
+            Image(
+                painter = painterResource(id = R.drawable.icon_person),
+                contentDescription = stringResource(id = R.string.icon_people),
+                modifier = Modifier
+                    .width(24.dp)
+                    .height(24.dp)
+                    .padding(start = 8.dp)
             )
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -351,10 +355,13 @@ fun Dividido(
             modifier = Modifier.fillMaxWidth()
         ) {
 
-            Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
-                .width(24.dp)
-                .height(24.dp)
-                .padding(start = 8.dp)
+            Image(
+                painter = painterResource(id = R.drawable.icon_person),
+                contentDescription = stringResource(id = R.string.icon_people),
+                modifier = Modifier
+                    .width(24.dp)
+                    .height(24.dp)
+                    .padding(start = 8.dp)
             )
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -397,10 +404,13 @@ fun Dividido(
             modifier = Modifier.fillMaxWidth()
         ) {
 
-            Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
-                .width(24.dp)
-                .height(24.dp)
-                .padding(start = 8.dp)
+            Image(
+                painter = painterResource(id = R.drawable.icon_person),
+                contentDescription = stringResource(id = R.string.icon_people),
+                modifier = Modifier
+                    .width(24.dp)
+                    .height(24.dp)
+                    .padding(start = 8.dp)
             )
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -441,10 +451,13 @@ fun Dividido(
             modifier = Modifier.fillMaxWidth()
         ) {
 
-            Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
-                .width(24.dp)
-                .height(24.dp)
-                .padding(start = 8.dp)
+            Image(
+                painter = painterResource(id = R.drawable.icon_person),
+                contentDescription = stringResource(id = R.string.icon_people),
+                modifier = Modifier
+                    .width(24.dp)
+                    .height(24.dp)
+                    .padding(start = 8.dp)
             )
 
             Spacer(modifier = Modifier.width(12.dp))

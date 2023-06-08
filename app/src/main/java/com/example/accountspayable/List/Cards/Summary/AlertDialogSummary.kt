@@ -6,9 +6,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.accountspayable.R
 
 @Composable
 fun AlertDialogSummary(
@@ -20,7 +22,7 @@ fun AlertDialogSummary(
         onDismissRequest = { decline() },
         title = {
             Text(
-                text = "Aviso",
+                text = stringResource(id = R.string.notice),
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 color = MaterialTheme.colors.secondary
@@ -29,7 +31,7 @@ fun AlertDialogSummary(
         containerColor = MaterialTheme.colors.background,
         text = {
             Text(
-                text = "Ao deletar o sumário todos os itens também serão deletados. Você tem certeza?",
+                text = stringResource(id = R.string.subtitle_summary),
                 color = MaterialTheme.colors.secondary
             )
         },
@@ -39,7 +41,7 @@ fun AlertDialogSummary(
                     accept()
                 }
             ) {
-                Text("Confirmar", color = MaterialTheme.colors.primary)
+                Text(stringResource(id = R.string.btn_confirm), color = MaterialTheme.colors.primary)
             }
         },
         dismissButton = {
@@ -48,7 +50,7 @@ fun AlertDialogSummary(
                     decline()
                 }
             ) {
-                Text("Cancelar", color = MaterialTheme.colors.error)
+                Text(stringResource(id = R.string.btn_cancel), color = MaterialTheme.colors.error)
             }
         }
 

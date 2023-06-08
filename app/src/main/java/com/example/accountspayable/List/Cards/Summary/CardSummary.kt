@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -177,7 +178,7 @@ fun CardSummaryNotExist(){
             ) {
 
                 Text(
-                    text = "Sumário mensal",
+                    text = stringResource(id = R.string.summary_title_without),
                     modifier = Modifier.padding(top = 13.dp),
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colors.secondary
@@ -189,7 +190,7 @@ fun CardSummaryNotExist(){
                     model.bottomSheetType.value = BottomSheetTypes.SUMMARYADD
                 }) {
 
-                    Text(text = "CADASTRAR", color = MaterialTheme.colors.primary)
+                    Text(text = stringResource(id = R.string.btn_register), color = MaterialTheme.colors.primary)
 
                 }
 
@@ -246,7 +247,7 @@ fun CardSummaryExist(
                 Spacer(modifier = Modifier.width(2.dp))
 
                 Text(
-                    text = "Sumário",
+                    text = stringResource(id = R.string.summary_title),
                     modifier = Modifier.padding(top = 3.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -254,7 +255,7 @@ fun CardSummaryExist(
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = "${returnMonthString(month.toInt())}/$year",
+                    text = stringResource(id = R.string.summary_month_year, returnMonthString(month.toInt()), year),
                     modifier = Modifier.padding(top = 3.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -269,12 +270,12 @@ fun CardSummaryExist(
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Icon(
                             imageVector = Icons.Default.ArrowUpward,
-                            contentDescription = "",
+                            contentDescription = stringResource(id = R.string.icon_summary_receipt),
                             tint = Color.Green
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = "Receita: ${String.format("%.2f", model.state.dataSummary.first().revenue)}",
+                            text = stringResource(id = R.string.summary_receipt,String.format("%.2f", model.state.dataSummary.first().revenue)),
                             modifier = Modifier.padding(top = 3.dp),
                             color = MaterialTheme.colors.secondary
                         )
@@ -286,12 +287,12 @@ fun CardSummaryExist(
 
                         Icon(
                             imageVector = Icons.Default.ArrowDownward,
-                            contentDescription = "",
+                            contentDescription = stringResource(id = R.string.icon_summary_expenditure),
                             tint = Color.Red
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = "Despesas: ${String.format("%.2f", listModel.sumExpenditure())}",
+                            text = stringResource(id = R.string.summary_expenditure, String.format("%.2f", listModel.sumExpenditure())),
                             modifier = Modifier.padding(top = 3.dp),
                             color = MaterialTheme.colors.secondary
                         )
@@ -304,7 +305,7 @@ fun CardSummaryExist(
 
                         Image(
                             painter = painterResource(id = R.drawable.icon_cash),
-                            contentDescription = "",
+                            contentDescription = stringResource(id = R.string.icon_summary_receipt),
                             modifier = Modifier
                                 .width(24.dp)
                                 .height(24.dp)
@@ -312,7 +313,7 @@ fun CardSummaryExist(
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = "Restante: ${model.revenueLess(listModel.sumExpenditure())}",
+                            text = stringResource(id = R.string.summary_remaining, model.revenueLess(listModel.sumExpenditure())) ,
                             modifier = Modifier.padding(top = 3.dp),
                             color = MaterialTheme.colors.secondary
                         )
@@ -331,20 +332,20 @@ fun CardSummaryExist(
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Image(
                                 painter = painterResource(id = R.drawable.icon_people),
-                                contentDescription = "",
+                                contentDescription = stringResource(id = R.string.icon_group_people),
                                 modifier = Modifier
                                     .width(32.dp)
                                     .height(32.dp)
                             )
                             Spacer(modifier = Modifier.width(2.dp))
                             Text(
-                                text = "Divido com: ",
+                                text = stringResource(id = R.string.group_people_text),
                                 modifier = Modifier.padding(top = 6.dp),
                                 color = MaterialTheme.colors.secondary
                             )
                             Spacer(modifier = Modifier.weight(1f))
                             Text(
-                                text = "Valor",
+                                text = stringResource(id = R.string.summary_value),
                                 modifier = Modifier.padding(top = 6.dp, end = 10.dp),
                                 color = MaterialTheme.colors.secondary
                             )
@@ -391,7 +392,7 @@ fun TextButtonsEditDelete(){
             activityViewModel.bottomSheetType.value = BottomSheetTypes.SUMMARYEDIT
         }) {
 
-            Text(text = "EDITAR", color = MaterialTheme.colors.primary)
+            Text(text = stringResource(id = R.string.edit), color = MaterialTheme.colors.primary)
 
         }
 
@@ -399,7 +400,7 @@ fun TextButtonsEditDelete(){
 
         TextButton(onClick = { openDialog.value = true }) {
 
-            Text(text = "DELETAR", color = MaterialTheme.colors.primary)
+            Text(text = stringResource(id = R.string.delete), color = MaterialTheme.colors.primary)
 
         }
 
@@ -434,6 +435,7 @@ fun TextButtonsEditDelete(){
 fun People(){
 
     val model: CardSummaryViewModel = koinViewModel()
+    val context = LocalContext.current
 
     Column(modifier = Modifier.fillMaxWidth()) {
 
@@ -443,10 +445,14 @@ fun People(){
                 modifier = Modifier.fillMaxWidth()
             ) {
 
-                Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
-                    .width(24.dp)
-                    .height(24.dp)
-                    .padding(start = 8.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.icon_person),
+                    contentDescription = stringResource(id = R.string.icon_people),
+                    modifier = Modifier
+                        .width(24.dp)
+                        .height(24.dp)
+                        .padding(start = 8.dp)
+                )
 
                 Spacer(modifier = Modifier.width(12.dp))
 
@@ -459,7 +465,7 @@ fun People(){
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = model.returnValueOrStatus(model.state.priceOfPerson1.value),
+                    text = model.returnValueOrStatus(context = context, model.state.priceOfPerson1.value),
                     modifier = Modifier.padding(top = 2.dp, end = 16.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -474,10 +480,14 @@ fun People(){
                 modifier = Modifier.fillMaxWidth()
             ) {
 
-                Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
-                    .width(24.dp)
-                    .height(24.dp)
-                    .padding(start = 8.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.icon_person),
+                    contentDescription = stringResource(id = R.string.icon_people),
+                    modifier = Modifier
+                        .width(24.dp)
+                        .height(24.dp)
+                        .padding(start = 8.dp)
+                )
 
                 Spacer(modifier = Modifier.width(12.dp))
 
@@ -490,7 +500,7 @@ fun People(){
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = model.returnValueOrStatus(model.state.priceOfPerson2.value),
+                    text = model.returnValueOrStatus(context = context, model.state.priceOfPerson2.value),
                     modifier = Modifier.padding(top = 2.dp, end = 16.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -505,10 +515,14 @@ fun People(){
                 modifier = Modifier.fillMaxWidth()
             ) {
 
-                Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
-                    .width(24.dp)
-                    .height(24.dp)
-                    .padding(start = 8.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.icon_person),
+                    contentDescription = stringResource(id = R.string.icon_people),
+                    modifier = Modifier
+                        .width(24.dp)
+                        .height(24.dp)
+                        .padding(start = 8.dp)
+                )
 
                 Spacer(modifier = Modifier.width(12.dp))
 
@@ -521,7 +535,7 @@ fun People(){
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = model.returnValueOrStatus(model.state.priceOfPerson3.value),
+                    text = model.returnValueOrStatus(context = context, model.state.priceOfPerson3.value),
                     modifier = Modifier.padding(top = 2.dp, end = 16.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -536,10 +550,14 @@ fun People(){
                 modifier = Modifier.fillMaxWidth()
             ) {
 
-                Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
-                    .width(20.dp)
-                    .height(20.dp)
-                    .padding(start = 8.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.icon_person),
+                    contentDescription = stringResource(id = R.string.icon_people),
+                    modifier = Modifier
+                        .width(20.dp)
+                        .height(20.dp)
+                        .padding(start = 8.dp)
+                )
 
                 Spacer(modifier = Modifier.width(12.dp))
 
@@ -552,7 +570,7 @@ fun People(){
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = model.returnValueOrStatus(model.state.priceOfPerson4.value),
+                    text = model.returnValueOrStatus(context = context, model.state.priceOfPerson4.value),
                     modifier = Modifier.padding(top = 2.dp, end = 16.dp),
                     color = MaterialTheme.colors.secondary
                 )

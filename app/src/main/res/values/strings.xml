@@ -1,6 +1,66 @@
 <resources>
+
+    <!-- config app -->
     <string name="app_name">ContaSmart</string>
     <string name="admob_id">ca-app-pub-7979390513759902~7612850148</string>
     <string name="contato_support">contatocontasmart@gmail.com</string>
     <string name="database_name">databaseContaSmart</string>
+
+
+    <!-- retorno de toast -->
+    <string name="removed_success">Removido com sucesso</string>
+    <string name="toast_delete_summary">Sumário e itens deletados com sucesso!</string>
+
+    <!-- AlertDialog -->
+    <string name = "notice">Aviso</string>
+    <string name = "btn_create">Criar</string>
+    <string name = "btn_cancel">Cancelar</string>
+    <string name = "btn_confirm">Confirmar</string>
+    <string name = "btn_register">CADASTRAR</string>
+
+    <!-- AlertDialogCreateSummary -->
+    <string name="subtitle_create_summary">É preciso cadastrar o sumário do mês antes de adicionar um item a lista.</string>
+
+    <!-- CardItemPayble -->
+    <string name="choose_icon_item">icone escolhido: %1$s</string>
+    <string name="price_item">%1$s %2$s</string>
+    <string name="icon_deadline">Icone de Vencimento da Conta</string>
+    <string name="day_deadline">Vencimento: %1$s</string>
+    <string name="icon_description">Icone de Descrição da Conta</string>
+    <string name="description_item">Descrição: %1$s</string>
+    <string name="icon_group_people">Icone de Grupo de Pessoas</string>
+    <string name="group_people_text">Dividido com:</string>
+    <string name="group_people_status">Pago?</string>
+    <string name="icon_people">Icone de Pessoa</string>
+
+    <!-- AlertDialogCreateSummary -->
+    <string name="subtitle_summary">Ao deletar o sumário todos os itens também serão deletados. Você tem certeza?</string>
+
+    <!-- CardSummary -->
+    <string name="summary_title_without">Sumário mensal</string>
+    <string name="summary_title">Sumário</string>
+    <string name="summary_month_year">%1$s/%2$s</string>
+    <string name="summary_receipt">Receita: %1$s</string>
+    <string name="icon_summary_receipt">Icone de Receita</string>
+    <string name="icon_summary_expenditure">Icone de Despesa</string>
+    <string name="summary_expenditure">Despesas: %1$s</string>
+    <string name="icon_remaining_revenue">Icone de Receita Restante</string>
+    <string name="summary_remaining">Restante: %1$s</string>
+    <string name="summary_value">Valor</string>
+    <string name="summary_pay">Pago</string>
+
+    <!-- Extension -->
+    <string name="water">Água</string>
+    <string name="light">Lâmpada</string>
+    <string name="market">Mercado</string>
+    <string name="router">Internet</string>
+    <string name="card">Cartão de crédito</string>
+    <string name="restaurant">Restaurante</string>
+    <string name="house">Aluguel</string>
+    <string name="game">Jogos</string>
+    <string name="phone">Celular</string>
+    <string name="other">Outros</string>
+    <string name="edit">EDITAR</string>
+    <string name="delete">DELETAR</string>
+
 </resources>

@@ -7,6 +7,7 @@ import android.os.Environment
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
 import java.io.File
 import java.time.LocalDateTime
@@ -133,6 +134,59 @@ fun getPainterIcon(str: String): Painter {
 
         else -> {
             painterResource(R.drawable.icon_other)
+        }
+
+    }
+
+
+}
+@Composable
+fun getTypeIcon(str: String): String {
+
+    return when(str) {
+
+        "Water" -> {
+            stringResource(id = R.string.water)
+        }
+
+        "Light" -> {
+            stringResource(id = R.string.light)
+        }
+
+        "Market" -> {
+            stringResource(id = R.string.market)
+        }
+
+        "Router" -> {
+            stringResource(id = R.string.router)
+        }
+
+        "Card" -> {
+            stringResource(id = R.string.card)
+        }
+
+        "Restaurant" -> {
+            stringResource(id = R.string.restaurant)
+        }
+
+        "House" -> {
+            stringResource(id = R.string.house)
+        }
+
+        "Game" -> {
+            stringResource(id = R.string.game)
+        }
+
+        "Phone" -> {
+            stringResource(id = R.string.phone)
+        }
+
+        "Other" -> {
+            stringResource(id = R.string.other)
+        }
+
+        else -> {
+            stringResource(id = R.string.other)
         }
 
     }

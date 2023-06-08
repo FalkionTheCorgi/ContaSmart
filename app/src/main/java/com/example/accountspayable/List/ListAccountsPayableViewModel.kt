@@ -3,15 +3,10 @@ package com.example.accountspayable.List
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
-import com.example.accountspayable.BottomSheet.Item.BottomSheetState
-import com.example.accountspayable.BottomSheet.Summary.BottomSheetSumaryState
+import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataItem
-import com.example.accountspayable.Room.Data.DataSummary
 import com.example.accountspayable.Room.Data.MonthYear
 import com.example.accountspayable.Room.DataBase
-import com.example.accountspayable.Room.Item.ItemEntity
-import com.example.accountspayable.Room.Summary.SummaryEntity
-import com.example.accountspayable.getTodayDate
 
 class ListAccountsPayableViewModel: ViewModel(){
 
@@ -73,7 +68,7 @@ class ListAccountsPayableViewModel: ViewModel(){
 
         state.dataItem.removeIf { id == it?.id }
 
-        Toast.makeText(context, "Removido com sucesso", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, context.getText(R.string.removed_success), Toast.LENGTH_LONG).show()
     }
 
     fun sumExpenditure(): Double{

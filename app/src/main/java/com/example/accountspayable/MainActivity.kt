@@ -419,7 +419,6 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
             //Android is 11(R) or above
             try {
-                Log.d("TAG", "requestPermission: try")
                 val intent = Intent()
                 intent.action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
                 val uri = Uri.fromParts("package", packageName, null)
@@ -428,7 +427,6 @@ class MainActivity : ComponentActivity() {
 
             }
             catch (e: Exception){
-                Log.e("TAG", "requestPermission: ", e)
                 val intent = Intent()
                 intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
                 storageActivityResultLauncher.launch(intent)
@@ -445,19 +443,15 @@ class MainActivity : ComponentActivity() {
 
     //Verificar resposta e criar pasta em Androids acima do 11
     private val storageActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        Log.d(TAG, "storageActivityResultLauncher: ")
         //here we will handle the result of our intent
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
             //Android is 11(R) or above
             if (Environment.isExternalStorageManager()){
                 //Manage External Storage Permission is granted
-                Log.d(TAG, "storageActivityResultLauncher: Manage External Storage Permission is granted")
                 createFolder()
             }
             else{
                 //Manage External Storage Permission is denied....
-                Log.d(TAG, "storageActivityResultLauncher: Manage External Storage Permission is denied....")
-                //toast("Manage External Storage Permission is denied....")
             }
         }
         else{
@@ -480,12 +474,10 @@ class MainActivity : ComponentActivity() {
                 val read = grantResults[1] == PackageManager.PERMISSION_GRANTED
                 if (write && read){
                     //External Storage Permission granted
-                    Log.d(TAG, "onRequestPermissionsResult: External Storage Permission granted")
                     createFolder()
                 }
                 else{
                     //External Storage Permission denied...
-                    Log.d(TAG, "onRequestPermissionsResult: External Storage Permission denied...")
                     print("External Storage Permission denied...")
                 }
             }

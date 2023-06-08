@@ -10,8 +10,11 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.accountspayable.R
 
 @Composable
 fun AlertDialogCreateSummary(
@@ -27,7 +30,7 @@ fun AlertDialogCreateSummary(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Aviso",
+                    text = stringResource(id = R.string.notice),
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     color = MaterialTheme.colors.secondary
@@ -37,7 +40,7 @@ fun AlertDialogCreateSummary(
         containerColor = MaterialTheme.colors.background,
         text = {
             Text(
-                text = "É preciso cadastrar o sumário do mês antes de adicionar um item a lista.",
+                text = stringResource(id = R.string.subtitle_create_summary),
                 color = MaterialTheme.colors.secondary
             )
         },
@@ -47,7 +50,7 @@ fun AlertDialogCreateSummary(
                     accept()
                 }
             ) {
-                Text("Criar", color = MaterialTheme.colors.primary)
+                Text(stringResource(id = R.string.btn_create), color = MaterialTheme.colors.primary)
             }
         },
         dismissButton = {
@@ -56,7 +59,7 @@ fun AlertDialogCreateSummary(
                     decline()
                 }
             ) {
-                Text("Cancelar", color = Color.Red)
+                Text(stringResource(id = R.string.btn_cancel), color = Color.Red)
             }
         }
 

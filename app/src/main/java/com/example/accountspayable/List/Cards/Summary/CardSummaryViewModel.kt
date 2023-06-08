@@ -3,6 +3,7 @@ package com.example.accountspayable.List.Cards.Summary
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataSummary
 import com.example.accountspayable.Room.Data.MonthYear
 import com.example.accountspayable.Room.DataBase
@@ -216,16 +217,19 @@ class CardSummaryViewModel : ViewModel() {
 
         success()
 
-        Toast.makeText(context, "Sumário e itens deletados com sucesso!", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, context.getString(R.string.toast_delete_summary), Toast.LENGTH_LONG).show()
 
     }
 
-    fun returnValueOrStatus(value: Double): String {
+    fun returnValueOrStatus(
+        context: Context,
+        value: Double
+    ): String {
 
         return if (value > 0.0) {
             String.format("%.2f", value)
         } else {
-            "Pago"
+            context.getString(R.string.summary_pay)
         }
     }
 
