@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,6 +23,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.example.accountspayable.DataStore.DataStore
 import com.example.accountspayable.MainActivityViewModel
+import com.example.accountspayable.R
 import com.example.accountspayable.checkPermissionRWDisk
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
@@ -64,7 +66,7 @@ fun BottomSheetAjustes(
         ) {
 
             Text(
-                text = "Ajustes",
+                text = stringResource(id = R.string.topbar_settings),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -93,7 +95,7 @@ fun BottomSheetAjustes(
             )
             
             Text(
-                text = "Modo Escuro",
+                text = stringResource(id = R.string.bottomsheet_ajustes_dark_mode),
                 color = MaterialTheme.colors.secondary,
                 modifier = Modifier.padding(top = 12.dp)
             )
@@ -120,7 +122,7 @@ fun BottomSheetAjustes(
             )
 
             Text(
-                text = "Salvar meus dados no celular",
+                text = stringResource(id = R.string.bottomsheet_ajustes_save_data),
                 color = MaterialTheme.colors.secondary,
                 modifier = Modifier.padding(top = 12.dp)
             )
@@ -148,7 +150,7 @@ fun BottomSheetAjustes(
             )
 
             Text(
-                text = "Receber notificações",
+                text = stringResource(id = R.string.bottomsheet_ajustes_receive_notification),
                 color = MaterialTheme.colors.secondary,
                 modifier = Modifier.padding(top = 12.dp)
             )
@@ -163,7 +165,7 @@ fun BottomSheetAjustes(
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
         ) {
-            Text(text = "FECHAR", color = MaterialTheme.colors.onSecondary)
+            Text(text = stringResource(id = R.string.btn_close), color = MaterialTheme.colors.onSecondary)
         }
 
     }

@@ -12,10 +12,12 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import com.example.accountspayable.MainActivityViewModel
+import com.example.accountspayable.R
 import com.example.accountspayable.returnMonthString
 import org.koin.androidx.compose.koinViewModel
 
@@ -68,7 +70,7 @@ fun BottomSheetCalendar(
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
         ) {
-            Text(text = "SELECIONAR", color = MaterialTheme.colors.onSecondary)
+            Text(text = stringResource(id = R.string.btn_select), color = MaterialTheme.colors.onSecondary)
         }
 
         Button(
@@ -76,7 +78,7 @@ fun BottomSheetCalendar(
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
         ) {
-            Text(text = "FECHAR", color = MaterialTheme.colors.onSecondary)
+            Text(text = stringResource(id = R.string.btn_close), color = MaterialTheme.colors.onSecondary)
         }
 
     }
@@ -116,10 +118,10 @@ fun ExposedDropdownMenuMonth() {
                 .clickable {
                     expanded = !expanded
                 },
-            label = { Text("Mês") },
-            placeholder = { Text(text = "Selecione") },
+            label = { Text(stringResource(id = R.string.bottomsheet_calendar_month)) },
+            placeholder = { Text(text = stringResource(id = R.string.bottomsheet_calendar_select)) },
             trailingIcon = {
-                Icon(icon,"contentDescription",
+                Icon(icon, stringResource(id = R.string.bottomsheet_calendar_open_close),
                     Modifier.clickable { expanded = !expanded })
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -186,10 +188,10 @@ fun ExposedDropdownMenuYear() {
                 .clickable {
                     expanded = !expanded
                 },
-            label = { Text("Ano") },
-            placeholder = { Text(text = "Selecione") },
+            label = { Text(stringResource(id = R.string.bottomsheet_calendar_year)) },
+            placeholder = { Text(text = stringResource(id = R.string.bottomsheet_calendar_select)) },
             trailingIcon = {
-                Icon(icon,"contentDescription",
+                Icon(icon,stringResource(id = R.string.bottomsheet_calendar_open_close_year),
                     Modifier.clickable { expanded = !expanded })
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(

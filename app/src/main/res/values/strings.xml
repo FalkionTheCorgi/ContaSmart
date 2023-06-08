@@ -17,6 +17,9 @@
     <string name = "btn_cancel">Cancelar</string>
     <string name = "btn_confirm">Confirmar</string>
     <string name = "btn_register">CADASTRAR</string>
+    <string name = "btn_close">FECHAR</string>
+    <string name = "btn_accept">Aceitar</string>
+    <string name = "btn_select">SELECIONAR</string>
 
     <!-- AlertDialogCreateSummary -->
     <string name="subtitle_create_summary">É preciso cadastrar o sumário do mês antes de adicionar um item a lista.</string>
@@ -58,6 +61,22 @@
     <string name="topbar_suggestion">Sugestão</string>
     <string name= "topbar_icon_donation">Icone de Apoio</string>
     <string name= "topbar_donation">Apoie</string>
+
+    <!-- TopBar -->
+    <string name= "bottomsheet_ajustes_dark_mode">Modo Escuro</string>
+    <string name= "bottomsheet_ajustes_save_data">Salvar meus dados no celular</string>
+    <string name= "bottomsheet_ajustes_receive_notification">Receber notificações</string>
+
+    <!-- AlertPermissionStorage -->
+    <string name= "alert_permission_storage_subtext">É preciso ativar a permissão para o aplicativo salvar os seus dados</string>
+
+    <!-- BottomSheetCalendar -->
+    <string name="bottomsheet_calendar_month">Mês</string>
+    <string name="bottomsheet_calendar_select">Selecione</string>
+    <string name="bottomsheet_calendar_open_close">Abrir ou Fechar opções de mês</string>
+    <string name="bottomsheet_calendar_open_close_year">Abrir ou Fechar opções de ano</string>
+    <string name="bottomsheet_calendar_year">Ano</string>
+
 
     <!-- Extension -->
     <string name="water">Água</string>
