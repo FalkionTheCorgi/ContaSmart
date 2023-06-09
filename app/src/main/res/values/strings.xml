@@ -110,15 +110,20 @@
 
     <!-- BottomSheetSummary -->
     <string name="bottomsheet_summary_receipt">Receita</string>
+    <string name="bottomsheet_summary_receipt_icon">Icone de receita</string>
     <string name="bottomsheet_summary_receipt_placeholder">Adicione sua receita mensal</string>
     <string name="bottomsheet_summary_add_person_title">Deseja adicionar quantas pessoas que vão dividir as contas com você esse mês?</string>
     <string name="bottomsheet_summary_add_person_1">Pessoa 1</string>
+    <string name="bottomsheet_summary_add_person_1_icon">icone do campo Pessoa 1</string>
     <string name="bottomsheet_summary_add_person_1_placeholder">Adicione primeira pessoa</string>
     <string name="bottomsheet_summary_add_person_2">Pessoa 2</string>
+    <string name="bottomsheet_summary_add_person_2_icon">icone do campo Pessoa 2</string>
     <string name="bottomsheet_summary_add_person_2_placeholder">Adicione segunda pessoa</string>
     <string name="bottomsheet_summary_add_person_3">Pessoa 3</string>
+    <string name="bottomsheet_summary_add_person_3_icon">icone do campo Pessoa 3</string>
     <string name="bottomsheet_summary_add_person_3_placeholder">Adicione terceira pessoa</string>
     <string name="bottomsheet_summary_add_person_4">Pessoa 4</string>
+    <string name="bottomsheet_summary_add_person_4_icon">icone do campo Pessoa 4</string>
     <string name="bottomsheet_summary_add_person_4_placeholder">Adicione quarta pessoa</string>
 
 

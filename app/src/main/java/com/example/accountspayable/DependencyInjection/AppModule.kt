@@ -66,7 +66,9 @@ val appModule = module {
     }
 
     viewModel{
-        BottomSheetSummaryViewModel()
+        BottomSheetSummaryViewModel(
+            androidApplication()
+        )
     }
 
     single{

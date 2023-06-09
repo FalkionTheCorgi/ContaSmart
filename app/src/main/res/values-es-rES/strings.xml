@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- config app -->
+    <string name="app_name">ContaSmart</string>
+    <string name="admob_id">ca-app-pub-7979390513759902~7612850148</string>
+    <string name="contato_support">contatocontasmart@gmail.com</string>
+    <string name="database_name">databaseContaSmart</string>
+
+
+    <!-- retorno de toast -->
+    <string name="removed_success">Eliminado exitosamente</string>
+    <string name="toast_delete_summary">¡Resumen y elementos eliminados con éxito!</string>
+    <string name="toast_data_save_success">Datos guardados exitosamente.</string>
+    <string name="toast_data_check_red_fields">Por favor, verifica los campos en rojo.</string>
+    <string name="toast_data_edit_success">Datos editados exitosamente.</string>
+    <string name="toast_please_digit_message">Por favor, ingresa un mensaje.</string>
+
+    <!-- AlertDialog -->
+    <string name="notice">Aviso</string>
+    <string name="btn_create">Crear</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_confirm">Confirmar</string>
+    <string name="btn_register">REGISTRAR</string>
+    <string name="btn_close">CERRAR</string>
+    <string name="btn_accept">Aceptar</string>
+    <string name="btn_select">SELECCIONAR</string>
+    <string name="btn_donate">DONAR</string>
+    <string name="btn_save">GUARDAR</string>
+    <string name="btn_wait">ESPERAR</string>
+    <string name="btn_edit">EDITAR</string>
+    <string name="btn_send">ENVIAR</string>
+
+    <!-- AlertDialogCreateSummary -->
+    <string name="subtitle_create_summary">Es necesario crear el resumen mensual antes de agregar un elemento a la lista.</string>
+
+    <!-- CardItemPayble -->
+    <string name="choose_icon_item">Icono seleccionado: %1$s</string>
+    <string name="price_item">%1$s %2$s</string>
+    <string name="icon_deadline">Icono de fecha límite</string>
+    <string name="day_deadline">Fecha límite: %1$s</string>
+    <string name="icon_description">Icono de descripción</string>
+    <string name="description_item">Descripción: %1$s</string>
+    <string name="icon_group_people">Icono de grupo de personas</string>
+    <string name="group_people_text">Dividido con:</string>
+    <string name="group_people_status">¿Pagado?</string>
+    <string name="icon_people">Icono de persona</string>
+
+    <!-- AlertDialogCreateSummary -->
+    <string name="subtitle_summary">Al eliminar el resumen, también se eliminarán todos los elementos. ¿Estás seguro?</string>
+
+    <!-- CardSummary -->
+    <string name="summary_title_without">Resumen mensual</string>
+    <string name="summary_title">Resumen</string>
+    <string name="summary_month_year">%1$s/%2$s</string>
+    <string name="summary_receipt">Ingresos: %1$s</string>
+    <string name="icon_summary_receipt">Icono de ingresos</string>
+    <string name="icon_summary_expenditure">Icono de gastos</string>
+    <string name="summary_expenditure">Gastos: %1$s</string>
+    <string name="icon_remaining_revenue">Icono de ingresos restantes</string>
+    <string name="summary_remaining">Restante: %1$s</string>
+    <string name="summary_value">Valor</string>
+    <string name="summary_pay">Pagado</string>
+
+    <!-- TopBar -->
+    <string name="topbar_calendar">Calendario</string>
+    <string name="topbar_more_itens">Más elementos</string>
+    <string name="topbar_icon_settings">Icono de ajustes</string>
+    <string name="topbar_settings">Ajustes</string>
+    <string name="topbar_icon_suggestion">Icono de sugerencia</string>
+    <string name="topbar_suggestion">Sugerencia</string>
+    <string name="topbar_icon_donation">Icono de apoyo</string>
+    <string name="topbar_donation">Apoyar</string>
+
+    <!-- BottomSheetAjustes -->
+    <string name="bottomsheet_ajustes_dark_mode">Modo oscuro</string>
+    <string name="bottomsheet_ajustes_save_data">Guardar mis datos en el dispositivo</string>
+    <string name="bottomsheet_ajustes_receive_notification">Recibir notificaciones</string>
+
+    <!-- AlertPermissionStorage -->
+    <string name="alert_permission_storage_subtext">Es necesario activar el permiso para que la aplicación pueda guardar tus datos</string>
+
+    <!-- BottomSheetCalendar -->
+    <string name="bottomsheet_calendar_month">Mes</string>
+    <string name="bottomsheet_calendar_select">Seleccionar</string>
+    <string name="bottomsheet_calendar_open_close">Abrir o cerrar opciones de mes</string>
+    <string name="bottomsheet_calendar_open_close_year">Abrir o cerrar opciones de año</string>
+    <string name="bottomsheet_calendar_year">Año</string>
+
+    <!-- BottomSheetDonation -->
+    <string name="bottomsheet_donation_title">Donación</string>
+    <string name="bottomsheet_donation_subtitle">¡Hola! Estamos buscando apoyo para nuestra aplicación que tiene como objetivo ayudar a las personas a organizar sus cuentas de manera práctica y eficiente. Si crees en la importancia de la educación financiera y deseas contribuir para que más personas tengan una vida financiera más saludable, te pedimos tu generosa donación. Con tu apoyo, podremos seguir desarrollando y mejorando esta herramienta que puede marcar la diferencia en la vida de muchas personas. Únete a nosotros en esta misión. Tu contribución es fundamental para el éxito de nuestro proyecto. Muchas gracias.</string>
+
+    <!-- BottomSheetItem -->
+    <string name="bottomsheet_item_name">Elemento</string>
+    <string name="bottomsheet_item_name_placeholder">Ingresa el nombre</string>
+    <string name="bottomsheet_item_value">Valor</string>
+    <string name="bottomsheet_item_deadline">Fecha límite</string>
+    <string name="bottomsheet_item_description">Descripción</string>
+    <string name="bottomsheet_item_description_placeholder">Descripción (opcional)</string>
+    <string name="bottomsheet_item_icon">Selecciona el icono</string>
+    <string name="bottomsheet_item_share_account">Selecciona el icono</string>
+    <string name="bottomsheet_item_icon_label">Icono</string>
+    <string name="bottomsheet_item_select">Seleccionar</string>
+    <string name="bottomsheet_item_icon_expand">Botón para expandir o ocultar iconos</string>
+    <string name="bottomsheet_item_icon_dropdown">Icono seleccionado: %1$s</string>
+
+    <!-- BottomSheetSuggestion -->
+    <string name="bottomsheet_suggestion_title">Sugerencia/Duda</string>
+    <string name="bottomsheet_suggestion_message">Mensaje</string>
+
+    <!-- BottomSheetSummary -->
+    <string name="bottomsheet_summary_receipt">Ingresos</string>
+    <string name="bottomsheet_summary_receipt_icon">Icono de ingresos</string>
+    <string name="bottomsheet_summary_receipt_placeholder">Añade tus ingresos mensuales</string>
+    <string name="bottomsheet_summary_add_person_title">¿Cuántas personas deseas agregar para compartir las cuentas de este mes?</string>
+    <string name="bottomsheet_summary_add_person_1">Persona 1</string>
+    <string name="bottomsheet_summary_add_person_1_icon">Icono de campo Persona 1</string>
+    <string name="bottomsheet_summary_add_person_1_placeholder">Añade la primera persona</string>
+    <string name="bottomsheet_summary_add_person_2">Persona 2</string>
+    <string name="bottomsheet_summary_add_person_2_icon">Icono de campo Persona 2</string>
+    <string name="bottomsheet_summary_add_person_2_placeholder">Añade la segunda persona</string>
+    <string name="bottomsheet_summary_add_person_3">Persona 3</string>
+    <string name="bottomsheet_summary_add_person_3_icon">Icono de campo Persona 3</string>
+    <string name="bottomsheet_summary_add_person_3_placeholder">Añade la tercera persona</string>
+    <string name="bottomsheet_summary_add_person_4">Persona 4</string>
+    <string name="bottomsheet_summary_add_person_4_icon">Icono de campo Persona 4</string>
+    <string name="bottomsheet_summary_add_person_4_placeholder">Añade la cuarta persona</string>
+
+    <!-- Extension -->
+    <string name="water">Agua</string>
+    <string name="light">Bombilla</string>
+    <string name="market">Mercado</string>
+    <string name="router">Internet</string>
+    <string name="card">Tarjeta de crédito</string>
+    <string name="restaurant">Restaurante</string>
+    <string name="house">Alquiler</string>
+    <string name="game">Juegos</string>
+    <string name="phone">Teléfono</string>
+    <string name="other">Otros</string>
+    <string name="edit">EDITAR</string>
+    <string name="delete">ELIMINAR</string>
+    <string name="january">Enero</string>
+    <string name="february">Febrero</string>
+    <string name="march">Marzo</string>
+    <string name="april">Abril</string>
+    <string name="may">Mayo</string>
+    <string name="june">Junio</string>
+    <string name="july">Julio</string>
+    <string name="august">Agosto</string>
+    <string name="september">Septiembre</string>
+    <string name="october">Octubre</string>
+    <string name="november">Noviembre</string>
+    <string name="december">Diciembre</string>
+</resources>

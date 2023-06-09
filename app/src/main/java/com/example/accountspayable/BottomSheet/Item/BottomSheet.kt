@@ -264,7 +264,6 @@ fun AddItemScreen(
             ) {
 
                 model.addItem(
-                    context = context,
                     month = activityViewModel.monthSelected.value ?: 1,
                     year = activityViewModel.yearSelected.value ?: 2023,
                     onSuccess = {
@@ -285,7 +284,6 @@ fun AddItemScreen(
             } else {
 
                 model.editItem(
-                    context = context,
                     id = idItem,
                     checkBefore1 = check1,
                     checkBefore2 = check2,
