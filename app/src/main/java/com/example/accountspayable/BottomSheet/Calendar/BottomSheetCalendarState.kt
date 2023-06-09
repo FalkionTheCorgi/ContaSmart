@@ -1,11 +1,14 @@
 package com.example.accountspayable.BottomSheet.Calendar
 
+import android.app.Application
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import com.example.accountspayable.getTodayDate
 
 
-class BottomSheetCalendarState {
+class BottomSheetCalendarState(
+    application: Application
+) {
 
     val months = mutableStateListOf(
         "Janeiro",

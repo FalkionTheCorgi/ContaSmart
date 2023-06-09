@@ -1,27 +1,36 @@
 package com.example.accountspayable.BottomSheet.Item
 
+import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataSummary
 import com.example.accountspayable.Room.Data.MonthYear
 import com.example.accountspayable.Room.DataBase
 import com.example.accountspayable.Room.Item.ItemEntity
 import com.example.accountspayable.getDaysInMonth
 
-class BottomSheetViewModel : ViewModel() {
+class BottomSheetViewModel(
+    application: Application
+) : ViewModel() {
 
-    val state = BottomSheetState()
+    @SuppressLint("StaticFieldLeak")
+    val context: Context = application.applicationContext
+
+    val state = BottomSheetState(
+        application
+    )
 
     suspend fun addItem(
-        context: Context,
         month: Int,
         year: Int,
         onSuccess: () -> Unit,
         onFailure: () -> Unit
     ){
         state.progressBtn.value = true
-        state.textButton.value = "AGUARDAR"
+        state.textButton.value = context.getString(R.string.btn_wait)
         verifyFieldItemName(state.itemName.value)
         verifyFieldItemValue(state.itemValue.value)
         verifyFieldItemDeadline(state.itemDeadline.value)
@@ -55,11 +64,11 @@ class BottomSheetViewModel : ViewModel() {
             )
 
             state.progressBtn.value = false
-            state.textButton.value = "SALVAR"
+            state.textButton.value = context.getString(R.string.btn_save)
 
             Toast.makeText(
                 context,
-                "Dados salvos com sucesso.",
+                context.getString(R.string.toast_data_save_success),
                 Toast.LENGTH_LONG
             ).show()
 
@@ -69,13 +78,12 @@ class BottomSheetViewModel : ViewModel() {
 
             Toast.makeText(
                 context,
-                "Por favor verifique os campos em vermelho.",
+                context.getString(R.string.toast_data_check_red_fields),
                 Toast.LENGTH_LONG
             ).show()
 
             state.progressBtn.value = false
-            state.textButton.value = "SALVAR"
-
+            state.textButton.value = context.getString(R.string.btn_save)
             onFailure()
         }
 
@@ -83,7 +91,6 @@ class BottomSheetViewModel : ViewModel() {
     }
 
     suspend fun editItem(
-        context: Context,
         checkBefore1: Boolean,
         checkBefore2: Boolean,
         checkBefore3: Boolean,
@@ -94,7 +101,7 @@ class BottomSheetViewModel : ViewModel() {
 
     ){
         state.progressBtn.value = true
-        state.textButton.value = "AGUARDAR"
+        state.textButton.value = context.getString(R.string.btn_wait)
         verifyFieldItemName(state.itemName.value)
         verifyFieldItemValue(state.itemValue.value)
         verifyFieldItemDeadline(state.itemDeadline.value)
@@ -124,11 +131,11 @@ class BottomSheetViewModel : ViewModel() {
             )
 
             state.progressBtn.value = false
-            state.textButton.value = "EDITAR"
+            state.textButton.value = context.getString(R.string.btn_edit)
 
             Toast.makeText(
                 context,
-                "Dados editados com sucesso.",
+                context.getString(R.string.toast_data_edit_success),
                 Toast.LENGTH_LONG
             ).show()
 
@@ -138,12 +145,12 @@ class BottomSheetViewModel : ViewModel() {
 
             Toast.makeText(
                 context,
-                "Por favor verifique os campos em vermelho.",
+                context.getString(R.string.toast_data_check_red_fields),
                 Toast.LENGTH_LONG
             ).show()
 
             state.progressBtn.value = false
-            state.textButton.value = "EDITAR"
+            state.textButton.value = context.getString(R.string.btn_edit)
 
             onFailure()
 
@@ -212,7 +219,7 @@ class BottomSheetViewModel : ViewModel() {
         state.description.value = description
         state.itemValue.value = price
         state.itemDeadline.value = vencimento
-        state.textButton.value = if (isEdit) { "EDITAR" } else { "SALVAR" }
+        state.textButton.value = if (isEdit) { context.getString(R.string.btn_edit) } else { context.getString(R.string.btn_save) }
         state.person1.value = person1
         state.person2.value = person2
         state.person3.value = person3

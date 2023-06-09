@@ -14,6 +14,7 @@ import com.example.accountspayable.MainActivityViewModel
 import com.example.accountspayable.Payment.Payment
 import com.example.accountspayable.Room.BackupDataBase
 import com.example.accountspayable.UpdateApp.InAppUpdate
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -59,7 +60,9 @@ val appModule = module {
     }
 
     viewModel{
-        BottomSheetViewModel()
+        BottomSheetViewModel(
+            androidApplication()
+        )
     }
 
     viewModel{
@@ -67,7 +70,9 @@ val appModule = module {
     }
 
     single{
-        BottomSheetCalendarViewModel()
+        BottomSheetCalendarViewModel(
+            androidApplication()
+        )
     }
 
     viewModel {

@@ -36,7 +36,7 @@ class BottomSheetSugestaoViewModel: ViewModel() {
 
             }
         }else{
-            Toast.makeText(context, "Por favor digite uma mensagem.", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, context.getString(R.string.toast_please_digit_message), Toast.LENGTH_LONG).show()
         }
 
     }

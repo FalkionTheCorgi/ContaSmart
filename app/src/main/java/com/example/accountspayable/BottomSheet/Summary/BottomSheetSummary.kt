@@ -20,6 +20,7 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -83,8 +84,8 @@ fun BottomSheetSummary(
                 model.verifyFieldItemValue(it)
             },
             singleLine = true,
-            label = { Text(text = "Receita") },
-            placeholder =  { Text(text = "Adicione sua receita mensal") },
+            label = { Text(text = stringResource(id = R.string.bottomsheet_summary_receipt)) },
+            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_receipt_placeholder)) },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
             modifier = Modifier.fillMaxWidth(),
             leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_cash), contentDescription = "", modifier = Modifier
@@ -100,7 +101,7 @@ fun BottomSheetSummary(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Deseja adicionar quantas pessoas que vão dividir as contas com você esse mês?")
+        Text(stringResource(id = R.string.bottomsheet_summary_add_person_title))
 
        OutlinedTextField(
            value = model.state.person1.value,
@@ -108,8 +109,8 @@ fun BottomSheetSummary(
                model.state.person1.value = it
            },
            singleLine = true,
-           label = { Text(text = "Pessoa 1") },
-           placeholder =  { Text(text = "Adicione primeira pessoa") },
+           label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_1)) },
+           placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_1_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
            modifier = Modifier.fillMaxWidth(),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
@@ -124,8 +125,8 @@ fun BottomSheetSummary(
                model.state.person2.value = it
            },
            singleLine = true,
-           label = { Text(text = "Pessoa 2") },
-           placeholder =  { Text(text = "Adicione segunda pessoa") },
+           label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_2)) },
+           placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_2_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
            modifier = Modifier.fillMaxWidth(),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
@@ -140,8 +141,8 @@ fun BottomSheetSummary(
                model.state.person3.value = it
            },
            singleLine = true,
-           label = { Text(text = "Pessoa 3") },
-           placeholder =  { Text(text = "Adicione terceira pessoa") },
+           label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_3)) },
+           placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_3_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
            modifier = Modifier.fillMaxWidth(),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
@@ -156,8 +157,8 @@ fun BottomSheetSummary(
                model.state.person4.value = it
            },
            singleLine = true,
-           label = { Text(text = "Pessoa 4") },
-           placeholder =  { Text(text = "Adicione quarta pessoa") },
+           label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_4)) },
+           placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_4_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text),
            modifier = Modifier.fillMaxWidth(),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = "", modifier = Modifier
@@ -177,7 +178,7 @@ fun BottomSheetSummary(
 
            scope.launch {
 
-               if(model.state.textButton.value == "SALVAR") {
+               if(model.state.textButton.value == context.getString(R.string.btn_save)) {
 
                    model.addSummary(
                        context = context,
@@ -221,7 +222,7 @@ fun BottomSheetSummary(
            modifier = Modifier.fillMaxWidth(),
            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
        ) {
-           Text(text = "FECHAR", color = Color.White)
+           Text(text = stringResource(id = R.string.btn_close), color = Color.White)
        }
 
 

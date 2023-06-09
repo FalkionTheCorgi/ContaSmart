@@ -1,12 +1,21 @@
 package com.example.accountspayable.BottomSheet.Calendar
 
-import androidx.compose.runtime.mutableStateOf
+
+import android.annotation.SuppressLint
+import android.app.Application
 import androidx.lifecycle.ViewModel
-import com.example.accountspayable.getTodayDate
+import com.example.accountspayable.R
 
-class BottomSheetCalendarViewModel: ViewModel() {
+class BottomSheetCalendarViewModel(
+    application: Application
+): ViewModel() {
 
-    val state = BottomSheetCalendarState()
+    @SuppressLint("StaticFieldLeak")
+    val context = application.applicationContext
+
+    val state = BottomSheetCalendarState(
+        application
+    )
 
 
 
@@ -14,18 +23,18 @@ class BottomSheetCalendarViewModel: ViewModel() {
 
         return when(str){
 
-            "Janeiro" -> 1
-            "Fevereiro" -> 2
-            "Março" -> 3
-            "Abril" -> 4
-            "Maio" -> 5
-            "Junho" -> 6
-            "Julho" -> 7
-            "Agosto" -> 8
-            "Setembro" -> 9
-            "Outubro" -> 10
-            "Novembro" -> 11
-            "Dezembro" -> 12
+            context.getString(R.string.january) -> 1
+            context.getString(R.string.february) -> 2
+            context.getString(R.string.march) -> 3
+            context.getString(R.string.april) -> 4
+            context.getString(R.string.may) -> 5
+            context.getString(R.string.june) -> 6
+            context.getString(R.string.july) -> 7
+            context.getString(R.string.august) -> 8
+            context.getString(R.string.september) -> 9
+            context.getString(R.string.october) -> 10
+            context.getString(R.string.november) -> 11
+            context.getString(R.string.december) -> 12
             else -> 1
 
         }

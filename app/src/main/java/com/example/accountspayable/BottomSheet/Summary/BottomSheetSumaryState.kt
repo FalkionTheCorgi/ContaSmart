@@ -1,10 +1,14 @@
 package com.example.accountspayable.BottomSheet.Summary
 
+import android.app.Application
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataSummary
 
-class BottomSheetSumaryState {
+class BottomSheetSumaryState(
+    application: Application
+) {
 
     var itemName = mutableStateOf("")
     var revenue = mutableStateOf("")
@@ -15,7 +19,7 @@ class BottomSheetSumaryState {
     var redFieldRevenue = mutableStateOf(false)
 
     var description = mutableStateOf("")
-    var textButton = mutableStateOf("SALVAR")
+    var textButton = mutableStateOf(application.applicationContext.getString(R.string.btn_save))
     var progressBtn = mutableStateOf(false)
 
 }

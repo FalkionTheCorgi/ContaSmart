@@ -1,16 +1,26 @@
 package com.example.accountspayable.BottomSheet.Summary
 
+import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
 import android.content.LocusId
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.example.accountspayable.R
 import com.example.accountspayable.Room.DataBase
 import com.example.accountspayable.Room.Summary.SummaryEntity
 import com.example.accountspayable.getTodayDate
 
-class BottomSheetSummaryViewModel: ViewModel() {
+class BottomSheetSummaryViewModel(
+    application: Application
+): ViewModel() {
 
-    val state = BottomSheetSumaryState()
+    val state = BottomSheetSumaryState(
+        application
+    )
+
+    @SuppressLint("StaticFieldLeak")
+    val context = application.applicationContext
 
 
     fun onAppearBtmSheetSummary(
@@ -31,7 +41,7 @@ class BottomSheetSummaryViewModel: ViewModel() {
 
         if (isEdit) {
 
-            state.textButton.value = "EDITAR"
+            state.textButton.value = context.getString(R.string.edit)
 
         }
 
@@ -48,7 +58,7 @@ class BottomSheetSummaryViewModel: ViewModel() {
 
         val dataBase = DataBase.getDataBase(context).summary()
         state.progressBtn.value = true
-        state.textButton.value = "AGUARDAR"
+        state.textButton.value = context.getString(R.string.btn_wait)
 
         if (!state.redFieldRevenue.value){
 
@@ -65,11 +75,11 @@ class BottomSheetSummaryViewModel: ViewModel() {
             )
 
             state.progressBtn.value = false
-            state.textButton.value = "SALVAR"
+            state.textButton.value = context.getString(R.string.btn_save)
 
             Toast.makeText(
                 context,
-                "Dados salvos com sucesso.",
+                context.getString(R.string.toast_data_save_success),
                 Toast.LENGTH_LONG
             ).show()
 
@@ -79,12 +89,12 @@ class BottomSheetSummaryViewModel: ViewModel() {
 
             Toast.makeText(
                 context,
-                "Por favor preencha o campo de receita",
+                context.getString(R.string.toast_data_check_red_fields),
                 Toast.LENGTH_LONG
             ).show()
 
             state.progressBtn.value = false
-            state.textButton.value = "SALVAR"
+            state.textButton.value = context.getString(R.string.btn_save)
 
         }
 
@@ -100,7 +110,7 @@ class BottomSheetSummaryViewModel: ViewModel() {
         val dataBaseItem = DataBase.getDataBase(context).item()
 
         state.progressBtn.value = true
-        state.textButton.value = "AGUARDAR"
+        state.textButton.value = context.getString(R.string.btn_wait)
 
         if (state.revenue.value.isNotEmpty()){
 
@@ -138,11 +148,11 @@ class BottomSheetSummaryViewModel: ViewModel() {
             }
 
             state.progressBtn.value = false
-            state.textButton.value = "EDITAR"
+            state.textButton.value = context.getString(R.string.btn_edit)
 
             Toast.makeText(
                 context,
-                "Dados editados com sucesso.",
+                context.getString(R.string.toast_data_edit_success),
                 Toast.LENGTH_LONG
             ).show()
 
@@ -152,12 +162,12 @@ class BottomSheetSummaryViewModel: ViewModel() {
 
             Toast.makeText(
                 context,
-                "Por favor preencha o campo de receita",
+                context.getString(R.string.toast_data_check_red_fields),
                 Toast.LENGTH_LONG
             ).show()
 
             state.progressBtn.value = false
-            state.textButton.value = "EDITAR"
+            state.textButton.value = context.getString(R.string.btn_edit)
 
         }
 

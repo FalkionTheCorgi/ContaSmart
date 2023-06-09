@@ -18,6 +18,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -154,8 +155,8 @@ fun AddItemScreen(
                 model.verifyFieldItemName(model.state.itemName.value)
             },
             singleLine = true,
-            label = { Text(text = "Item") },
-            placeholder =  { Text(text = "Entre com o nome")},
+            label = { Text(text = stringResource(id = R.string.bottomsheet_item_name)) },
+            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_item_name_placeholder))},
             keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -184,8 +185,8 @@ fun AddItemScreen(
                 model.verifyFieldItemValue(model.state.itemValue.value)
             },
             singleLine = true,
-            label = { Text(text = "Valor") },
-            placeholder =  { Text(text = "Valor")},
+            label = { Text(text = stringResource(id = R.string.bottomsheet_item_value)) },
+            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_item_value))},
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
             modifier = Modifier.weight(1f),
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -204,8 +205,8 @@ fun AddItemScreen(
                 model.verifyFieldItemDeadline(model.state.itemDeadline.value)
             },
             singleLine = true,
-            label = { Text(text = "Vencimento") },
-            placeholder =  { Text(text = "Vencimento")},
+            label = { Text(text = stringResource(id = R.string.bottomsheet_item_deadline)) },
+            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_item_deadline))},
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
             modifier = Modifier.weight(1f),
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -225,15 +226,15 @@ fun AddItemScreen(
             model.state.description.value = it
         },
         singleLine = true,
-        label = { Text(text = "Descrição") },
-        placeholder =  { Text(text = "Descrição(Opcional)")},
+        label = { Text(text = stringResource(id = R.string.bottomsheet_item_description)) },
+        placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_item_description_placeholder))},
         keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text),
         modifier = Modifier.fillMaxWidth()
     )
 
     Spacer(modifier = Modifier.height(16.dp))
 
-    Text(text = "Escolha o Icone")
+    Text(text = stringResource(id = R.string.bottomsheet_item_icon))
 
     ExposedDropdownMenuBox(
         iconSelected = iconSelected
@@ -241,7 +242,7 @@ fun AddItemScreen(
 
     Spacer(modifier = Modifier.height(16.dp))
 
-    Text(text = "Gostaria de dividir essa conta com quem?")
+    Text(text = stringResource(id = R.string.bottomsheet_item_share_account))
 
     Spacer(modifier = Modifier.height(8.dp))
 
@@ -258,7 +259,9 @@ fun AddItemScreen(
 
         scope.launch {
 
-            if(model.state.textButton.value == "SALVAR") {
+            if(
+                model.state.textButton.value == context.getString(R.string.btn_save)
+            ) {
 
                 model.addItem(
                     context = context,
@@ -317,7 +320,7 @@ fun AddItemScreen(
         modifier = Modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
     ) {
-        Text(text = "FECHAR", color = MaterialTheme.colors.onSecondary)
+        Text(text = stringResource(id = R.string.btn_close), color = MaterialTheme.colors.onSecondary)
     }
 
 
@@ -353,8 +356,8 @@ fun ExposedDropdownMenuBox(
                 .clickable {
                     expanded = !expanded
                 },
-            label = {Text("Icone")},
-            placeholder = { Text(text = "Selecione")},
+            label = {Text(stringResource(id = R.string.bottomsheet_item_icon_label))},
+            placeholder = { Text(text = stringResource(id = R.string.bottomsheet_item_select))},
             leadingIcon = {
                 Image(
                     painter = getPainterIcon(str = selectedText),
@@ -365,7 +368,7 @@ fun ExposedDropdownMenuBox(
                 )
             },
             trailingIcon = {
-                Icon(icon,"contentDescription",
+                Icon(icon, stringResource(id = R.string.bottomsheet_item_icon_expand),
                     Modifier.clickable { expanded = !expanded })
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -390,7 +393,9 @@ fun ExposedDropdownMenuBox(
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Image(
                             painter = getPainterIcon(str = label),
-                            contentDescription = "",
+                            contentDescription = stringResource(id = R.string.bottomsheet_item_icon_dropdown, getTypeIcon(
+                                str = label
+                            )),
                             modifier = Modifier
                                 .width(24.dp)
                                 .height(24.dp)

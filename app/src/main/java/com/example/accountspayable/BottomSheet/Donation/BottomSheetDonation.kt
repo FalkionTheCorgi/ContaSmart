@@ -1,8 +1,6 @@
 package com.example.accountspayable.BottomSheet.Donation
 
-import android.app.Activity
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -11,20 +9,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.accountspayable.Payment.Payment
-import org.koin.androidx.compose.get
 import org.koin.androidx.compose.koinViewModel
-import org.koin.core.parameter.parametersOf
-import org.koin.java.KoinJavaComponent.inject
+import com.example.accountspayable.R
 
 @Composable
 fun BottomSheetDonation(
@@ -47,7 +40,7 @@ fun BottomSheetDonation(
     ) {
 
         Text(
-            text = "Doação",
+            text = stringResource(id = R.string.bottomsheet_donation_title),
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp,
             color = MaterialTheme.colors.secondary
@@ -56,7 +49,7 @@ fun BottomSheetDonation(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Olá! Estamos em busca de apoio para o nosso aplicativo que tem como objetivo ajudar as pessoas a organizarem suas contas de forma prática e eficiente. Se você acredita na importância da educação financeira e deseja contribuir para que mais pessoas tenham uma vida financeira mais saudável, pedimos a sua generosa doação. Com o seu suporte, poderemos continuar desenvolvendo e aprimorando essa ferramenta que pode fazer a diferença na vida de muitas pessoas. Junte-se a nós nessa missão. Sua contribuição é fundamental para o sucesso do nosso projeto. Muito obrigado",
+            text = stringResource(id = R.string.bottomsheet_donation_subtitle),
             color = MaterialTheme.colors.secondary
         )
 
@@ -93,7 +86,7 @@ fun BottomSheetDonation(
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
         ) {
-            Text(text = "DOAR", color = MaterialTheme.colors.onSecondary)
+            Text(text = stringResource(id = R.string.btn_donate), color = MaterialTheme.colors.onSecondary)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -103,7 +96,7 @@ fun BottomSheetDonation(
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
         ) {
-            Text(text = "FECHAR", color = MaterialTheme.colors.onSecondary)
+            Text(text = stringResource(id = R.string.btn_close), color = MaterialTheme.colors.onSecondary)
         }
 
     }

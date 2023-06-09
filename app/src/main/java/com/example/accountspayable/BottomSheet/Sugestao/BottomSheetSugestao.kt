@@ -13,11 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.accountspayable.R
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -37,7 +39,7 @@ fun BottomSheetSugestao(
     ) {
 
         Text(
-            text = "Sugestão/Dúvida",
+            text = stringResource(id = R.string.bottomsheet_suggestion_title),
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colors.secondary
@@ -49,8 +51,8 @@ fun BottomSheetSugestao(
 
             OutlinedTextField(
                 value = text.value,
-                placeholder =  { Text(text = "Mensagem")},
-                label = { Text(text = "Mensagem")},
+                placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_suggestion_message))},
+                label = { Text(text = stringResource(id = R.string.bottomsheet_suggestion_message))},
                 onValueChange = { text.value = it }, modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
@@ -69,7 +71,7 @@ fun BottomSheetSugestao(
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
         ) {
-            Text(text = "ENVIAR", color = MaterialTheme.colors.onSecondary)
+            Text(text = stringResource(id = R.string.btn_send), color = MaterialTheme.colors.onSecondary)
         }
 
         Button(
@@ -77,7 +79,7 @@ fun BottomSheetSugestao(
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
         ) {
-            Text(text = "FECHAR", color = MaterialTheme.colors.onSecondary)
+            Text(text = stringResource(id = R.string.btn_close), color = MaterialTheme.colors.onSecondary)
         }
 
     }
