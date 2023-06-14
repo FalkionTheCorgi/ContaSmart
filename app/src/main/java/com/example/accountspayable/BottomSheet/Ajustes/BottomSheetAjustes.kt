@@ -1,10 +1,14 @@
 package com.example.accountspayable.BottomSheet.Ajustes
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -22,9 +26,12 @@ import androidx.compose.ui.unit.sp
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.example.accountspayable.DataStore.DataStore
+import com.example.accountspayable.GoogleDrive.GoogleDriveService
 import com.example.accountspayable.MainActivityViewModel
 import com.example.accountspayable.R
-import com.example.accountspayable.checkPermissionRWDisk
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.koinViewModel
@@ -52,6 +59,33 @@ fun BottomSheetAjustes(
     )
     val openDialog = remember {
         mutableStateOf(false)
+    }
+    val googleDrive : GoogleDriveService = get()
+    val startForResult = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            if (result.data != null) {
+                val task: Task<GoogleSignInAccount> =
+                    GoogleSignIn.getSignedInAccountFromIntent(intent)
+                scope.launch {
+                    activityViewModel.backupData.value = true
+                    dataStore.saveBackupMode(true)
+                }
+                googleDrive.createFolderGoogleDrive()
+
+                /**
+                 * handle [task] result
+                 */
+            } else {
+                scope.launch {
+                    activityViewModel.backupData.value = false
+                    dataStore.saveBackupMode(false)
+                }
+                Toast.makeText(context, "Google Login Error!", Toast.LENGTH_LONG).show()
+            }
+        }else{
+            Log.d("CODE ERROR GOOGLE API", result.resultCode.toString())
+        }
     }
 
     Column(
@@ -110,13 +144,13 @@ fun BottomSheetAjustes(
             Checkbox(
                 checked = activityViewModel.backupData.value,
                 onCheckedChange = {
-                    if (checkPermissionRWDisk(context = context)) {
+                    if(it) {
+                        startForResult.launch(googleDrive.getGoogleSignInClient().signInIntent)
+                    }else{
                         scope.launch {
-                            activityViewModel.backupData.value = it
-                            dataStore.saveBackupMode(it)
+                            activityViewModel.backupData.value = false
+                            dataStore.saveBackupMode(false)
                         }
-                    } else {
-                        openDialog.value = true
                     }
                 }
             )

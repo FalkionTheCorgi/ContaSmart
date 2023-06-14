@@ -5,7 +5,7 @@ import com.example.accountspayable.getTodayDate
 
 val ITEM_ENTITY_LESS_3DAYS = ItemEntity(
     itemName = "Item1",
-    price = 33f,
+    price = 33.0,
     description = "desc1",
     icon = "Light",
     person1 = "",
@@ -16,7 +16,7 @@ val ITEM_ENTITY_LESS_3DAYS = ItemEntity(
     checkedPerson3 = false,
     person4 = "",
     checkedPerson4 = false,
-    priceOfPerson = 33f,
+    priceOfPerson = 33.0,
     vencimento = 4,
     month = getTodayDate()?.monthValue ?: -1,
     year = getTodayDate()?.year ?: 2023

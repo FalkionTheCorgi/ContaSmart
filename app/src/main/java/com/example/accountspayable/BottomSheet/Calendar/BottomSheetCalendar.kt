@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -97,10 +98,11 @@ fun ExposedDropdownMenuMonth() {
         Icons.Filled.ArrowDropUp
     else
         Icons.Filled.ArrowDropDown
+    val context = LocalContext.current
 
     LaunchedEffect(true){
 
-        selectedText = returnMonthString(activityViewModel.monthSelected.value ?: 1)
+        selectedText = returnMonthString(context = context,activityViewModel.monthSelected.value ?: 1)
 
     }
 

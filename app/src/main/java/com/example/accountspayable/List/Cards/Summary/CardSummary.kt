@@ -213,6 +213,7 @@ fun CardSummaryExist(
     }
 
     val model: CardSummaryViewModel = koinViewModel()
+    val context = LocalContext.current
     val listModel: ListAccountsPayableViewModel = koinViewModel()
 
     Card(
@@ -255,7 +256,7 @@ fun CardSummaryExist(
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = stringResource(id = R.string.summary_month_year, returnMonthString(month.toInt()), year),
+                    text = stringResource(id = R.string.summary_month_year, returnMonthString(context, month.toInt()), year),
                     modifier = Modifier.padding(top = 3.dp),
                     color = MaterialTheme.colors.secondary
                 )

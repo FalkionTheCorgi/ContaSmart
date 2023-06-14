@@ -98,11 +98,21 @@
     <string name="bottomsheet_item_description">Description</string>
     <string name="bottomsheet_item_description_placeholder">Description (Optional)</string>
     <string name="bottomsheet_item_icon">Choose the Icon</string>
-    <string name="bottomsheet_item_share_account">Choose the Icon</string>
+    <string name="bottomsheet_item_share_account">Will you split this bill with someone?</string>
     <string name="bottomsheet_item_icon_label">Icon</string>
     <string name="bottomsheet_item_select">Select</string>
     <string name="bottomsheet_item_icon_expand">expand or hide icons button</string>
     <string name="bottomsheet_item_icon_dropdown">selected icon: %1$s</string>
+    <string name="bottomsheet_item_water_account">Water Account</string>
+    <string name="bottomsheet_item_light_account">Electricity Account</string>
+    <string name="bottomsheet_item_supermarket">Supermarket</string>
+    <string name="bottomsheet_item_router">Internet</string>
+    <string name="bottomsheet_item_card">Credit Card</string>
+    <string name="bottomsheet_item_restaurant">Restaurant</string>
+    <string name="bottomsheet_item_phone">Phone</string>
+    <string name="bottomsheet_item_house">Rent</string>
+    <string name="bottomsheet_item_game">Game</string>
+    <string name="bottomsheet_item_other">Others</string>
 
     <!-- BottomSheetSuggestion -->
     <string name="bottomsheet_suggestion_title">Suggestion/Question</string>

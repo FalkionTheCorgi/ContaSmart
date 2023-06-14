@@ -1,7 +1,6 @@
 package com.example.accountspayable
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -9,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -27,10 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.app.ActivityCompat
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import androidx.work.ExistingWorkPolicy
-import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.accountspayable.BottomSheet.Ajustes.BottomSheetAjustes
@@ -39,6 +34,7 @@ import com.example.accountspayable.BottomSheet.Calendar.BottomSheetCalendar
 import com.example.accountspayable.BottomSheet.Donation.BottomSheetDonation
 import com.example.accountspayable.BottomSheet.Sugestao.BottomSheetSugestao
 import com.example.accountspayable.DataStore.DataStore
+import com.example.accountspayable.GoogleDrive.GoogleDriveService
 import com.example.accountspayable.List.BottomSheetAddItem
 import com.example.accountspayable.List.Cards.Item.AlertDialogCreateSummary
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
@@ -46,8 +42,8 @@ import com.example.accountspayable.Payment.Payment
 import com.example.accountspayable.Room.BackupDataBase
 import com.example.accountspayable.TopBar.TopBarApp
 import com.example.accountspayable.UpdateApp.InAppUpdate
-import com.example.accountspayable.WorkManager.ExportDataBase
 import com.example.accountspayable.WorkManager.NotificationDeadline
+import com.example.accountspayable.WorkManager.UploadDataBase
 import com.example.accountspayable.ui.theme.AccountsPayableTheme
 import com.example.gamesprices.Navigation.NavigationView
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -55,10 +51,8 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import com.google.android.play.core.ktx.requestReview
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -79,7 +73,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val periodicWorkRequest = PeriodicWorkRequestBuilder<ExportDataBase>(1, TimeUnit.HOURS).build()
+        val periodicWorkRequest = PeriodicWorkRequestBuilder<UploadDataBase>(1, TimeUnit.HOURS).build()
         val deadlineWorkRequest = PeriodicWorkRequestBuilder<NotificationDeadline>(16, TimeUnit.HOURS).build()
         val list = listOf(
             periodicWorkRequest,
@@ -103,7 +97,7 @@ class MainActivity : ComponentActivity() {
                     confirmValueChange = { false },
                     skipHalfExpanded = true
                 )
-            val backupDataBase : BackupDataBase = get()
+            val googleDriveService: GoogleDriveService = get()
             val coroutineScope = rememberCoroutineScope()
             val model: MainActivityViewModel = koinViewModel()
             val cardSumModel: CardSummaryViewModel = koinViewModel()
@@ -126,9 +120,10 @@ class MainActivity : ComponentActivity() {
 
             LaunchedEffect(true){
 
+                googleDriveService.copyFilesGoogleDriveToRoomFolder()
+
                 if (!dataStore.getOpenFirstTime.first()) {
-                    requestPermission()
-                    backupDataBase.importarDataBase(applicationContext)
+
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 
                         permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
@@ -457,6 +452,7 @@ class MainActivity : ComponentActivity() {
         else{
             //Android is below 11(R)
         }
+
     }
 
 

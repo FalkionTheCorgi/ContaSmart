@@ -89,6 +89,9 @@ android {
 
 dependencies {
 
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    implementation 'androidx.test:monitor:1.5.0'
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
     def nav_version = "2.5.3"
     def koin_android_version = "3.4.0"
 
@@ -135,8 +138,9 @@ dependencies {
     implementation 'com.google.android.play:app-update-ktx:2.0.1'
 
     //workmanager
-    implementation "androidx.work:work-runtime-ktx:2.5.0"
-    androidTestImplementation "androidx.work:work-testing:2.5.0"
+    implementation "androidx.work:work-runtime-ktx:2.8.1"
+    androidTestImplementation "androidx.work:work-testing:2.8.1"
+    testImplementation "androidx.work:work-testing:2.8.1"
 
     //splashscreen
     implementation "androidx.core:core-splashscreen:1.0.0"
@@ -153,4 +157,20 @@ dependencies {
 
     //AppReview
     implementation 'com.google.android.play:review-ktx:2.0.0'
+
+    //google drive api
+    // Guava
+    implementation "com.google.guava:guava:24.1-jre"
+    // Guava fix
+    implementation "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"
+
+    //Drive
+    implementation('com.google.api-client:google-api-client-android:1.23.0') {
+        exclude group: 'org.apache.httpcomponents'
+        exclude module: 'guava-jdk5'
+    }
+    implementation('com.google.apis:google-api-services-drive:v3-rev136-1.25.0') {
+        exclude group: 'org.apache.httpcomponents'
+        exclude module: 'guava-jdk5'
+    }
 }

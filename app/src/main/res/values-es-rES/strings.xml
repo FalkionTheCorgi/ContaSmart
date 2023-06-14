@@ -98,11 +98,21 @@
     <string name="bottomsheet_item_description">Descripción</string>
     <string name="bottomsheet_item_description_placeholder">Descripción (opcional)</string>
     <string name="bottomsheet_item_icon">Selecciona el icono</string>
-    <string name="bottomsheet_item_share_account">Selecciona el icono</string>
+    <string name="bottomsheet_item_share_account">¿Vas a dividir esta cuenta con alguien?</string>
     <string name="bottomsheet_item_icon_label">Icono</string>
     <string name="bottomsheet_item_select">Seleccionar</string>
     <string name="bottomsheet_item_icon_expand">Botón para expandir o ocultar iconos</string>
     <string name="bottomsheet_item_icon_dropdown">Icono seleccionado: %1$s</string>
+    <string name="bottomsheet_item_water_account">Cuenta de Agua</string>
+    <string name="bottomsheet_item_light_account">Cuenta de Luz</string>
+    <string name="bottomsheet_item_supermarket">Supermercado</string>
+    <string name="bottomsheet_item_router">Internet</string>
+    <string name="bottomsheet_item_card">Tarjeta de Crédito</string>
+    <string name="bottomsheet_item_restaurant">Restaurante</string>
+    <string name="bottomsheet_item_phone">Teléfono</string>
+    <string name="bottomsheet_item_house">Alquiler</string>
+    <string name="bottomsheet_item_game">Juego</string>
+    <string name="bottomsheet_item_other">Otros</string>
 
     <!-- BottomSheetSuggestion -->
     <string name="bottomsheet_suggestion_title">Sugerencia/Duda</string>

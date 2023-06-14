@@ -35,52 +35,53 @@ fun getTodayDate(): LocalDateTime? {
 
 }
 
+@Composable
 fun getItemDropDown(str: String) : String {
 
     return when(str) {
 
         "Water" -> {
-            "Conta de Água"
+            stringResource(id = R.string.bottomsheet_item_water_account)
         }
 
         "Light" -> {
-            "Conta de Luz"
+            stringResource(id = R.string.bottomsheet_item_light_account)
         }
 
         "Market" -> {
-            "Supermercado"
+            stringResource(id = R.string.bottomsheet_item_supermarket)
         }
 
         "Router" -> {
-            "Internet"
+            stringResource(id = R.string.bottomsheet_item_router)
         }
 
         "Card" -> {
-            "Cartão de Crédito"
+            stringResource(id = R.string.bottomsheet_item_card)
         }
 
         "Restaurant" -> {
-            "Restaurante"
+            stringResource(id = R.string.bottomsheet_item_restaurant)
         }
 
         "Phone" -> {
-            "Celular"
+            stringResource(id = R.string.bottomsheet_item_phone)
         }
 
         "House" -> {
-            "Aluguel"
+            stringResource(id = R.string.bottomsheet_item_house)
         }
 
         "Game" -> {
-            "Jogo"
+            stringResource(id = R.string.bottomsheet_item_game)
         }
 
         "Other" -> {
-            "Outros"
+            stringResource(id = R.string.bottomsheet_item_other)
         }
 
         else -> {
-            "Outros"
+            stringResource(id = R.string.bottomsheet_item_other)
         }
 
     }
@@ -194,23 +195,26 @@ fun getTypeIcon(str: String): String {
 
 }
 
-fun returnMonthString(number: Int): String{
+fun returnMonthString(
+    context: Context,
+    number: Int
+): String{
 
   return when(number){
 
-      1 ->  "Janeiro"
-      2 ->  "Fevereiro"
-      3 ->  "Março"
-      4 ->  "Abril"
-      5 ->  "Maio"
-      6 ->  "Junho"
-      7 ->  "Julho"
-      8 ->  "Agosto"
-      9 ->  "Setembro"
-      10 -> "Outubro"
-      11 -> "Novembro"
-      12 -> "Dezembro"
-      else -> ""
+      1 ->  context.getString(R.string.january)
+      2 ->  context.getString(R.string.february)
+      3 ->  context.getString(R.string.march)
+      4 ->  context.getString(R.string.april)
+      5 ->  context.getString(R.string.may)
+      6 ->  context.getString(R.string.june)
+      7 ->  context.getString(R.string.july)
+      8 ->  context.getString(R.string.august)
+      9 ->  context.getString(R.string.september)
+      10 -> context.getString(R.string.october)
+      11 -> context.getString(R.string.november)
+      12 -> context.getString(R.string.december)
+      else -> context.getString(R.string.january)
 
   }
 

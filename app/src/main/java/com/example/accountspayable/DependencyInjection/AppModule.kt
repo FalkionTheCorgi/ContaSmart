@@ -7,6 +7,7 @@ import com.example.accountspayable.BottomSheet.Item.BottomSheetViewModel
 import com.example.accountspayable.BottomSheet.Sugestao.BottomSheetSugestaoViewModel
 import com.example.accountspayable.BottomSheet.Summary.BottomSheetSummaryViewModel
 import com.example.accountspayable.DataStore.DataStore
+import com.example.accountspayable.GoogleDrive.GoogleDriveService
 import com.example.accountspayable.List.Cards.Item.CardItemPayableViewModel
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
 import com.example.accountspayable.List.ListAccountsPayableViewModel
@@ -55,6 +56,19 @@ val appModule = module {
         )
     }
 
+    single{
+        BottomSheetCalendarViewModel(
+            androidApplication()
+        )
+    }
+
+
+    single {
+        GoogleDriveService(
+            androidContext()
+        )
+    }
+
     viewModel {
           CardItemPayableViewModel()
     }
@@ -67,12 +81,6 @@ val appModule = module {
 
     viewModel{
         BottomSheetSummaryViewModel(
-            androidApplication()
-        )
-    }
-
-    single{
-        BottomSheetCalendarViewModel(
             androidApplication()
         )
     }

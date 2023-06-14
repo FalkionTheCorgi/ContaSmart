@@ -25,9 +25,6 @@ fun BottomSheetDonation(
     callBack: () -> Unit
 ){
 
-    val donation = remember{
-        mutableStateOf(DonationType.Donate5)
-    }
     val model : BottomSheetDonationViewModel = koinViewModel()
     val radioOptions = listOf(DonationType.Donate5, DonationType.Donate10, DonationType.Donate20, DonationType.Donate50, DonationType.Donate100)
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0] ) }

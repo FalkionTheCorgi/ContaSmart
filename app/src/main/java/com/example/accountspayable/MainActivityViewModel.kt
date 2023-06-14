@@ -69,12 +69,7 @@ class MainActivityViewModel: ViewModel(){
     var permissionStorage = mutableStateOf(false)
     val isLoading = mutableStateOf(true)
 
-    init {
-        viewModelScope.launch {
-            delay(3000)
-            isLoading.value = false
-        }
-    }
+
 
 }
 
