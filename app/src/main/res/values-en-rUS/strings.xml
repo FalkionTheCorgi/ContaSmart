@@ -16,6 +16,7 @@
     <string name="toast_please_digit_message">Please enter a message.</string>
     <string name="toast_please_import_data_start">Importing data...</string>
     <string name="toast_please_import_data_finished">Data imported successfully.</string>
+    <string name="toast_google_login_error">Google login error!</string>
 
     <!-- AlertDialog -->
     <string name="notice">Notice</string>

@@ -81,7 +81,7 @@ fun BottomSheetAjustes(
                     activityViewModel.backupData.value = false
                     dataStore.saveBackupMode(false)
                 }
-                Toast.makeText(context, "Google Login Error!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, R.string.toast_google_login_error, Toast.LENGTH_LONG).show()
             }
         }else{
             Log.d("CODE ERROR GOOGLE API", result.resultCode.toString())

@@ -43,10 +43,10 @@ fun AlertImportData(
                 val task: Task<GoogleSignInAccount> =
                     GoogleSignIn.getSignedInAccountFromIntent(intent)
             } else {
-                Toast.makeText(context, "Erro ao logar no google", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, R.string.toast_google_login_error, Toast.LENGTH_LONG).show()
             }
         } else {
-            Toast.makeText(context, "Erro ao logar no google", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, R.string.toast_google_login_error, Toast.LENGTH_LONG).show()
             Log.d("CODE ERROR GOOGLE API", result.resultCode.toString())
         }
     }
