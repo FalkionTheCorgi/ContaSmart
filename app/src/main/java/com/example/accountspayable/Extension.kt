@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -22,6 +23,7 @@ val NOTIFICATION_ID = 0
 fun getTodayDate(): LocalDateTime? {
 
     val calendar = Calendar.getInstance()
+    calendar.add(Calendar.MONTH, 1)
 
     return LocalDateTime.of(
         calendar.get(Calendar.YEAR),

@@ -8,6 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -21,6 +23,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -38,8 +41,9 @@ import com.example.accountspayable.GoogleDrive.GoogleDriveService
 import com.example.accountspayable.List.BottomSheetAddItem
 import com.example.accountspayable.List.Cards.Item.AlertDialogCreateSummary
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
+import com.example.accountspayable.List.ListAccountsPayableViewModel
 import com.example.accountspayable.Payment.Payment
-import com.example.accountspayable.Room.BackupDataBase
+import com.example.accountspayable.TopBar.AlertImportData
 import com.example.accountspayable.TopBar.TopBarApp
 import com.example.accountspayable.UpdateApp.InAppUpdate
 import com.example.accountspayable.WorkManager.NotificationDeadline
@@ -62,6 +66,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -103,6 +108,7 @@ class MainActivity : ComponentActivity() {
             val cardSumModel: CardSummaryViewModel = koinViewModel()
             val dataStore: DataStore = get()
             val systemUiController = rememberSystemUiController()
+            val context = LocalContext.current
 
             val permissionLauncher = rememberLauncherForActivityResult(
                 contract = ActivityResultContracts.RequestPermission(),
@@ -119,8 +125,6 @@ class MainActivity : ComponentActivity() {
             MobileAds.initialize(this) {}
 
             LaunchedEffect(true){
-
-                googleDriveService.copyFilesGoogleDriveToRoomFolder()
 
                 if (!dataStore.getOpenFirstTime.first()) {
 
@@ -357,7 +361,7 @@ class MainActivity : ComponentActivity() {
                                             model.bottomSheetType.value = BottomSheetTypes.ADD
                                             bottomSheetState.show()
                                         } else {
-                                            model.openAlertCreateSummary.value = true
+                                            model.openAlert.value = AlertTypes.CREATESUMMARY
                                         }
                                     }
                                 },
@@ -392,20 +396,56 @@ class MainActivity : ComponentActivity() {
 
                 }
 
-                if (model.openAlertCreateSummary.value) {
+                when(model.openAlert.value){
 
+                    AlertTypes.CREATESUMMARY -> {
 
-                    AlertDialogCreateSummary(
-                        accept = {
-                            model.bottomSheetType.value = BottomSheetTypes.SUMMARYADD
-                            model.openAlertCreateSummary.value = false
-                        },
-                        decline = {
-                            model.openAlertCreateSummary.value = false
-                        }
-                    )
+                        AlertDialogCreateSummary(
+                            accept = {
+                                model.bottomSheetType.value = BottomSheetTypes.SUMMARYADD
+                                model.openAlert.value = AlertTypes.NONE
+                            },
+                            decline = {
+                                model.openAlert.value = AlertTypes.NONE
+                            }
+                        )
+
+                    }
+
+                    AlertTypes.IMPORTDATA -> {
+
+                        AlertImportData(
+                            accept = {
+                                model.openAlert.value = AlertTypes.NONE
+                                coroutineScope.launch {
+                                    googleDriveService.copyFilesGoogleDriveToRoomFolder(
+                                        start = {
+                                            runOnUiThread {
+                                                Toast.makeText(context, R.string.toast_please_import_data_start, Toast.LENGTH_LONG).show()
+                                            }
+                                            model.isLoading.value = true
+
+                                        },
+                                        finished = {
+                                            runOnUiThread {
+                                                Toast.makeText(context, R.string.toast_please_import_data_finished, Toast.LENGTH_LONG).show()
+                                            }
+                                            model.resetCardSummary.value = true
+                                            model.isLoading.value = false
+                                            model.openAlert.value = AlertTypes.NONE
+                                        }
+                                    )
+                                }
+                            },
+                            decline = { model.openAlert.value = AlertTypes.NONE }
+                        )
+
+                    }
+
+                    AlertTypes.NONE -> {}
 
                 }
+
             }
         }
     }

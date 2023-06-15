@@ -10,7 +10,6 @@ import org.koin.core.parameter.parametersOf
 class UploadDataBase(appContext: Context, workerParams: WorkerParameters):
     Worker(appContext, workerParams) {
 
-    val backupDataBase : BackupDataBase = BackupDataBase()
     val googleDrive : GoogleDriveService = GoogleDriveService(appContext)
 
     override fun doWork(): Result {

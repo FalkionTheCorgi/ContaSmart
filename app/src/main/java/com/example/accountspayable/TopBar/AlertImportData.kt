@@ -1,4 +1,4 @@
-package com.example.accountspayable.BottomSheet.Ajustes
+package com.example.accountspayable.TopBar
 
 import android.app.Activity
 import android.util.Log
@@ -14,27 +14,42 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.accountspayable.GoogleDrive.GoogleDriveService
-import com.example.accountspayable.MainActivityViewModel
 import com.example.accountspayable.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun AlertPermissionStorage(
+fun AlertImportData(
     accept: () -> Unit,
     decline: () -> Unit
 ){
+    val context = LocalContext.current
+    val googleDrive : GoogleDriveService = get()
+    val startForResult = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            if (result.data != null) {
+                accept()
+                //utilizado para extrair dados da conta não sensiveis caso assim seja necessário
+                val task: Task<GoogleSignInAccount> =
+                    GoogleSignIn.getSignedInAccountFromIntent(intent)
+            } else {
+                Toast.makeText(context, "Erro ao logar no google", Toast.LENGTH_LONG).show()
+            }
+        } else {
+            Toast.makeText(context, "Erro ao logar no google", Toast.LENGTH_LONG).show()
+            Log.d("CODE ERROR GOOGLE API", result.resultCode.toString())
+        }
+    }
 
     AlertDialog(
         onDismissRequest = { decline() },
@@ -54,17 +69,17 @@ fun AlertPermissionStorage(
         containerColor = MaterialTheme.colors.background,
         text = {
             Text(
-                text = stringResource(id = R.string.alert_permission_storage_subtext),
+                text = stringResource(id = R.string.alert_import_data_subtitle),
                 color = MaterialTheme.colors.secondary
             )
         },
         confirmButton = {
             TextButton(
                 onClick = {
-                    accept()
+                    startForResult.launch(googleDrive.getGoogleSignInClient().signInIntent)
                 }
             ) {
-                Text(stringResource(id = R.string.btn_accept), color = MaterialTheme.colors.primary)
+                Text(stringResource(id = R.string.btn_allow), color = MaterialTheme.colors.primary)
             }
         },
         dismissButton = {
@@ -78,6 +93,8 @@ fun AlertPermissionStorage(
         }
 
     )
+
+
 
 
 

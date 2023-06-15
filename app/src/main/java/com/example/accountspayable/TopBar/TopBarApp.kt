@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.accountspayable.AlertTypes
 import com.example.accountspayable.BottomSheetTypes
 import com.example.accountspayable.MainActivityViewModel
 import com.example.accountspayable.R
@@ -47,6 +48,31 @@ fun TopBarApp(
                 expanded = showMenu.value,
                 onDismissRequest = { showMenu.value = false }
             ) {
+
+                DropdownMenuItem(onClick = {
+                    activityViewModel.openAlert.value = AlertTypes.IMPORTDATA
+                    showMenu.value = false
+                }) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowDownward,
+                            contentDescription = stringResource(id = R.string.topbar_icon_import),
+                            tint = MaterialTheme.colors.secondary
+                        )
+
+                        Text(
+                            text = stringResource(id = R.string.topbar_import),
+                            color = MaterialTheme.colors.secondary,
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
+                }
+
+                Divider()
 
                 DropdownMenuItem(onClick = {
                     activityViewModel.bottomSheetType.value = BottomSheetTypes.SETTINGS

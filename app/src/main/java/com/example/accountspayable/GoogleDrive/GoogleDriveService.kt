@@ -3,7 +3,6 @@ package com.example.accountspayable.GoogleDrive
 import android.content.Context
 import android.util.Log
 import com.example.accountspayable.R
-import com.example.accountspayable.Room.DataBase
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -15,9 +14,7 @@ import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
 import com.google.api.services.drive.model.File
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.io.FileOutputStream
 import java.io.IOException
 
@@ -28,12 +25,17 @@ class GoogleDriveService(
 
     val context = ctx
 
+    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+
     private val dataBaseArchives = listOf(
         "databaseContaSmart",
         "databaseContaSmart-shm",
         "databaseContaSmart-wal",
         "google_app_measurement_local.db",
         "google_app_measurement_local.db-journal",
+        "com.google.android.datatransport.events",
+        "com.google.android.datatransport.events-journal"
+
     )
 
     fun getGoogleSignInClient(): GoogleSignInClient {
@@ -45,7 +47,7 @@ class GoogleDriveService(
         return GoogleSignIn.getClient(context, signInOptions)
     }
 
-    fun returnGoogleDriveAccount(): Drive? {
+    private fun returnGoogleDriveAccount(): Drive? {
 
         GoogleSignIn.getLastSignedInAccount(context)?.let { googleAccount ->
 
@@ -56,7 +58,7 @@ class GoogleDriveService(
             credential.selectedAccount = googleAccount.account!!
 
             // get Drive Instance
-            val drive = Drive
+            return Drive
                 .Builder(
                     AndroidHttp.newCompatibleTransport(),
                     JacksonFactory.getDefaultInstance(),
@@ -65,18 +67,15 @@ class GoogleDriveService(
                 .setApplicationName(context.getString(R.string.app_name))
                 .build()
 
-            return drive
-
         }
 
         return null
 
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     fun createFolderGoogleDrive(){
 
-        GlobalScope.launch {
+        coroutineScope.launch {
             // Define a Folder
             val gFolder = File()
             val drive = returnGoogleDriveAccount()
@@ -206,9 +205,12 @@ class GoogleDriveService(
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    fun copyFilesGoogleDriveToRoomFolder(){
-        GlobalScope.launch {
+    fun copyFilesGoogleDriveToRoomFolder(
+        start: () -> Unit,
+        finished: () -> Unit
+    ){
+        coroutineScope.launch {
+            start()
             val list = getFilesFromFolder(
                 driveService = returnGoogleDriveAccount(),
                 folderId =  getFolderIdByName(
@@ -219,29 +221,34 @@ class GoogleDriveService(
 
             list?.forEach { item ->
 
-                val databasePath =
-                    context.getDatabasePath(context.getString(R.string.database_name)).absolutePath// Caminho para o arquivo do banco de dados
-
                 copyFileToRoom(
                     driveService = returnGoogleDriveAccount(),
                     file = item
                 )
 
             }
+
+            finished()
+
         }
 
     }
 
     @Throws(IOException::class)
     private fun copyFileToRoom(driveService: Drive?, file: File?) {
-        if(driveService != null && file != null) {
-            val fileName = file.name
-            val destinationFile = context.getDatabasePath(file.name).absolutePath
+
+        if(driveService != null) {
+            val destinationFile = context.getDatabasePath(file?.name).absolutePath
             FileOutputStream(destinationFile).use { outputStream ->
-                driveService.files()[file.id]
-                    .executeMediaAndDownloadTo(outputStream)
+                try {
+                    driveService.files().get(file?.id)
+                        .executeMediaAndDownloadTo(outputStream)
+                } catch (e: IOException) {
+
+                    Log.d("GOOGLE DRIVE ERROR", "arquivo: ${file?.name}\n, error: ${e.message.toString()}")
+
+                }
             }
-            println("Arquivo copiado para a pasta room: ")
         }
     }
 

@@ -62,12 +62,12 @@ class MainActivityViewModel: ViewModel(){
     var updateBottomSheet = mutableStateOf(false)
     var monthSelected = mutableStateOf(getTodayDate()?.monthValue)
     var yearSelected = mutableStateOf(getTodayDate()?.year)
-    var openAlertCreateSummary = mutableStateOf(false)
+    var openAlert = mutableStateOf(AlertTypes.NONE)
 
     var darkMode = mutableStateOf(false)
     var backupData = mutableStateOf(false)
     var permissionStorage = mutableStateOf(false)
-    val isLoading = mutableStateOf(true)
+    val isLoading = mutableStateOf(false)
 
 
 
@@ -76,5 +76,11 @@ class MainActivityViewModel: ViewModel(){
 enum class BottomSheetTypes {
 
     ADD, EDIT, CALENDAR, SUMMARYADD, SUMMARYEDIT, SUGGESTION, DONATION, SETTINGS, NONE
+
+}
+
+enum class AlertTypes{
+
+    CREATESUMMARY, IMPORTDATA, NONE
 
 }

@@ -14,6 +14,8 @@
     <string name="toast_data_check_red_fields">Por favor verifique os campos em vermelho.</string>
     <string name="toast_data_edit_success">Dados editados com sucesso.</string>
     <string name="toast_please_digit_message">Por favor digite uma mensagem.</string>
+    <string name="toast_please_import_data_start">Importando dados...</string>
+    <string name="toast_please_import_data_finished">Dados importados com sucesso.</string>
 
     <!-- AlertDialog -->
     <string name = "notice">Aviso</string>
@@ -29,6 +31,7 @@
     <string name = "btn_wait">AGUARDAR</string>
     <string name = "btn_edit">EDITAR</string>
     <string name = "btn_send">ENVIAR</string>
+    <string name = "btn_allow">Permitir</string>
 
     <!-- AlertDialogCreateSummary -->
     <string name="subtitle_create_summary">É preciso cadastrar o sumário do mês antes de adicionar um item a lista.</string>
@@ -70,6 +73,11 @@
     <string name="topbar_suggestion">Sugestão</string>
     <string name= "topbar_icon_donation">Icone de Apoio</string>
     <string name= "topbar_donation">Apoie</string>
+    <string name= "topbar_import">Importar</string>
+    <string name= "topbar_icon_import">Icone de Importar</string>
+
+    <!-- AlertImportData -->
+    <string name= "alert_import_data_subtitle">Para realizar o download dos arquivos contendo os dados necessários, o nosso aplicativo precisa acessar o Google Drive. Essa permissão é solicitada para garantir que possamos recuperar os arquivos de maneira segura e eficiente, proporcionando a melhor experiência para você, deseja permitir?</string>
 
     <!-- TopBar -->
     <string name= "bottomsheet_ajustes_dark_mode">Modo Escuro</string>
