@@ -1,11 +1,5 @@
 package com.example.accountspayable.BottomSheet.Ajustes
 
-import android.app.Activity
-import android.util.Log
-import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,21 +8,12 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.accountspayable.GoogleDrive.GoogleDriveService
-import com.example.accountspayable.MainActivityViewModel
 import com.example.accountspayable.R
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
-import kotlinx.coroutines.launch
-import org.koin.androidx.compose.get
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AlertPermissionStorage(
