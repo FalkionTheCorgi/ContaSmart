@@ -18,6 +18,12 @@
     <string name="toast_please_import_data_finished">Dados importados com sucesso.</string>
     <string name="toast_google_login_error">Erro ao fazer login com o Google!</string>
 
+    <!-- BillingClient -->
+    <string name = "billing_client_process">Processando...</string>
+    <string name = "billing_client_cancel_purchase">Compra cancelada</string>
+    <string name = "billing_client_purchase_problem">Ocorreu um problema ao tentar fazer a doação</string>
+    <string name = "billing_client_purchase_sucessfully">Obrigado por nos ajudar com o projeto :)</string>
+
     <!-- AlertDialog -->
     <string name = "notice">Aviso</string>
     <string name = "btn_create">Criar</string>

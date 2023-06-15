@@ -34,6 +34,12 @@
     <string name="btn_send">ENVIAR</string>
     <string name="btn_allow">Permitir</string>
 
+    <!-- BillingClient -->
+    <string name="billing_client_process">Procesando...</string>
+    <string name="billing_client_cancel_purchase">Compra cancelada</string>
+    <string name="billing_client_purchase_problem">Hubo un problema al intentar hacer la donación</string>
+    <string name="billing_client_purchase_sucessfully">¡Gracias por ayudarnos con el proyecto! :)</string>
+
     <!-- AlertDialogCreateSummary -->
     <string name="subtitle_create_summary">Es necesario crear el resumen mensual antes de agregar un elemento a la lista.</string>
 

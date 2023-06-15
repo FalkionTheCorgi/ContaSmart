@@ -7,6 +7,7 @@ import com.android.billingclient.api.*
 import com.android.billingclient.api.BillingClient.BillingResponseCode
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import com.example.accountspayable.BottomSheet.Donation.DonationType
+import com.example.accountspayable.R
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.*
 
@@ -22,7 +23,7 @@ class Payment(
     private val purchasesUpdatedListener =
         PurchasesUpdatedListener { billingResult, purchases ->
             if (billingResult.responseCode == BillingResponseCode.OK && purchases != null) {
-                Toast.makeText(context, "Processando...", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, R.string.billing_client_process, Toast.LENGTH_LONG).show()
                 GlobalScope.launch {
                     consumeItem(
                         purchase = purchases.first(),
@@ -30,9 +31,9 @@ class Payment(
                     )
                 }
             } else if (billingResult.responseCode == BillingResponseCode.USER_CANCELED) {
-                Toast.makeText(context, "Compra cancelada", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, R.string.billing_client_cancel_purchase, Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(context, "Ocorreu um problema ao tentar fazer a doação", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, R.string.billing_client_purchase_problem, Toast.LENGTH_LONG).show()
             }
         }
 
@@ -126,7 +127,7 @@ class Payment(
                 activity.runOnUiThread {
                     Toast.makeText(
                         activity.applicationContext,
-                        "Obrigado por nos ajudar com o projeto :)",
+                        R.string.billing_client_purchase_sucessfully,
                         Toast.LENGTH_LONG
                     ).show()
                 }
