@@ -179,4 +179,12 @@
     <string name="november">Novembro</string>
     <string name="december">Dezembro</string>
 
+    <!-- Google Drive API Helper -->
+    <string name="database_conta_smart" translatable="false">databaseContaSmart</string>
+    <string name="database_conta_smart_shm" translatable="false">databaseContaSmart-shm</string>
+    <string name="database_conta_smart_wal" translatable="false">databaseContaSmart-wal</string>
+    <string name="google_app_measurement_local" translatable="false">google_app_measurement_local.db</string>
+    <string name="com_google_android_datatransport_events" translatable="false">com.google.android.datatransport.events</string>
+    <string name="mime_type_folder" translatable="false">application/vnd.google-apps.folder</string>
+
 </resources>

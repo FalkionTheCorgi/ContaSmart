@@ -10,7 +10,11 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_XL_API_33" value="120" />
+                  <entry key="RXCTB02HFVF" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="Xiaomi&#10; Redmi Note 8" value="120" />
+                  <entry key="c4cc11" value="120" />
+                  <entry key="samsung&#10; SM-A536E" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>

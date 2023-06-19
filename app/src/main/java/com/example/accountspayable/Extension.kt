@@ -1,6 +1,8 @@
 package com.example.accountspayable
 
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
@@ -26,12 +28,12 @@ fun getTodayDate(): LocalDateTime? {
     calendar.add(Calendar.MONTH, 1)
 
     return LocalDateTime.of(
-        calendar.get(Calendar.YEAR),
-        calendar.get(Calendar.MONTH),
-        calendar.get(Calendar.DAY_OF_MONTH),
-        calendar.get(Calendar.HOUR_OF_DAY),
-        calendar.get(Calendar.MINUTE),
-        calendar.get(Calendar.SECOND)
+        LocalDateTime.now().year,
+        LocalDateTime.now().month,
+        LocalDateTime.now().dayOfMonth,
+        LocalDateTime.now().hour,
+        LocalDateTime.now().minute,
+        LocalDateTime.now().second
     )
 
 
@@ -260,5 +262,16 @@ fun getDaysInMonth(): Int {
     val yearMonthObject = YearMonth.of(x?.year ?: 2023, x?.month)
 
     return yearMonthObject.lengthOfMonth() - 1
+
+}
+
+fun restartApp(context: Context){
+
+    val packageManager: PackageManager = context.packageManager
+    val intent: Intent = packageManager.getLaunchIntentForPackage(context.packageName)!!
+    val componentName: ComponentName = intent.component!!
+    val restartIntent: Intent = Intent.makeRestartActivityTask(componentName)
+    context.startActivity(restartIntent)
+    Runtime.getRuntime().exit(0)
 
 }

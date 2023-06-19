@@ -423,8 +423,6 @@ class MainActivity : ComponentActivity() {
                                             runOnUiThread {
                                                 Toast.makeText(context, R.string.toast_please_import_data_start, Toast.LENGTH_LONG).show()
                                             }
-                                            model.isLoading.value = true
-
                                         },
                                         finished = {
                                             runOnUiThread {
@@ -433,6 +431,19 @@ class MainActivity : ComponentActivity() {
                                             model.resetCardSummary.value = true
                                             model.isLoading.value = false
                                             model.openAlert.value = AlertTypes.NONE
+                                        },
+                                        failure = {
+                                            runOnUiThread {
+                                                Toast.makeText(context, "Sem dados salvos na sua conta do google drive", Toast.LENGTH_LONG).show()
+                                            }
+                                            model.isLoading.value = false
+                                            model.openAlert.value = AlertTypes.NONE
+                                        },
+                                        wait = {
+                                            runOnUiThread {
+                                                Toast.makeText(context, "Aguarde", Toast.LENGTH_LONG).show()
+                                            }
+                                            model.isLoading.value = true
                                         }
                                     )
                                 }

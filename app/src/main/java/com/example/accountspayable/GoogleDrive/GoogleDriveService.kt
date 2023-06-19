@@ -2,6 +2,7 @@ package com.example.accountspayable.GoogleDrive
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.example.accountspayable.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -17,6 +18,7 @@ import com.google.api.services.drive.model.File
 import kotlinx.coroutines.*
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.*
 
 
 class GoogleDriveService(
@@ -28,14 +30,11 @@ class GoogleDriveService(
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 
     private val dataBaseArchives = listOf(
-        "databaseContaSmart",
-        "databaseContaSmart-shm",
-        "databaseContaSmart-wal",
-        "google_app_measurement_local.db",
-        "google_app_measurement_local.db-journal",
-        "com.google.android.datatransport.events",
-        "com.google.android.datatransport.events-journal"
-
+        context.getString(R.string.database_conta_smart),
+        context.getString(R.string.database_conta_smart_shm),
+        context.getString(R.string.database_conta_smart_wal),
+        context.getString(R.string.google_app_measurement_local),
+        context.getString(R.string.com_google_android_datatransport_events)
     )
 
     fun getGoogleSignInClient(): GoogleSignInClient {
@@ -55,17 +54,21 @@ class GoogleDriveService(
             val credential = GoogleAccountCredential.usingOAuth2(
                 context, listOf(DriveScopes.DRIVE, DriveScopes.DRIVE_FILE)
             )
-            credential.selectedAccount = googleAccount.account!!
 
             // get Drive Instance
-            return Drive
-                .Builder(
-                    AndroidHttp.newCompatibleTransport(),
-                    JacksonFactory.getDefaultInstance(),
-                    credential
-                )
-                .setApplicationName(context.getString(R.string.app_name))
-                .build()
+            try {
+                credential.selectedAccount = googleAccount.account
+                return Drive
+                    .Builder(
+                        AndroidHttp.newCompatibleTransport(),
+                        JacksonFactory.getDefaultInstance(),
+                        credential
+                    )
+                    .setApplicationName(context.getString(R.string.app_name))
+                    .build()
+            }catch (e: IOException){
+                Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+            }
 
         }
 
@@ -80,18 +83,14 @@ class GoogleDriveService(
             val gFolder = File()
             val drive = returnGoogleDriveAccount()
             // Set file name and MIME
-            gFolder.name = "ContaSmart"
-            gFolder.mimeType = "application/vnd.google-apps.folder"
+            gFolder.name = context.getString(R.string.app_name)
+            gFolder.mimeType = context.getString(R.string.mime_type_folder)
+            //gFolder.parents = Collections.singletonList("root")
 
             if (!checkFolderExists(drive, gFolder.name, null)){
-                drive?.Files()?.create(gFolder)?.setFields("id")?.execute()
+                drive?.files()?.create(gFolder)?.setFields("id")?.execute()
             }
 
-            // You can also specify where to create the new Google folder
-            // passing a parent Folder Id
-            /*val parents: MutableList<String> = ArrayList(1)
-            parents.add("your_parent_folder_id_here")
-            gFolder.parents = parents*/
         }
 
     }
@@ -103,7 +102,7 @@ class GoogleDriveService(
 
             val databasePath =
                 context.getDatabasePath(dado).absolutePath// Caminho para o arquivo do banco de dados
-            val folderId = getFolderIdByName(returnGoogleDriveAccount(), "ContaSmart")
+            val folderId = getFolderIdByName(returnGoogleDriveAccount(), context.getString(R.string.app_name))
             val fileMetadata = File()
             fileMetadata.name = dado
             fileMetadata.parents = listOf(folderId)
@@ -112,7 +111,6 @@ class GoogleDriveService(
 
             if (idArchive == null) {
                 try {
-
                     returnGoogleDriveAccount()?.files()?.create(fileMetadata, file)
                         ?.setFields("id")
                         ?.execute()
@@ -132,7 +130,7 @@ class GoogleDriveService(
     }
 
     @Throws(IOException::class)
-    private fun checkFolderExists(
+    private fun  checkFolderExists(
         driveService: Drive?,
         folderName: String,
         parentId: String?
@@ -140,15 +138,19 @@ class GoogleDriveService(
         if (driveService != null) {
             var query =
                 "mimeType='application/vnd.google-apps.folder' and name='$folderName'"
-            if (parentId != null && !parentId.isEmpty()) {
+            if (parentId != null && parentId.isNotEmpty()) {
                 query += " and '$parentId' in parents"
             }
-            val result = driveService.files().list()
-                .setQ(query)
-                .setSpaces("drive")
-                .execute()
-            val files = result.files
-            return files.isNotEmpty()
+            return try {
+                val result = driveService.files().list()
+                    .setQ(query)
+                    .setSpaces("drive")
+                    .execute()
+                val files = result.files
+                files != null && files.isNotEmpty()
+            } catch (e: IOException) {
+                false
+            }
         } else {
             return false
         }
@@ -206,26 +208,35 @@ class GoogleDriveService(
     }
 
     fun copyFilesGoogleDriveToRoomFolder(
+        wait: () -> Unit,
         start: () -> Unit,
-        finished: () -> Unit
+        finished: () -> Unit,
+        failure: () -> Unit
     ){
         coroutineScope.launch {
-            start()
+            wait()
             val list = getFilesFromFolder(
                 driveService = returnGoogleDriveAccount(),
                 folderId =  getFolderIdByName(
                     returnGoogleDriveAccount(),
-                    "ContaSmart"
+                    context.getString(R.string.app_name)
                 )
             )
 
-            list?.forEach { item ->
+            if(list?.isEmpty() == true || list == null){
 
-                copyFileToRoom(
-                    driveService = returnGoogleDriveAccount(),
-                    file = item
-                )
+                failure()
 
+            } else {
+                start()
+                list.forEach { item ->
+
+                    copyFileToRoom(
+                        driveService = returnGoogleDriveAccount(),
+                        file = item
+                    )
+
+                }
             }
 
             finished()
