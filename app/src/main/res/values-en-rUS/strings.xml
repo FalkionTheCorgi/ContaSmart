@@ -86,7 +86,7 @@
     <string name="topbar_icon_import">Import Icon</string>
 
     <!-- AlertImportData -->
-    <string name="alert_import_data_subtitle">To download the files containing the necessary data, our application needs to access Google Drive. This permission is requested to ensure that we can retrieve the files safely and efficiently, providing the best experience for you. Do you want to allow it?</string>
+    <string name="alert_import_data_subtitle">To download the files containing the necessary data, our application needs to access Google Drive. This permission is requested to ensure that we can retrieve the files safely and efficiently, providing the best experience for you.Please note that all current data in the application may be deleted, and this action is irreversible. Do you want to allow it?</string>
 
     <!-- TopBar -->
     <string name= "bottomsheet_ajustes_dark_mode">Dark Mode</string>

@@ -86,7 +86,7 @@
     <string name= "topbar_icon_import">Icone de Importar</string>
 
     <!-- AlertImportData -->
-    <string name= "alert_import_data_subtitle">Para realizar o download dos arquivos contendo os dados necessários, o nosso aplicativo precisa acessar o Google Drive. Essa permissão é solicitada para garantir que possamos recuperar os arquivos de maneira segura e eficiente, proporcionando a melhor experiência para você, deseja permitir?</string>
+    <string name= "alert_import_data_subtitle">Para realizar o download dos arquivos contendo os dados necessários, o nosso aplicativo precisa acessar o Google Drive. Essa permissão é solicitada para garantir que possamos recuperar os arquivos de maneira segura e eficiente, proporcionando a melhor experiência para você, lembrando que todos os dados atuais podem ser apagados no aplicativo, essa ação é irreversível, deseja permitir?</string>
 
     <!-- TopBar -->
     <string name= "bottomsheet_ajustes_dark_mode">Modo Escuro</string>
