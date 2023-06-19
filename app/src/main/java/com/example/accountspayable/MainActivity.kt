@@ -441,7 +441,7 @@ class MainActivity : ComponentActivity() {
                                         },
                                         wait = {
                                             runOnUiThread {
-                                                Toast.makeText(context, R.string.toast_archive_import_wait, Toast.LENGTH_LONG).show()
+                                                Toast.makeText(context, R.string.toast_archive_import_wait, Toast.LENGTH_SHORT).show()
                                             }
                                             model.isLoading.value = true
                                         }

@@ -237,9 +237,8 @@ class GoogleDriveService(
                     )
 
                 }
+                finished()
             }
-
-            finished()
 
         }
 

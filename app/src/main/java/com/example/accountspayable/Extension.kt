@@ -8,10 +8,16 @@ import android.os.Build
 import android.os.Environment
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import java.io.File
 import java.time.LocalDateTime
 import java.time.YearMonth
@@ -263,6 +269,24 @@ fun getDaysInMonth(): Int {
 
     return yearMonthObject.lengthOfMonth() - 1
 
+}
+
+@Composable
+fun OnLifecycleEvent(onEvent: (owner: LifecycleOwner, event: Lifecycle.Event) -> Unit) {
+    val eventHandler = rememberUpdatedState(onEvent)
+    val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
+
+    DisposableEffect(lifecycleOwner.value) {
+        val lifecycle = lifecycleOwner.value.lifecycle
+        val observer = LifecycleEventObserver { owner, event ->
+            eventHandler.value(owner, event)
+        }
+
+        lifecycle.addObserver(observer)
+        onDispose {
+            lifecycle.removeObserver(observer)
+        }
+    }
 }
 
 fun restartApp(context: Context){

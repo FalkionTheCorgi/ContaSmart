@@ -25,9 +25,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.Lifecycle
 import com.example.accountspayable.DataStore.DataStore
 import com.example.accountspayable.GoogleDrive.GoogleDriveService
 import com.example.accountspayable.MainActivityViewModel
+import com.example.accountspayable.OnLifecycleEvent
 import com.example.accountspayable.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -85,6 +87,13 @@ fun BottomSheetAjustes(
             }
         }else{
             Log.d("CODE ERROR GOOGLE API", result.resultCode.toString())
+        }
+    }
+
+    OnLifecycleEvent{ owner, event ->
+        when (event) {
+            Lifecycle.Event.ON_RESUME -> { notification.value = NotificationManagerCompat.from(context).areNotificationsEnabled() }
+            else                      -> { /* other stuff */ }
         }
     }
 
@@ -215,8 +224,6 @@ fun BottomSheetAjustes(
                 openDialog.value = false
             }
         )
-
-
 
     }
 
