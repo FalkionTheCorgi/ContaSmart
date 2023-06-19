@@ -434,14 +434,14 @@ class MainActivity : ComponentActivity() {
                                         },
                                         failure = {
                                             runOnUiThread {
-                                                Toast.makeText(context, "Sem dados salvos na sua conta do google drive", Toast.LENGTH_LONG).show()
+                                                Toast.makeText(context, R.string.toast_no_archive_google_drive, Toast.LENGTH_LONG).show()
                                             }
                                             model.isLoading.value = false
                                             model.openAlert.value = AlertTypes.NONE
                                         },
                                         wait = {
                                             runOnUiThread {
-                                                Toast.makeText(context, "Aguarde", Toast.LENGTH_LONG).show()
+                                                Toast.makeText(context, R.string.toast_archive_import_wait, Toast.LENGTH_LONG).show()
                                             }
                                             model.isLoading.value = true
                                         }

@@ -17,6 +17,8 @@
     <string name="toast_please_import_data_start">Importando dados...</string>
     <string name="toast_please_import_data_finished">Dados importados com sucesso.</string>
     <string name="toast_google_login_error">Erro ao fazer login com o Google!</string>
+    <string name="toast_no_archive_google_drive">Sem dados salvos na sua conta do Google Drive!</string>
+    <string name="toast_archive_import_wait">Aguarde</string>
 
     <!-- BillingClient -->
     <string name = "billing_client_process">Processando...</string>
@@ -186,5 +188,9 @@
     <string name="google_app_measurement_local" translatable="false">google_app_measurement_local.db</string>
     <string name="com_google_android_datatransport_events" translatable="false">com.google.android.datatransport.events</string>
     <string name="mime_type_folder" translatable="false">application/vnd.google-apps.folder</string>
+
+    <!-- Notification Worker -->
+    <string name="deadline_text_warning">Você tem contas próximas a data de vencimento</string>
+    <string name="channel_text_description">Notificação usada para alertar ao usuário sobre data de vencimento</string>
 
 </resources>

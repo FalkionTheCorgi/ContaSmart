@@ -1,26 +1,31 @@
 package com.example.accountspayable.WorkManager
 
 import android.content.Context
+import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.example.accountspayable.DataStore.DataStore
 import com.example.accountspayable.GoogleDrive.GoogleDriveService
 import com.example.accountspayable.Room.BackupDataBase
+import kotlinx.coroutines.flow.first
 import org.koin.core.parameter.parametersOf
 
 class UploadDataBase(appContext: Context, workerParams: WorkerParameters):
-    Worker(appContext, workerParams) {
+    CoroutineWorker(appContext, workerParams) {
 
     val googleDrive : GoogleDriveService = GoogleDriveService(appContext)
+    val dataStore: DataStore = DataStore(appContext)
 
-    override fun doWork(): Result {
+    override suspend fun doWork(): Result {
 
-        /*backupDataBase.exportDatabase(
-            context = applicationContext
-        )*/
+            /*backupDataBase.exportDatabase(
+                context = applicationContext
+            )*/
+            if(dataStore.getBackupMode.first()) {
+                googleDrive.uploadFile(applicationContext)
+            }
 
-        googleDrive.uploadFile(applicationContext)
-
-        return Result.success()
+            return Result.success()
 
     }
 

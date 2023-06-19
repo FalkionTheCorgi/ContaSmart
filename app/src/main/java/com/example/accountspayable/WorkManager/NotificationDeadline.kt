@@ -20,9 +20,6 @@ import com.example.accountspayable.Room.DataBase
 class NotificationDeadline(appContext: Context, workerParams: WorkerParameters):
     CoroutineWorker(appContext, workerParams) {
 
-
-
-    @SuppressLint("MissingPermission")
     override suspend fun doWork(): Result {
 
         val items = DataBase.getDataBase(applicationContext).item()
@@ -43,8 +40,8 @@ class NotificationDeadline(appContext: Context, workerParams: WorkerParameters):
 
             val builder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_stat_cs)
-                .setContentTitle("Aviso")
-                .setContentText("Você tem contas próximas a data de vencimento")
+                .setContentTitle(applicationContext.getString(R.string.notice))
+                .setContentText(applicationContext.getString(R.string.deadline_text_warning))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
             builder.setContentIntent(pendingIntent).setAutoCancel(true)
@@ -75,7 +72,7 @@ class NotificationDeadline(appContext: Context, workerParams: WorkerParameters):
             name,
             NotificationManager.IMPORTANCE_DEFAULT
         )
-        nChannel.description = "Notificação usada para alertar ao usuário sobre data de vencimento"
+        nChannel.description = applicationContext.getString(R.string.channel_text_description)
 
         val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

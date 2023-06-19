@@ -17,6 +17,8 @@
     <string name="toast_please_import_data_start">Importing data...</string>
     <string name="toast_please_import_data_finished">Data imported successfully.</string>
     <string name="toast_google_login_error">Google login error!</string>
+    <string name="toast_no_archive_google_drive">No data saved in your Google Drive account!</string>
+    <string name="toast_archive_import_wait">Please wait</string>
 
     <!-- AlertDialog -->
     <string name="notice">Notice</string>
@@ -178,4 +180,9 @@
     <string name="october">October</string>
     <string name="november">November</string>
     <string name="december">December</string>
+
+    <!-- Notification Worker -->
+    <string name="deadline_text_warning">You have accounts approaching the expiration date</string>
+    <string name="channel_text_description">Notification used to alert the user about the expiration date</string>
+
 </resources>
