@@ -357,7 +357,7 @@ class MainActivity : ComponentActivity() {
                             FloatingActionButton(
                                 onClick = {
                                     coroutineScope.launch {
-                                        if (cardSumModel.state.dataSummary.isNotEmpty()) {
+                                        if (cardSumModel.state.dataSummary != null) {
                                             model.bottomSheetType.value = BottomSheetTypes.ADD
                                             bottomSheetState.show()
                                         } else {

@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.accountspayable.BottomSheet.Summary.BottomSheetSummaryViewModel
 import com.example.accountspayable.Components.FKButtonProgress
+import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
 import com.example.accountspayable.MainActivityViewModel
 import com.example.accountspayable.R
@@ -192,14 +193,14 @@ fun BottomSheetSummary(
 
                    model.addSummary(
                        context = context,
-                       month = activityViewModel.monthSelected.value ?: 1,
-                       year = activityViewModel.yearSelected.value ?: 2023,
+                       month = GlobalVariables.monthSelected.value ?: 1,
+                       year = GlobalVariables.yearSelected.value ?: 2023,
                        onSuccess = {
                            scope.launch {
                                modelCard.onAppearCardSummary(
                                    context = context,
-                                   year = activityViewModel.yearSelected.value ?: 2023,
-                                   month = activityViewModel.monthSelected.value ?: 1
+                                   year = GlobalVariables.yearSelected.value ?: 2023,
+                                   month = GlobalVariables.monthSelected.value ?: 1
                                )
                            }
                            callBack.invoke()

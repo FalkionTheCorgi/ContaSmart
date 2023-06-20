@@ -23,7 +23,7 @@ android {
         applicationId "com.finance.contasmart"
         minSdk 26
         targetSdk 33
-        versionCode 32
+        versionCode 33
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -174,5 +174,8 @@ dependencies {
         exclude module: 'guava-jdk5'
     }
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+
+    //lifecyclescope
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
 
 }

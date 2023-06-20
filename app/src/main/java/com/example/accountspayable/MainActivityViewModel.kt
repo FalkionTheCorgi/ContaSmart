@@ -60,8 +60,6 @@ class MainActivityViewModel: ViewModel(){
     var updateSummaryAllPerson = mutableStateOf(false)
     var resetCardSummary = mutableStateOf(false)
     var updateBottomSheet = mutableStateOf(false)
-    var monthSelected = mutableStateOf(getTodayDate()?.monthValue)
-    var yearSelected = mutableStateOf(getTodayDate()?.year)
     var openAlert = mutableStateOf(AlertTypes.NONE)
 
     var darkMode = mutableStateOf(false)

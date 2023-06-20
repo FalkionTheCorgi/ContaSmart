@@ -29,8 +29,11 @@ import androidx.compose.ui.unit.toSize
 import com.example.accountspayable.*
 import com.example.accountspayable.BottomSheet.Item.BottomSheetViewModel
 import com.example.accountspayable.Components.FKButtonProgress
+import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
 import com.example.accountspayable.R
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -126,10 +129,10 @@ fun AddItemScreen(
             description = description,
             isEdit = isEdit,
             vencimento = vencimento,
-            person1 = if(modelSummary.state.dataSummary.isNotEmpty()) { modelSummary.state.dataSummary.first().person1 } else { "" } ,
-            person2 = if(modelSummary.state.dataSummary.isNotEmpty()) { modelSummary.state.dataSummary.first().person2 } else { "" } ,
-            person3 = if(modelSummary.state.dataSummary.isNotEmpty()) { modelSummary.state.dataSummary.first().person3 } else { "" } ,
-            person4 = if(modelSummary.state.dataSummary.isNotEmpty()) { modelSummary.state.dataSummary.first().person4 } else { "" } ,
+            person1 = modelSummary.state.dataSummary.first()?.person1 ?: "" ,
+            person2 = modelSummary.state.dataSummary.first()?.person2 ?: "" ,
+            person3 = modelSummary.state.dataSummary.first()?.person3 ?: "" ,
+            person4 = modelSummary.state.dataSummary.first()?.person4 ?: "" ,
             checkedPerson1 = person1.isNotEmpty(),
             checkedPerson2 = person2.isNotEmpty(),
             checkedPerson3 = person3.isNotEmpty(),
@@ -264,14 +267,14 @@ fun AddItemScreen(
             ) {
 
                 model.addItem(
-                    month = activityViewModel.monthSelected.value ?: 1,
-                    year = activityViewModel.yearSelected.value ?: 2023,
+                    month = GlobalVariables.monthSelected.value ?: 1,
+                    year = GlobalVariables.yearSelected.value ?: 2023,
                     onSuccess = {
                         scope.launch {
                             listModel.onAppearScreen(
                                 context,
-                                month = activityViewModel.monthSelected.value ?: 1,
-                                year = activityViewModel.yearSelected.value ?: 2023
+                                month = GlobalVariables.monthSelected.value ?: 1,
+                                year = GlobalVariables.yearSelected.value ?: 2023
                             )
                             activityViewModel.updateBottomSheet.value = true
                             activityViewModel.updateSummaryAllPerson.value = true
@@ -293,8 +296,8 @@ fun AddItemScreen(
                         scope.launch {
                             listModel.onAppearScreen(
                                 context,
-                                month = activityViewModel.monthSelected.value ?: 1,
-                                year = activityViewModel.yearSelected.value ?: 2023
+                                month = GlobalVariables.monthSelected.value ?: 1,
+                                year = GlobalVariables.yearSelected.value ?: 2023
                             )
                             activityViewModel.updateBottomSheet.value = true
                             activityViewModel.updateSummaryAllPerson.value = true
@@ -415,6 +418,7 @@ fun CheckBoxPeople(){
 
     val model : BottomSheetViewModel = koinViewModel()
     val modelSummary : CardSummaryViewModel = koinViewModel()
+    val card by modelSummary.state.dataSummary.collectAsState(initial = null)
 
 
     if(model.state.dataSummary.isNotEmpty()){
@@ -424,8 +428,8 @@ fun CheckBoxPeople(){
         ) {
 
             if(
-                modelSummary.state.dataSummary.isNotEmpty() &&
-                modelSummary.state.dataSummary.first().person1.isNotEmpty()
+                card != null &&
+                card?.person1?.isNotEmpty() == true
             ) {
 
                 Row(
@@ -442,18 +446,20 @@ fun CheckBoxPeople(){
 
                     Spacer(modifier = Modifier.width(4.dp))
 
-                    Text(
-                        text = modelSummary.state.dataSummary.first().person1.replaceFirstChar(Char::uppercase),
-                        modifier = Modifier.padding(top = 2.dp, start = 2.dp)
-                    )
+                    card?.person1?.replaceFirstChar(Char::uppercase)?.let {
+                        Text(
+                            text = it,
+                            modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                        )
+                    }
 
                 }
 
             }
 
             if(
-                modelSummary.state.dataSummary.isNotEmpty() &&
-                modelSummary.state.dataSummary.first().person2.isNotEmpty()
+                card != null &&
+                card?.person2?.isNotEmpty() == true
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth()
@@ -471,17 +477,19 @@ fun CheckBoxPeople(){
 
                     Spacer(modifier = Modifier.width(4.dp))
 
-                    Text(
-                        text = modelSummary.state.dataSummary.first().person2.replaceFirstChar(Char::uppercase),
-                        modifier = Modifier.padding(top = 2.dp, start = 2.dp)
-                    )
+                    card?.person2?.replaceFirstChar(Char::uppercase)?.let {
+                        Text(
+                            text = it,
+                            modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                        )
+                    }
 
                 }
             }
 
             if(
-                modelSummary.state.dataSummary.isNotEmpty() &&
-                modelSummary.state.dataSummary.first().person3.isNotEmpty()
+                card != null &&
+                card?.person3?.isNotEmpty() == true
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth()
@@ -500,16 +508,18 @@ fun CheckBoxPeople(){
 
                     Spacer(modifier = Modifier.width(4.dp))
 
-                    Text(
-                        text = modelSummary.state.dataSummary.first().person3.replaceFirstChar(Char::uppercase),
-                        modifier = Modifier.padding(top = 2.dp, start = 2.dp)
-                    )
+                    card?.person3?.replaceFirstChar(Char::uppercase)?.let {
+                        Text(
+                            text = it,
+                            modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                        )
+                    }
 
                 }
             }
             if(
-                modelSummary.state.dataSummary.isNotEmpty() &&
-                modelSummary.state.dataSummary.first().person4.isNotEmpty()
+                card != null &&
+                card?.person4?.isNotEmpty() == true
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth()
@@ -527,10 +537,12 @@ fun CheckBoxPeople(){
 
                     Spacer(modifier = Modifier.width(4.dp))
 
-                    Text(
-                        text = modelSummary.state.dataSummary.first().person4.replaceFirstChar(Char::uppercase),
-                        modifier = Modifier.padding(top = 2.dp, start = 2.dp)
-                    )
+                    card?.person4?.replaceFirstChar(Char::uppercase)?.let {
+                        Text(
+                            text = it,
+                            modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                        )
+                    }
 
                 }
             }

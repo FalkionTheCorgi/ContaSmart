@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.accountspayable.Room.Item.ItemEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SummaryDao {
@@ -16,7 +17,7 @@ interface SummaryDao {
     suspend fun getSummaryById(id: Int): SummaryEntity?
 
     @Query("SELECT * FROM summary WHERE month = :month AND year = :year")
-    suspend fun getASummaryByMonthAndYear(month: Int, year: Int): List<SummaryEntity>
+    fun getASummaryByMonthAndYear(month: Int, year: Int): Flow<SummaryEntity?>
 
     @Insert
     suspend fun insertSummary(summary: SummaryEntity)

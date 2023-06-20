@@ -1,5 +1,6 @@
 package com.example.accountspayable.List
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -18,133 +19,50 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.accountspayable.*
+import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.List.Cards.Summary.AlertDialogSummary
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
 import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataSummary
+import com.example.accountspayable.Room.Data.MonthYear
+import com.example.accountspayable.Room.DataBase
+import com.example.accountspayable.Room.Summary.SummaryEntity
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
+@SuppressLint("FlowOperatorInvokedInComposition")
 @Composable
 fun CardSummary() {
 
     val model: CardSummaryViewModel = koinViewModel()
-    val activityViewModel: MainActivityViewModel = koinViewModel()
     val context = LocalContext.current
+    val card by model.state.dataSummary.collectAsState(initial = null)
 
-    LaunchedEffect(true){
+    LaunchedEffect(
+        key1 = GlobalVariables.monthSelected.value,
+        GlobalVariables.yearSelected.value
+    ){
 
-        model.onAppearCardSummary(
-            context = context,
-            year = activityViewModel.yearSelected.value ?: 2023,
-            month = activityViewModel.monthSelected.value ?: 1
-        )
-
-    }
-
-    LaunchedEffect(activityViewModel.resetCardSummary.value){
-
-        if (activityViewModel.resetCardSummary.value){
-
-            model.onAppearCardSummary(
-                context = context,
-                month = activityViewModel.monthSelected.value ?: 1,
-                year = activityViewModel.yearSelected.value ?: 2023
-            )
-
-            activityViewModel.resetCardSummary.value = false
-        }
-
-
-    }
-
-    LaunchedEffect(activityViewModel.updateSummaryPerson1.value){
-
-        if(activityViewModel.updateSummaryPerson1.value){
-
-            model.updateValueOfPerson1(
-                context = context,
-                year = activityViewModel.yearSelected.value ?: 2023,
-                month = activityViewModel.monthSelected.value ?: 1
-            )
-
-            activityViewModel.updateSummaryPerson1.value = false
-
+        model.state.dataSummary.transform {
+            emit(it)
+            card = it
         }
 
     }
 
-    LaunchedEffect(activityViewModel.updateSummaryPerson2.value){
+    if(card != null) {
 
-        if(activityViewModel.updateSummaryPerson2.value){
-
-            model.updateValueOfPerson2(
-                context = context,
-                year = activityViewModel.yearSelected.value ?: 2023,
-                month = activityViewModel.monthSelected.value ?: 1
+        card?.let {
+            CardSummaryExist(
+                year = GlobalVariables.yearSelected.value.toString(),
+                month = GlobalVariables.monthSelected.value.toString(),
+                obj = it
             )
-
-
-            activityViewModel.updateSummaryPerson2.value = false
-
         }
-
-    }
-
-    LaunchedEffect(activityViewModel.updateSummaryPerson3.value){
-
-        if(activityViewModel.updateSummaryPerson3.value){
-
-            model.updateValueOfPerson3(
-                context = context,
-                year = activityViewModel.yearSelected.value ?: 2023,
-                month = activityViewModel.monthSelected.value ?: 1
-            )
-
-            activityViewModel.updateSummaryPerson3.value = false
-
-        }
-
-    }
-
-    LaunchedEffect(activityViewModel.updateSummaryPerson4.value){
-
-        if(activityViewModel.updateSummaryPerson4.value){
-
-            model.updateValueOfPerson4(
-                context = context,
-                year = activityViewModel.yearSelected.value ?: 2023,
-                month = activityViewModel.monthSelected.value ?: 1
-            )
-
-            activityViewModel.updateSummaryPerson4.value = false
-
-        }
-
-    }
-
-    LaunchedEffect(activityViewModel.updateSummaryAllPerson.value){
-
-        if(activityViewModel.updateSummaryAllPerson.value){
-
-            model.updateAllValuesOfPerson(
-                context = context,
-                year = activityViewModel.yearSelected.value ?: 2023,
-                month = activityViewModel.monthSelected.value ?: 1
-            )
-
-            activityViewModel.updateSummaryAllPerson.value = false
-
-        }
-
-    }
-
-    if(model.state.dataSummary.isNotEmpty()) {
-
-        CardSummaryExist(
-            year = activityViewModel.yearSelected.value.toString(),
-            month = activityViewModel.monthSelected.value.toString()
-        )
 
     } else {
 
@@ -205,7 +123,8 @@ fun CardSummaryNotExist(){
 @Composable
 fun CardSummaryExist(
     year: String,
-    month: String
+    month: String,
+    obj: SummaryEntity
 ){
 
     var expandItem by remember {
@@ -276,7 +195,7 @@ fun CardSummaryExist(
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = stringResource(id = R.string.summary_receipt,String.format("%.2f", model.state.dataSummary.first().revenue)),
+                            text = stringResource(id = R.string.summary_receipt,String.format("%.2f", obj.revenue)),
                             modifier = Modifier.padding(top = 3.dp),
                             color = MaterialTheme.colors.secondary
                         )
@@ -325,10 +244,10 @@ fun CardSummaryExist(
 
                     Spacer(modifier = Modifier.height(8.dp))
                     if (
-                        model.state.dataSummary.first().person1.isNotEmpty() ||
-                        model.state.dataSummary.first().person2.isNotEmpty() ||
-                        model.state.dataSummary.first().person3.isNotEmpty() ||
-                        model.state.dataSummary.first().person4.isNotEmpty()
+                        obj.person1.isNotEmpty() ||
+                        obj.person2.isNotEmpty() ||
+                        obj.person3.isNotEmpty() ||
+                        obj.person4.isNotEmpty()
                     ) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Image(
@@ -352,11 +271,15 @@ fun CardSummaryExist(
                             )
                         }
                         Spacer(modifier = Modifier.height(8.dp))
-                        People()
+                        People(
+                            obj
+                        )
                         Spacer(modifier = Modifier.height(8.dp))
                     }
 
-                    TextButtonsEditDelete()
+                    TextButtonsEditDelete(
+                        obj
+                    )
                 }
             }
 
@@ -368,7 +291,9 @@ fun CardSummaryExist(
 }
 
 @Composable
-fun TextButtonsEditDelete(){
+fun TextButtonsEditDelete(
+    obj: SummaryEntity
+){
 
     val openDialog = remember { mutableStateOf(false) }
     val context = LocalContext.current
@@ -382,13 +307,17 @@ fun TextButtonsEditDelete(){
 
         TextButton(onClick = {
             activityViewModel.editCardSummary.value = DataSummary(
-                id = model.state.dataSummary.first().id,
-                revenue = model.state.dataSummary.first().revenue,
-                person1 = model.state.dataSummary.first().person1,
-                person2 = model.state.dataSummary.first().person2,
-                person3 = model.state.dataSummary.first().person3,
-                person4 = model.state.dataSummary.first().person4,
-                mYear = model.state.dataSummary.first().mYear
+                id = obj.id,
+                revenue = obj.revenue,
+                person1 = obj.person1,
+                person2 = obj.person2,
+                person3 = obj.person3,
+                person4 = obj.person4,
+                mYear = MonthYear(
+                    month = obj.month,
+                    year = obj.year,
+                    vencimento = 0
+                )
             )
             activityViewModel.bottomSheetType.value = BottomSheetTypes.SUMMARYEDIT
         }) {
@@ -414,8 +343,8 @@ fun TextButtonsEditDelete(){
                 scope.launch {
                     model.deleteSummaryAndItens(
                         context = context,
-                        month = activityViewModel.monthSelected.value ?: 1,
-                        year = activityViewModel.yearSelected.value ?: 2022,
+                        month = GlobalVariables.monthSelected.value ?: 1,
+                        year = GlobalVariables.yearSelected.value ?: 2022,
                         success = {
                             activityViewModel.resetCardSummary.value = true
                         }
@@ -433,14 +362,16 @@ fun TextButtonsEditDelete(){
 }
 
 @Composable
-fun People(){
+fun People(
+    obj: SummaryEntity
+){
 
     val model: CardSummaryViewModel = koinViewModel()
     val context = LocalContext.current
 
     Column(modifier = Modifier.fillMaxWidth()) {
 
-        if(model.state.dataSummary.first().person1.isNotEmpty()) {
+        if(obj.person1.isNotEmpty()) {
 
             Row(
                 modifier = Modifier.fillMaxWidth()
@@ -458,7 +389,7 @@ fun People(){
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Text(
-                    text = model.state.dataSummary.first().person1.replaceFirstChar(Char::uppercase),
+                    text = obj.person1.replaceFirstChar(Char::uppercase),
                     modifier = Modifier.padding(top = 2.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -475,7 +406,7 @@ fun People(){
 
         }
 
-        if(model.state.dataSummary.first().person2.isNotEmpty()) {
+        if(obj.person2.isNotEmpty()) {
 
             Row(
                 modifier = Modifier.fillMaxWidth()
@@ -493,7 +424,7 @@ fun People(){
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Text(
-                    text = model.state.dataSummary.first().person2.replaceFirstChar(Char::uppercase),
+                    text = obj.person2.replaceFirstChar(Char::uppercase),
                     modifier = Modifier.padding(top = 2.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -510,7 +441,7 @@ fun People(){
 
         }
 
-        if(model.state.dataSummary.first().person3.isNotEmpty()) {
+        if(obj.person3.isNotEmpty()) {
 
             Row(
                 modifier = Modifier.fillMaxWidth()
@@ -528,7 +459,7 @@ fun People(){
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Text(
-                    text = model.state.dataSummary.first().person3.replaceFirstChar(Char::uppercase),
+                    text = obj.person3.replaceFirstChar(Char::uppercase),
                     modifier = Modifier.padding(top = 2.dp),
                     color = MaterialTheme.colors.secondary
                 )
@@ -545,7 +476,7 @@ fun People(){
 
         }
 
-        if(model.state.dataSummary.first().person4.isNotEmpty()) {
+        if(obj.person4.isNotEmpty()) {
 
             Row(
                 modifier = Modifier.fillMaxWidth()
@@ -563,7 +494,7 @@ fun People(){
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Text(
-                    text = model.state.dataSummary.first().person4.replaceFirstChar(Char::uppercase),
+                    text = obj.person4.replaceFirstChar(Char::uppercase),
                     modifier = Modifier.padding(top = 2.dp),
                     color = MaterialTheme.colors.secondary
                 )

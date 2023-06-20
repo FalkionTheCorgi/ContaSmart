@@ -3,15 +3,23 @@ package com.example.accountspayable.List.Cards.Summary
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataSummary
 import com.example.accountspayable.Room.Data.MonthYear
 import com.example.accountspayable.Room.DataBase
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlin.math.ceil
 
-class CardSummaryViewModel : ViewModel() {
+class CardSummaryViewModel(
+    context: Context
+) : ViewModel() {
 
-    val state = CardSummaryState()
+    val state = CardSummaryState(
+        context = context
+    )
 
     suspend fun onAppearCardSummary(
         context: Context,
@@ -19,40 +27,11 @@ class CardSummaryViewModel : ViewModel() {
         year: Int
     ){
 
-        state.dataSummary.clear()
-
-        val summaryDao = DataBase.getDataBase(context).summary()
-
-        val summary = summaryDao.getASummaryByMonthAndYear(
+        updateAllValuesOfPerson(
+            context = context,
             month = month,
             year = year
         )
-
-        if (summary.isNotEmpty()) {
-
-            state.dataSummary.add(
-                DataSummary(
-                    id = summary[0].id,
-                    revenue = summary[0].revenue,
-                    person1 = summary[0].person1,
-                    person2 = summary[0].person2,
-                    person3 = summary[0].person3,
-                    person4 = summary[0].person4,
-                    mYear = MonthYear(
-                        month = summary[0].month,
-                        year = summary[0].year,
-                        vencimento = 0
-                    )
-                )
-            )
-
-            updateAllValuesOfPerson(
-                context = context,
-                month = month,
-                year = year
-            )
-
-        }
 
     }
 
@@ -102,8 +81,8 @@ class CardSummaryViewModel : ViewModel() {
             month = month,
             year = year,
             checkedPerson1 = false,
-            person1 = if(state.dataSummary.isNotEmpty()) { state.dataSummary.first().person1 } else { "" }
-        )
+            person1 = state.dataSummary.first()?.person1 ?: ""
+         )
 
         list.forEach {
 
@@ -128,7 +107,7 @@ class CardSummaryViewModel : ViewModel() {
             month = month,
             year = year,
             checkedPerson2 = false,
-            person2 = if(state.dataSummary.isNotEmpty()) { state.dataSummary.first().person2 } else { "" }
+            person2 = state.dataSummary.first()?.person2 ?: ""
         )
 
         list.forEach {
@@ -155,7 +134,7 @@ class CardSummaryViewModel : ViewModel() {
             month = month,
             year = year,
             checkedPerson3 = false,
-            person3 = if(state.dataSummary.isNotEmpty()) { state.dataSummary.first().person3 } else { "" }
+            person3 = state.dataSummary.first()?.person3 ?: ""
         )
 
         list.forEach {
@@ -182,7 +161,7 @@ class CardSummaryViewModel : ViewModel() {
             month = month,
             year = year,
             checkedPerson4 = false,
-            person4 = if(state.dataSummary.isNotEmpty()) { state.dataSummary.first().person4 } else { "" }
+            person4 = state.dataSummary.first()?.person4 ?: ""
         )
 
         list.forEach {
@@ -235,7 +214,11 @@ class CardSummaryViewModel : ViewModel() {
 
     fun revenueLess(despesa: Double): String {
 
-        return String.format("%.2f", state.dataSummary.first().revenue.toDouble() - despesa)
+        viewModelScope.launch {
+            String.format("%.2f", (state.dataSummary.first()?.revenue?.toDouble() ?: 0.0) - despesa)
+        }
+
+        return "0.0"
 
     }
 

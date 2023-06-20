@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
+import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.MainActivityViewModel
 import com.example.accountspayable.R
 import com.example.accountspayable.returnMonthString
@@ -28,7 +29,6 @@ fun BottomSheetCalendar(
     callBack: () -> Unit
 ) {
 
-    val activityViewModel: MainActivityViewModel = koinViewModel()
     val model: BottomSheetCalendarViewModel = koinViewModel()
 
     Column(
@@ -63,9 +63,8 @@ fun BottomSheetCalendar(
 
         Button(
             onClick = {
-                activityViewModel.monthSelected.value = model.state.monthSelected.value
-                activityViewModel.yearSelected.value = model.state.yearSelected.value
-                activityViewModel.resetCardSummary.value = true
+                GlobalVariables.monthSelected.value = model.state.monthSelected.value
+                GlobalVariables.yearSelected.value = model.state.yearSelected.value
                 callBack.invoke()
             },
             modifier = Modifier.fillMaxWidth(),
@@ -90,7 +89,6 @@ fun BottomSheetCalendar(
 fun ExposedDropdownMenuMonth() {
 
     val model: BottomSheetCalendarViewModel = koinViewModel()
-    val activityViewModel: MainActivityViewModel = koinViewModel()
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(model.state.months[0]) }
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
@@ -102,7 +100,7 @@ fun ExposedDropdownMenuMonth() {
 
     LaunchedEffect(true){
 
-        selectedText = returnMonthString(context = context,activityViewModel.monthSelected.value ?: 1)
+        selectedText = returnMonthString(context = context,GlobalVariables.monthSelected.value ?: 1)
 
     }
 
@@ -161,7 +159,6 @@ fun ExposedDropdownMenuMonth() {
 fun ExposedDropdownMenuYear() {
 
     val model: BottomSheetCalendarViewModel = koinViewModel()
-    val activityViewModel: MainActivityViewModel = koinViewModel()
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(model.state.years[0]) }
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
@@ -172,7 +169,7 @@ fun ExposedDropdownMenuYear() {
 
     LaunchedEffect(true){
 
-        selectedText = activityViewModel.yearSelected.value.toString()
+        selectedText = GlobalVariables.yearSelected.value.toString()
 
     }
 
