@@ -16,14 +16,12 @@ class BottomSheetViewModel(
     application: Application
 ) : ViewModel() {
 
-    @SuppressLint("StaticFieldLeak")
-    val context: Context = application.applicationContext
-
     val state = BottomSheetState(
         application
     )
 
     suspend fun addItem(
+        context: Context,
         month: Int,
         year: Int,
         onSuccess: () -> Unit,
@@ -91,6 +89,7 @@ class BottomSheetViewModel(
     }
 
     suspend fun editItem(
+        context: Context,
         checkBefore1: Boolean,
         checkBefore2: Boolean,
         checkBefore3: Boolean,
@@ -198,6 +197,7 @@ class BottomSheetViewModel(
     }
 
     fun onAppearBtmSheet(
+        context: Context,
         itemName: String,
         price: String,
         description: String,

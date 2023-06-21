@@ -66,20 +66,6 @@ fun CardItemPayable(
 
     }
 
-    LaunchedEffect(activityViewModel.updateBottomSheet.value){
-
-        if (activityViewModel.updateBottomSheet.value) {
-            cardModel.fillCheckPerson(
-                check1 = check1,
-                check2 = check2,
-                check3 = check3,
-                check4 = check4
-            )
-            activityViewModel.updateBottomSheet.value = false
-        }
-
-    }
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -205,7 +191,7 @@ fun CardItemPayable(
                                 activityViewModel.editCardObj.value = DataItem(
                                     id = idCard,
                                     name = title,
-                                    valor = valor.toDouble(),
+                                    valor = valor,
                                     descricao = descricao,
                                     icon = icon,
                                     person1 = person1,
@@ -237,7 +223,6 @@ fun CardItemPayable(
                                     context = context,
                                     id = idCard
                                 )
-                                activityViewModel.resetCardSummary.value = true
                             }
                         }) {
                             Text(stringResource(id = R.string.delete), color = MaterialTheme.colors.primary)
@@ -264,7 +249,6 @@ fun Dividido(
 ){
 
     val model: CardItemPayableViewModel = koinViewModel()
-    val activityViewModel: MainActivityViewModel = koinViewModel()
 
     val scope = rememberCoroutineScope()
     val context =  LocalContext.current
@@ -338,7 +322,6 @@ fun Dividido(
                                 context = context,
                                 id = idCard
                             )
-                            activityViewModel.updateSummaryPerson1.value = true
                         }
                     },
                     modifier = Modifier.padding(end = 8.dp)
@@ -385,7 +368,6 @@ fun Dividido(
                                 context = context,
                                 id = idCard
                             )
-                            activityViewModel.updateSummaryPerson2.value = true
                         }
                     },
                     modifier = Modifier.padding(end = 8.dp)
@@ -434,7 +416,6 @@ fun Dividido(
                                 context = context,
                                 id = idCard
                             )
-                            activityViewModel.updateSummaryPerson3.value = true
                         }
                     },
                     modifier = Modifier.padding(end = 8.dp)
@@ -481,7 +462,6 @@ fun Dividido(
                                 context = context,
                                 id = idCard
                             )
-                            activityViewModel.updateSummaryPerson4.value = true
                         }
                     },
                     modifier = Modifier.padding(end = 8.dp)

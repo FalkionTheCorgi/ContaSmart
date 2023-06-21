@@ -428,7 +428,6 @@ class MainActivity : ComponentActivity() {
                                             runOnUiThread {
                                                 Toast.makeText(context, R.string.toast_please_import_data_finished, Toast.LENGTH_LONG).show()
                                             }
-                                            model.resetCardSummary.value = true
                                             model.isLoading.value = false
                                             model.openAlert.value = AlertTypes.NONE
                                         },

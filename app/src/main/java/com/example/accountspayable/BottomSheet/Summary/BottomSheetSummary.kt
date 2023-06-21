@@ -48,8 +48,6 @@ fun BottomSheetSummary(
 ){
 
     val model: BottomSheetSummaryViewModel = koinViewModel()
-    val modelCard: CardSummaryViewModel = koinViewModel()
-    val activityViewModel: MainActivityViewModel = koinViewModel()
 
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -57,6 +55,7 @@ fun BottomSheetSummary(
     LaunchedEffect(true){
 
         model.onAppearBtmSheetSummary(
+            context = context,
             isEdit = isEdit,
             revenue = revenue,
             person1 = person1,
@@ -196,13 +195,6 @@ fun BottomSheetSummary(
                        month = GlobalVariables.monthSelected.value ?: 1,
                        year = GlobalVariables.yearSelected.value ?: 2023,
                        onSuccess = {
-                           scope.launch {
-                               modelCard.onAppearCardSummary(
-                                   context = context,
-                                   year = GlobalVariables.yearSelected.value ?: 2023,
-                                   month = GlobalVariables.monthSelected.value ?: 1
-                               )
-                           }
                            callBack.invoke()
                        }
                    )
@@ -213,7 +205,6 @@ fun BottomSheetSummary(
                         id = id,
                         context = context,
                         onSuccess = {
-                            activityViewModel.resetCardSummary.value = true
                             callBack.invoke()
                         }
                     )

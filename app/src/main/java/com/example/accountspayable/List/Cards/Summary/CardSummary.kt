@@ -39,20 +39,7 @@ import org.koin.androidx.compose.koinViewModel
 fun CardSummary() {
 
     val model: CardSummaryViewModel = koinViewModel()
-    val context = LocalContext.current
     val card by model.state.dataSummary.collectAsState(initial = null)
-
-    LaunchedEffect(
-        key1 = GlobalVariables.monthSelected.value,
-        GlobalVariables.yearSelected.value
-    ){
-
-        model.state.dataSummary.transform {
-            emit(it)
-            card = it
-        }
-
-    }
 
     if(card != null) {
 
@@ -212,7 +199,7 @@ fun CardSummaryExist(
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = stringResource(id = R.string.summary_expenditure, String.format("%.2f", listModel.sumExpenditure())),
+                            text = stringResource(id = R.string.summary_expenditure, String.format("%.2f", model.state.expenditure.value)),
                             modifier = Modifier.padding(top = 3.dp),
                             color = MaterialTheme.colors.secondary
                         )
@@ -233,7 +220,7 @@ fun CardSummaryExist(
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = stringResource(id = R.string.summary_remaining, model.revenueLess(listModel.sumExpenditure())) ,
+                            text = stringResource(id = R.string.summary_remaining, model.revenueLess(model.state.expenditure.value)) ,
                             modifier = Modifier.padding(top = 3.dp),
                             color = MaterialTheme.colors.secondary
                         )
@@ -346,7 +333,6 @@ fun TextButtonsEditDelete(
                         month = GlobalVariables.monthSelected.value ?: 1,
                         year = GlobalVariables.yearSelected.value ?: 2022,
                         success = {
-                            activityViewModel.resetCardSummary.value = true
                         }
                     )
                     openDialog.value = false
@@ -486,8 +472,8 @@ fun People(
                     painter = painterResource(id = R.drawable.icon_person),
                     contentDescription = stringResource(id = R.string.icon_people),
                     modifier = Modifier
-                        .width(20.dp)
-                        .height(20.dp)
+                        .width(24.dp)
+                        .height(24.dp)
                         .padding(start = 8.dp)
                 )
 

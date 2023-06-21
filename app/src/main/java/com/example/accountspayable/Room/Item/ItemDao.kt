@@ -1,12 +1,13 @@
 package com.example.accountspayable.Room.Item
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ItemDao {
 
     @Query("SELECT * FROM items")
-    suspend fun getAllItems(): List<ItemEntity>
+    fun getAllItems(): Flow<List<ItemEntity>>
 
     @Query("SELECT * FROM items WHERE id = :id")
     suspend fun getItemById(id: Int): ItemEntity?
@@ -15,7 +16,7 @@ interface ItemDao {
     suspend fun getItemByName(name: String): ItemEntity?
 
     @Query("SELECT * FROM items WHERE month = :month AND year = :year")
-    suspend fun getAllItemsByMonthAndYear(month: Int, year: Int): List<ItemEntity>
+    fun getAllItemsByMonthAndYear(month: Int, year: Int): Flow<List<ItemEntity>>
 
     @Query("SELECT * FROM items WHERE vencimento >= :todayData AND vencimento <= :vencimento AND month = :month AND year = :year")
     suspend fun getAllItemsByDeadlineTomorrow(
@@ -25,17 +26,8 @@ interface ItemDao {
         year: Int
     ): List<ItemEntity>
 
-    @Query("SELECT * FROM items WHERE month = :month AND year = :year AND checkedPerson1 = :checkedPerson1 AND person1 = :person1")
-    suspend fun getAllItemsByPersonChecked1(month: Int, year: Int, checkedPerson1: Boolean, person1: String): List<ItemEntity>
-
-    @Query("SELECT * FROM items WHERE month = :month AND year = :year AND checkedPerson2 = :checkedPerson2 AND person2 = :person2")
-    suspend fun getAllItemsByPersonChecked2(month: Int, year: Int, checkedPerson2: Boolean, person2: String): List<ItemEntity>
-
-    @Query("SELECT * FROM items WHERE month = :month AND year = :year AND checkedPerson3 = :checkedPerson3 AND person3 = :person3")
-    suspend fun getAllItemsByPersonChecked3(month: Int, year: Int, checkedPerson3: Boolean, person3: String): List<ItemEntity>
-
-    @Query("SELECT * FROM items WHERE month = :month AND year = :year AND checkedPerson4 = :checkedPerson4 AND person4 = :person4")
-    suspend fun getAllItemsByPersonChecked4(month: Int, year: Int, checkedPerson4: Boolean, person4: String): List<ItemEntity>
+    @Query("SELECT * FROM items WHERE (month = :month AND year = :year) AND ((checkedPerson1 = :checkedPerson1 AND person1 = :person1) OR (checkedPerson2 = :checkedPerson2 AND person2 = :person2) OR (checkedPerson3 = :checkedPerson3 AND person3 = :person3) OR (checkedPerson4 = :checkedPerson4 AND person4 = :person4))")
+    fun getAllItemsByPersonChecked(month: Int, year: Int, checkedPerson1: Boolean, person1: String, checkedPerson2: Boolean, person2: String, checkedPerson3: Boolean, person3: String, checkedPerson4: Boolean, person4: String): Flow<List<ItemEntity>>
 
     @Insert
     suspend fun insertItem(item: ItemEntity)

@@ -140,7 +140,7 @@ fun ExposedDropdownMenuMonth() {
             model.state.months.forEach { label ->
                 DropdownMenuItem(onClick = {
                     selectedText = label
-                    model.state.monthSelected.value = model.returnMonth(label)
+                    model.state.monthSelected.value = model.returnMonth(context, label)
                     expanded = false
                 }) {
                     Row(modifier = Modifier.fillMaxWidth()) {

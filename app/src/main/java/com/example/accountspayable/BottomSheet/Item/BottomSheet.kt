@@ -123,16 +123,17 @@ fun AddItemScreen(
     LaunchedEffect(true){
 
         model.onAppearBtmSheet(
+            context = context,
             icon = iconSelected,
             itemName = itemName,
             price = price,
             description = description,
             isEdit = isEdit,
             vencimento = vencimento,
-            person1 = modelSummary.state.dataSummary.first()?.person1 ?: "" ,
-            person2 = modelSummary.state.dataSummary.first()?.person2 ?: "" ,
-            person3 = modelSummary.state.dataSummary.first()?.person3 ?: "" ,
-            person4 = modelSummary.state.dataSummary.first()?.person4 ?: "" ,
+            person1 = modelSummary.state.dataSummary.value?.person1 ?: "" ,
+            person2 = modelSummary.state.dataSummary.value?.person2 ?: "" ,
+            person3 = modelSummary.state.dataSummary.value?.person3 ?: "" ,
+            person4 = modelSummary.state.dataSummary.value?.person4 ?: "" ,
             checkedPerson1 = person1.isNotEmpty(),
             checkedPerson2 = person2.isNotEmpty(),
             checkedPerson3 = person3.isNotEmpty(),
@@ -267,19 +268,11 @@ fun AddItemScreen(
             ) {
 
                 model.addItem(
+                    context = context,
                     month = GlobalVariables.monthSelected.value ?: 1,
                     year = GlobalVariables.yearSelected.value ?: 2023,
                     onSuccess = {
-                        scope.launch {
-                            listModel.onAppearScreen(
-                                context,
-                                month = GlobalVariables.monthSelected.value ?: 1,
-                                year = GlobalVariables.yearSelected.value ?: 2023
-                            )
-                            activityViewModel.updateBottomSheet.value = true
-                            activityViewModel.updateSummaryAllPerson.value = true
-                            callBack.invoke()
-                        }
+                        callBack.invoke()
                     },
                     onFailure = {}
                 )
@@ -287,6 +280,7 @@ fun AddItemScreen(
             } else {
 
                 model.editItem(
+                    context = context,
                     id = idItem,
                     checkBefore1 = check1,
                     checkBefore2 = check2,
@@ -294,13 +288,6 @@ fun AddItemScreen(
                     checkBefore4 = check4,
                     onSuccess = {
                         scope.launch {
-                            listModel.onAppearScreen(
-                                context,
-                                month = GlobalVariables.monthSelected.value ?: 1,
-                                year = GlobalVariables.yearSelected.value ?: 2023
-                            )
-                            activityViewModel.updateBottomSheet.value = true
-                            activityViewModel.updateSummaryAllPerson.value = true
                             callBack.invoke()
                         }
                     },
@@ -420,135 +407,133 @@ fun CheckBoxPeople(){
     val modelSummary : CardSummaryViewModel = koinViewModel()
     val card by modelSummary.state.dataSummary.collectAsState(initial = null)
 
+    card?.let {group ->
+        if(model.state.dataSummary.isNotEmpty()){
 
-    if(model.state.dataSummary.isNotEmpty()){
-
-        Column(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-
-            if(
-                card != null &&
-                card?.person1?.isNotEmpty() == true
+            Column(
+                modifier = Modifier.fillMaxWidth()
             ) {
 
-                Row(
-                    modifier = Modifier.fillMaxWidth()
+                if(
+                    group.person1.isNotEmpty()
                 ) {
-                    CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
-                        Checkbox(
-                            checked = model.state.checkPerson1.value,
-                            onCheckedChange = {
-                                model.state.checkPerson1.value = it
-                            }
-                        )
-                    }
 
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
+                            Checkbox(
+                                checked = model.state.checkPerson1.value,
+                                onCheckedChange = {
+                                    model.state.checkPerson1.value = it
+                                }
+                            )
+                        }
 
-                    card?.person1?.replaceFirstChar(Char::uppercase)?.let {
-                        Text(
-                            text = it,
-                            modifier = Modifier.padding(top = 2.dp, start = 2.dp)
-                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        group.person1.replaceFirstChar(Char::uppercase).let {
+                            Text(
+                                text = it,
+                                modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                            )
+                        }
+
                     }
 
                 }
 
-            }
-
-            if(
-                card != null &&
-                card?.person2?.isNotEmpty() == true
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth()
+                if(
+                    group.person2.isNotEmpty()
                 ) {
-                    CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
 
-                        Checkbox(
-                            checked = model.state.checkPerson2.value,
-                            onCheckedChange = {
-                                model.state.checkPerson2.value = it
-                            }
-                        )
+                            Checkbox(
+                                checked = model.state.checkPerson2.value,
+                                onCheckedChange = {
+                                    model.state.checkPerson2.value = it
+                                }
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        group.person2.replaceFirstChar(Char::uppercase).let {
+                            Text(
+                                text = it,
+                                modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                            )
+                        }
 
                     }
+                }
 
-                    Spacer(modifier = Modifier.width(4.dp))
+                if(
+                    group.person3.isNotEmpty()
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
 
-                    card?.person2?.replaceFirstChar(Char::uppercase)?.let {
-                        Text(
-                            text = it,
-                            modifier = Modifier.padding(top = 2.dp, start = 2.dp)
-                        )
+                        CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
+
+                            Checkbox(
+                                checked = model.state.checkPerson3.value,
+                                onCheckedChange = {
+                                    model.state.checkPerson3.value = it
+                                }
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        group.person3.replaceFirstChar(Char::uppercase).let {
+                            Text(
+                                text = it,
+                                modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                            )
+                        }
+
                     }
+                }
+                if(
+                    group.person4.isNotEmpty()
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
 
+                            Checkbox(
+                                checked = model.state.checkPerson4.value,
+                                onCheckedChange = {
+                                    model.state.checkPerson4.value = it
+                                }
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        group.person4.replaceFirstChar(Char::uppercase).let {
+                            Text(
+                                text = it,
+                                modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                            )
+                        }
+
+                    }
                 }
             }
 
-            if(
-                card != null &&
-                card?.person3?.isNotEmpty() == true
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-
-                    CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
-
-                        Checkbox(
-                            checked = model.state.checkPerson3.value,
-                            onCheckedChange = {
-                                model.state.checkPerson3.value = it
-                            }
-                        )
-
-                    }
-
-                    Spacer(modifier = Modifier.width(4.dp))
-
-                    card?.person3?.replaceFirstChar(Char::uppercase)?.let {
-                        Text(
-                            text = it,
-                            modifier = Modifier.padding(top = 2.dp, start = 2.dp)
-                        )
-                    }
-
-                }
-            }
-            if(
-                card != null &&
-                card?.person4?.isNotEmpty() == true
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
-
-                        Checkbox(
-                            checked = model.state.checkPerson4.value,
-                            onCheckedChange = {
-                                model.state.checkPerson4.value = it
-                            }
-                        )
-
-                    }
-
-                    Spacer(modifier = Modifier.width(4.dp))
-
-                    card?.person4?.replaceFirstChar(Char::uppercase)?.let {
-                        Text(
-                            text = it,
-                            modifier = Modifier.padding(top = 2.dp, start = 2.dp)
-                        )
-                    }
-
-                }
-            }
         }
-
     }
+
 
 
 
