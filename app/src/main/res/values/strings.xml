@@ -90,7 +90,7 @@
 
     <!-- TopBar -->
     <string name= "bottomsheet_ajustes_dark_mode">Modo Escuro</string>
-    <string name= "bottomsheet_ajustes_save_data">Salvar meus dados no celular</string>
+    <string name= "bottomsheet_ajustes_save_data">Salvar meus dados no Google Drive</string>
     <string name= "bottomsheet_ajustes_receive_notification">Receber notificações</string>
 
     <!-- AlertPermissionStorage -->

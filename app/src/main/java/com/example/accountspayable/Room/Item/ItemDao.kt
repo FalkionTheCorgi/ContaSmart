@@ -10,7 +10,7 @@ interface ItemDao {
     fun getAllItems(): Flow<List<ItemEntity>>
 
     @Query("SELECT * FROM items WHERE id = :id")
-    suspend fun getItemById(id: Int): ItemEntity?
+    fun getItemById(id: Int): Flow<ItemEntity?>
 
     @Query("SELECT * FROM items WHERE itemName = :name")
     suspend fun getItemByName(name: String): ItemEntity?
@@ -46,5 +46,8 @@ interface ItemDao {
 
     @Query("DELETE FROM items WHERE id = :id")
     suspend fun deleteById(id: Int)
+
+    @Query("DELETE FROM items")
+    suspend fun deleteAllItems()
 
 }

@@ -1,6 +1,7 @@
 package com.example.accountspayable.List
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -8,21 +9,19 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.accountspayable.*
 import com.example.accountspayable.List.Cards.Item.CardItemPayableViewModel
 import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataItem
 import com.example.accountspayable.Room.Data.MonthYear
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.get
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -54,17 +53,6 @@ fun CardItemPayable(
     val cardModel: CardItemPayableViewModel = koinViewModel()
     val model: ListAccountsPayableViewModel = koinViewModel()
     val activityViewModel: MainActivityViewModel = koinViewModel()
-
-    LaunchedEffect(true){
-
-        cardModel.fillCheckPerson(
-            check1 = check1,
-            check2 = check2,
-            check3 = check3,
-            check4 = check4
-        )
-
-    }
 
     Card(
         modifier = Modifier
@@ -248,10 +236,19 @@ fun Dividido(
     person4: String
 ){
 
-    val model: CardItemPayableViewModel = koinViewModel()
+    val model: CardItemPayableViewModel = get()
 
     val scope = rememberCoroutineScope()
     val context =  LocalContext.current
+
+    LaunchedEffect(true){
+
+        model.fillCheckPerson(
+            id = idCard,
+            context = context
+        )
+
+    }
 
     Row(
         modifier = Modifier.fillMaxWidth()
@@ -322,6 +319,7 @@ fun Dividido(
                                 context = context,
                                 id = idCard
                             )
+                            Log.d("ENDEREÇO CHECKBOX", model.state.checkBoxPerson1.toString())
                         }
                     },
                     modifier = Modifier.padding(end = 8.dp)

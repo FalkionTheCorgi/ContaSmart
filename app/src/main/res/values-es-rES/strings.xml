@@ -90,7 +90,7 @@
 
     <!-- BottomSheetAjustes -->
     <string name="bottomsheet_ajustes_dark_mode">Modo oscuro</string>
-    <string name="bottomsheet_ajustes_save_data">Guardar mis datos en el dispositivo</string>
+    <string name="bottomsheet_ajustes_save_data">Guardar mis datos en el Google Drive</string>
     <string name="bottomsheet_ajustes_receive_notification">Recibir notificaciones</string>
 
     <!-- AlertPermissionStorage -->

@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -41,7 +40,6 @@ import com.example.accountspayable.GoogleDrive.GoogleDriveService
 import com.example.accountspayable.List.BottomSheetAddItem
 import com.example.accountspayable.List.Cards.Item.AlertDialogCreateSummary
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
-import com.example.accountspayable.List.ListAccountsPayableViewModel
 import com.example.accountspayable.Payment.Payment
 import com.example.accountspayable.TopBar.AlertImportData
 import com.example.accountspayable.TopBar.TopBarApp
@@ -357,7 +355,7 @@ class MainActivity : ComponentActivity() {
                             FloatingActionButton(
                                 onClick = {
                                     coroutineScope.launch {
-                                        if (cardSumModel.state.dataSummary != null) {
+                                        if (cardSumModel.state.dataSummary.value != null) {
                                             model.bottomSheetType.value = BottomSheetTypes.ADD
                                             bottomSheetState.show()
                                         } else {
@@ -460,7 +458,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun requestPermission(){
+    private fun requestPermission(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
             //Android is 11(R) or above
             try {

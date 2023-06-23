@@ -1,8 +1,15 @@
 package com.example.accountspayable.List.Cards.Item
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.accountspayable.Room.DataBase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 class CardItemPayableViewModel : ViewModel(){
 
@@ -25,17 +32,20 @@ class CardItemPayableViewModel : ViewModel(){
     }
 
     fun fillCheckPerson(
-        check1: Boolean,
-        check2: Boolean,
-        check3: Boolean,
-        check4: Boolean
+        id: Int,
+        context: Context
     ){
-
-        state.checkBoxPerson1.value = check1
-        state.checkBoxPerson2.value = check2
-        state.checkBoxPerson3.value = check3
-        state.checkBoxPerson4.value = check4
-
+        viewModelScope.launch {
+            DataBase.getDataBase(context).item().getItemById(id)
+                .flowOn(Dispatchers.IO)
+                .catch { }
+                .collect { item ->
+                    state.checkBoxPerson1.value = item?.checkedPerson1 ?: false
+                    state.checkBoxPerson2.value = item?.checkedPerson2 ?: false
+                    state.checkBoxPerson3.value = item?.checkedPerson3 ?: false
+                    state.checkBoxPerson4.value = item?.checkedPerson4 ?: false
+                }
+        }
     }
 
 

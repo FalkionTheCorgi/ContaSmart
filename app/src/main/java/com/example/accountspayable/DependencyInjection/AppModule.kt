@@ -61,40 +61,10 @@ val appModule = module {
         )
     }
 
-    single{
-        BottomSheetCalendarViewModel(
-            androidApplication()
-        )
-    }
-
-
     single {
         GoogleDriveService(
             androidContext()
         )
-    }
-
-    viewModel {
-          CardItemPayableViewModel()
-    }
-
-    viewModel{
-        BottomSheetViewModel(
-            androidApplication()
-        )
-    }
-
-    viewModel{
-        BottomSheetSummaryViewModel(
-            androidApplication()
-        )
-    }
-
-    viewModel {
-        BottomSheetSugestaoViewModel()
-    }
-    viewModel {
-        BottomSheetDonationViewModel()
     }
 
 }

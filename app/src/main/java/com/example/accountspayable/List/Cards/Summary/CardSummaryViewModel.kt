@@ -1,22 +1,18 @@
 package com.example.accountspayable.List.Cards.Summary
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.R
-import com.example.accountspayable.Room.Data.DataSummary
-import com.example.accountspayable.Room.Data.MonthYear
 import com.example.accountspayable.Room.DataBase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlin.math.ceil
 import kotlin.math.roundToLong
-
+@OptIn(ExperimentalCoroutinesApi::class)
 class CardSummaryViewModel(
     context: Context
 ) : ViewModel() {
@@ -31,7 +27,6 @@ class CardSummaryViewModel(
         updateExpenditure(context)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     fun getSummary(context: Context) {
 
         viewModelScope.launch {
@@ -53,7 +48,7 @@ class CardSummaryViewModel(
             GlobalVariables.monthSelected.combine(GlobalVariables.yearSelected) { month, year ->
                 month to year
             }.flatMapLatest { (month, year) ->
-                DataBase.getDataBase(context).item().getAllItemsByPersonChecked(
+                 /*DataBase.getDataBase(context).item().getAllItemsByPersonChecked(
                     month = month!!,
                     year = year!!,
                     checkedPerson1 = false,
@@ -64,6 +59,10 @@ class CardSummaryViewModel(
                     person3 = state.dataSummary.value?.person3 ?: "",
                     checkedPerson4 = false,
                     person4 = state.dataSummary.value?.person4 ?: ""
+                )*/
+                DataBase.getDataBase(context).item().getAllItemsByMonthAndYear(
+                    month = GlobalVariables.monthSelected.value ?: 1,
+                    year = GlobalVariables.yearSelected.value ?: 1
                 )
             }.collect { list ->
                 state.priceOfPerson1.value = 0.0
@@ -96,7 +95,10 @@ class CardSummaryViewModel(
 
         viewModelScope.launch {
 
-            DataBase.getDataBase(context).item().getAllItems()
+            DataBase.getDataBase(context).item().getAllItemsByMonthAndYear(
+                month = GlobalVariables.monthSelected.value ?: 1,
+                year = GlobalVariables.yearSelected.value ?: 1
+            )
                 .flowOn(Dispatchers.IO)
                 .catch { }
                 .collect{ items ->
@@ -109,6 +111,25 @@ class CardSummaryViewModel(
 
                 }
 
+
+        }
+
+        viewModelScope.launch {
+            GlobalVariables.monthSelected.combine(GlobalVariables.yearSelected) { month, year ->
+                month to year
+            }.flatMapLatest { (month, year) ->
+                DataBase.getDataBase(context).item().getAllItemsByMonthAndYear(
+                    month = month!!,
+                    year = year!!
+                )
+            }.collect { items ->
+                state.expenditure.value = 0.0
+                items.forEach {item ->
+
+                    state.expenditure.value += item.price
+
+                }
+            }
         }
 
     }

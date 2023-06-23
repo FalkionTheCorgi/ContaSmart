@@ -34,4 +34,7 @@ interface SummaryDao {
     @Query("DELETE FROM summary WHERE id = :id")
     suspend fun deleteSummaryById(id: Int)
 
+    @Query("DELETE FROM summary")
+    suspend fun deleteAllSummary()
+
 }
