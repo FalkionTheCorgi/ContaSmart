@@ -120,6 +120,7 @@ dependencies {
     //Koin
     implementation "io.insert-koin:koin-android:$koin_android_version"
     implementation 'io.insert-koin:koin-androidx-compose:3.4.1'
+
     //implementation 'org.koin:koin-androidx-viewmodel:3.1.2'
     implementation "androidx.compose.material3:material3:1.0.1"
     implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
@@ -130,6 +131,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
     implementation 'androidx.datastore:datastore-preferences-rxjava2:1.0.0'
     implementation 'androidx.datastore:datastore-preferences-rxjava3:1.0.0'
+    debugImplementation "androidx.compose.ui:ui-test-manifest:1.4.3"
 
     // This dependency is downloaded from the Google’s Maven repository.
     // So, make sure you also include that repository in your project's build.gradle file.

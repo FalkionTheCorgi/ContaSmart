@@ -10,6 +10,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,7 +51,6 @@ fun CardItemPayable(
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    val cardModel: CardItemPayableViewModel = koinViewModel()
     val model: ListAccountsPayableViewModel = koinViewModel()
     val activityViewModel: MainActivityViewModel = koinViewModel()
 
@@ -58,6 +58,7 @@ fun CardItemPayable(
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp)
+            .testTag(context.getString(R.string.card_item_tag))
             .clickable {
                 expandItem = !expandItem
             },
@@ -88,7 +89,9 @@ fun CardItemPayable(
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    modifier = Modifier.padding(top = 6.dp),
+                    modifier = Modifier
+                        .padding(top = 6.dp)
+                        .testTag(context.getString(R.string.card_item_value_tag)),
                     text = stringResource(id = R.string.price_item, "R$", String.format("%.2f", valor)),
                     color = MaterialTheme.colors.secondary
                 )
@@ -116,7 +119,9 @@ fun CardItemPayable(
                             Spacer(modifier = Modifier.width(2.dp))
 
                             Text(
-                                modifier = Modifier.padding(start = 6.dp, top =6.dp),
+                                modifier = Modifier
+                                    .padding(start = 6.dp, top =6.dp)
+                                    .testTag(context.getString(R.string.card_item_deadline_tag)),
                                 text = stringResource(id = R.string.day_deadline, vencimento),
                                 color = MaterialTheme.colors.secondary
                             )
@@ -144,7 +149,9 @@ fun CardItemPayable(
                             Spacer(modifier = Modifier.width(2.dp))
 
                             Text(
-                                modifier = Modifier.padding(start = 6.dp, top =6.dp),
+                                modifier = Modifier
+                                    .padding(start = 6.dp, top =6.dp)
+                                    .testTag(context.getString(R.string.card_item_description_tag)),
                                 text = stringResource(id = R.string.description_item, descricao),
                                 color = MaterialTheme.colors.secondary
                             )
@@ -303,7 +310,9 @@ fun Dividido(
 
             Text(
                 text = person1.replaceFirstChar(Char::uppercase),
-                modifier = Modifier.padding(top = 2.dp, start = 2.dp),
+                modifier = Modifier
+                    .padding(top = 2.dp, start = 2.dp)
+                    .testTag(context.getString(R.string.card_item_person1_tag)),
                 color = MaterialTheme.colors.secondary
             )
 
@@ -322,7 +331,9 @@ fun Dividido(
                             Log.d("ENDEREÇO CHECKBOX", model.state.checkBoxPerson1.toString())
                         }
                     },
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .testTag(context.getString(R.string.card_item_person1_checkbox_tag))
                 )
             }
         }
@@ -349,7 +360,9 @@ fun Dividido(
 
             Text(
                 text = person2.replaceFirstChar(Char::uppercase),
-                modifier = Modifier.padding(top = 2.dp, start = 2.dp),
+                modifier = Modifier
+                    .padding(top = 2.dp, start = 2.dp)
+                    .testTag(context.getString(R.string.card_item_person2_tag)),
                 color = MaterialTheme.colors.secondary
             )
 
@@ -368,7 +381,9 @@ fun Dividido(
                             )
                         }
                     },
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .testTag(context.getString(R.string.card_item_person2_checkbox_tag))
                 )
 
             }
@@ -397,7 +412,9 @@ fun Dividido(
 
             Text(
                 text = person3.replaceFirstChar(Char::uppercase),
-                modifier = Modifier.padding(top = 2.dp, start = 2.dp),
+                modifier = Modifier
+                    .padding(top = 2.dp, start = 2.dp)
+                    .testTag(context.getString(R.string.card_item_person3_tag)),
                 color = MaterialTheme.colors.secondary
             )
 
@@ -416,7 +433,9 @@ fun Dividido(
                             )
                         }
                     },
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .testTag(context.getString(R.string.card_item_person3_checkbox_tag))
                 )
 
             }
@@ -443,7 +462,9 @@ fun Dividido(
 
             Text(
                 text = person4.replaceFirstChar(Char::uppercase),
-                modifier = Modifier.padding(top = 2.dp, start = 2.dp),
+                modifier = Modifier
+                    .padding(top = 2.dp, start = 2.dp)
+                    .testTag(context.getString(R.string.card_item_person4_tag)),
                 color = MaterialTheme.colors.secondary
             )
 
@@ -462,7 +483,9 @@ fun Dividido(
                             )
                         }
                     },
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .testTag(context.getString(R.string.card_item_person4_checkbox_tag))
                 )
 
             }

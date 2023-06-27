@@ -13,8 +13,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,12 +28,7 @@ import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
 import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataSummary
 import com.example.accountspayable.Room.Data.MonthYear
-import com.example.accountspayable.Room.DataBase
 import com.example.accountspayable.Room.Summary.SummaryEntity
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -65,11 +63,13 @@ fun CardSummary() {
 fun CardSummaryNotExist(){
 
     val model: MainActivityViewModel = koinViewModel()
+    val context = LocalContext.current
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp),
+            .padding(15.dp)
+            .testTag(context.getString(R.string.card_summary_non_exist_tag)),
         elevation = 10.dp
     ) {
         Column(
@@ -120,12 +120,12 @@ fun CardSummaryExist(
 
     val model: CardSummaryViewModel = koinViewModel()
     val context = LocalContext.current
-    val listModel: ListAccountsPayableViewModel = koinViewModel()
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp)
+            .testTag(context.getString(R.string.card_summary_exist_tag))
             .clickable {
                 expandItem = !expandItem
             },
@@ -163,7 +163,9 @@ fun CardSummaryExist(
 
                 Text(
                     text = stringResource(id = R.string.summary_month_year, returnMonthString(context, month.toInt()), year),
-                    modifier = Modifier.padding(top = 3.dp),
+                    modifier = Modifier
+                        .padding(top = 3.dp)
+                        .testTag(context.getString(R.string.card_summary_exist_data_tag)),
                     color = MaterialTheme.colors.secondary
                 )
 
@@ -183,7 +185,9 @@ fun CardSummaryExist(
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
                             text = stringResource(id = R.string.summary_receipt,String.format("%.2f", obj.revenue)),
-                            modifier = Modifier.padding(top = 3.dp),
+                            modifier = Modifier
+                                .padding(top = 3.dp)
+                                .testTag(context.getString(R.string.card_summary_exist_receipt_tag)),
                             color = MaterialTheme.colors.secondary
                         )
                     }
@@ -200,7 +204,9 @@ fun CardSummaryExist(
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
                             text = stringResource(id = R.string.summary_expenditure, String.format("%.2f", model.state.expenditure.value)),
-                            modifier = Modifier.padding(top = 3.dp),
+                            modifier = Modifier
+                                .padding(top = 3.dp)
+                                .testTag(context.getString(R.string.card_summary_exist_expenditure_tag)),
                             color = MaterialTheme.colors.secondary
                         )
 
@@ -221,7 +227,10 @@ fun CardSummaryExist(
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
                             text = stringResource(id = R.string.summary_remaining, model.revenueLess(model.state.expenditure.value)) ,
-                            modifier = Modifier.padding(top = 3.dp),
+                            modifier = Modifier
+                                .padding(top = 3.dp)
+                                .testTag(context.getString(R.string.card_summary_exist_remainder_tag))
+                            ,
                             color = MaterialTheme.colors.secondary
                         )
 
@@ -376,7 +385,9 @@ fun People(
 
                 Text(
                     text = obj.person1.replaceFirstChar(Char::uppercase),
-                    modifier = Modifier.padding(top = 2.dp),
+                    modifier = Modifier
+                        .padding(top = 2.dp)
+                        .testTag(context.getString(R.string.card_summary_exist_person1_tag)),
                     color = MaterialTheme.colors.secondary
                 )
 
@@ -384,7 +395,9 @@ fun People(
 
                 Text(
                     text = model.returnValueOrStatus(context = context, model.state.priceOfPerson1.value),
-                    modifier = Modifier.padding(top = 2.dp, end = 16.dp),
+                    modifier = Modifier
+                        .padding(top = 2.dp, end = 16.dp)
+                        .testTag(context.getString(R.string.card_summary_exist_person1_value_tag)),
                     color = MaterialTheme.colors.secondary
                 )
 
@@ -411,7 +424,9 @@ fun People(
 
                 Text(
                     text = obj.person2.replaceFirstChar(Char::uppercase),
-                    modifier = Modifier.padding(top = 2.dp),
+                    modifier = Modifier
+                        .padding(top = 2.dp)
+                        .testTag(context.getString(R.string.card_summary_exist_person2_tag)),
                     color = MaterialTheme.colors.secondary
                 )
 
@@ -419,7 +434,9 @@ fun People(
 
                 Text(
                     text = model.returnValueOrStatus(context = context, model.state.priceOfPerson2.value),
-                    modifier = Modifier.padding(top = 2.dp, end = 16.dp),
+                    modifier = Modifier
+                        .padding(top = 2.dp, end = 16.dp)
+                        .testTag(context.getString(R.string.card_summary_exist_person2_value_tag)),
                     color = MaterialTheme.colors.secondary
                 )
 
@@ -446,7 +463,9 @@ fun People(
 
                 Text(
                     text = obj.person3.replaceFirstChar(Char::uppercase),
-                    modifier = Modifier.padding(top = 2.dp),
+                    modifier = Modifier
+                        .padding(top = 2.dp)
+                        .testTag(context.getString(R.string.card_summary_exist_person3_tag)),
                     color = MaterialTheme.colors.secondary
                 )
 
@@ -454,7 +473,9 @@ fun People(
 
                 Text(
                     text = model.returnValueOrStatus(context = context, model.state.priceOfPerson3.value),
-                    modifier = Modifier.padding(top = 2.dp, end = 16.dp),
+                    modifier = Modifier
+                        .padding(top = 2.dp, end = 16.dp)
+                        .testTag(context.getString(R.string.card_summary_exist_person3_value_tag)),
                     color = MaterialTheme.colors.secondary
                 )
 
@@ -481,7 +502,9 @@ fun People(
 
                 Text(
                     text = obj.person4.replaceFirstChar(Char::uppercase),
-                    modifier = Modifier.padding(top = 2.dp),
+                    modifier = Modifier
+                        .padding(top = 2.dp)
+                        .testTag(context.getString(R.string.card_summary_exist_person4_tag)),
                     color = MaterialTheme.colors.secondary
                 )
 
@@ -489,7 +512,9 @@ fun People(
 
                 Text(
                     text = model.returnValueOrStatus(context = context, model.state.priceOfPerson4.value),
-                    modifier = Modifier.padding(top = 2.dp, end = 16.dp),
+                    modifier = Modifier
+                        .padding(top = 2.dp, end = 16.dp)
+                        .testTag(context.getString(R.string.card_summary_exist_person4_value_tag)),
                     color = MaterialTheme.colors.secondary
                 )
 

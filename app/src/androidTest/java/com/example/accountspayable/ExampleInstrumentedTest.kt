@@ -10,7 +10,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.testing.SynchronousExecutor
 import androidx.work.testing.WorkManagerTestInitHelper
-import com.example.accountspayable.Data.ITEM_ENTITY_LESS_3DAYS
+import com.example.accountspayable.Data.ITEM_ENTITY_LESS_3DAYS_1
 import com.example.accountspayable.Room.DataBase
 import com.example.accountspayable.WorkManager.NotificationDeadline
 import kotlinx.coroutines.delay
@@ -32,7 +32,7 @@ class ExampleInstrumentedTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
 
         DataBase.getDataBase(context).item().insertItem(
-            ITEM_ENTITY_LESS_3DAYS
+            ITEM_ENTITY_LESS_3DAYS_1
         )
 
     }
@@ -55,7 +55,7 @@ class ExampleInstrumentedTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
 
         DataBase.getDataBase(context).item().deleteItem(
-            ITEM_ENTITY_LESS_3DAYS
+            ITEM_ENTITY_LESS_3DAYS_1
         )
 
     }

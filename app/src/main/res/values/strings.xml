@@ -193,4 +193,35 @@
     <string name="deadline_text_warning">Você tem contas próximas a data de vencimento</string>
     <string name="channel_text_description">Notificação usada para alertar ao usuário sobre data de vencimento</string>
 
+    <!-- Test Tags -->
+    <string name="card_summary_exist_tag" translatable="false">card_summary_exist_tag</string>
+    <string name="card_summary_non_exist_tag" translatable="false">card_summary_non_exist_tag</string>
+    <string name="column_list_tag" translatable="false">column_list</string>
+    <string name="lazy_column_list_tag" translatable="false">lazy_column_list</string>
+    <string name="progress_tag" translatable="false">progress_tag</string>
+    <string name="card_summary_exist_data_tag" translatable="false">card_summary_data_tag</string>
+    <string name="card_summary_exist_receipt_tag" translatable="false">card_summary_receipt_tag</string>
+    <string name="card_summary_exist_expenditure_tag" translatable="false">card_summary_expenditure_tag</string>
+    <string name="card_summary_exist_remainder_tag" translatable="false">card_summary_remainder_tag</string>
+    <string name="card_summary_exist_person1_tag" translatable="false">card_summary_person1_tag</string>
+    <string name="card_summary_exist_person2_tag" translatable="false">card_summary_person2_tag</string>
+    <string name="card_summary_exist_person3_tag" translatable="false">card_summary_person3_tag</string>
+    <string name="card_summary_exist_person4_tag" translatable="false">card_summary_person4_tag</string>
+    <string name="card_summary_exist_person1_value_tag" translatable="false">card_summary_exist_person1_value_tag</string>
+    <string name="card_summary_exist_person2_value_tag" translatable="false">card_summary_exist_person2_value_tag</string>
+    <string name="card_summary_exist_person3_value_tag" translatable="false">card_summary_exist_person3_value_tag</string>
+    <string name="card_summary_exist_person4_value_tag" translatable="false">card_summary_exist_person4_value_tag</string>
+    <string name="card_item_tag" translatable="false">card_item_tag</string>
+    <string name="card_item_value_tag" translatable="false">card_item_value_tag</string>
+    <string name="card_item_deadline_tag" translatable="false">card_item_deadline_tag</string>
+    <string name="card_item_description_tag" translatable="false">card_item_description_tag</string>
+    <string name="card_item_person1_tag" translatable="false">card_item_person1_tag</string>
+    <string name="card_item_person1_checkbox_tag" translatable="false">card_item_person1_checkbox_tag</string>
+    <string name="card_item_person2_tag" translatable="false">card_item_person2_tag</string>
+    <string name="card_item_person2_checkbox_tag" translatable="false">card_item_person2_checkbox_tag</string>
+    <string name="card_item_person3_tag" translatable="false">card_item_person3_tag</string>
+    <string name="card_item_person3_checkbox_tag" translatable="false">card_item_person3_checkbox_tag</string>
+    <string name="card_item_person4_tag" translatable="false">card_item_person4_tag</string>
+    <string name="card_item_person4_checkbox_tag" translatable="false">card_item_person4_checkbox_tag</string>
+
 </resources>
