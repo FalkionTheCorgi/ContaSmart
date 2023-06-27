@@ -5,12 +5,15 @@ import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataSummary
 import com.example.accountspayable.Room.Data.MonthYear
 import com.example.accountspayable.Room.DataBase
 import com.example.accountspayable.Room.Item.ItemEntity
 import com.example.accountspayable.getDaysInMonth
+import kotlinx.coroutines.launch
 
 class BottomSheetViewModel(
     application: Application
@@ -64,12 +67,13 @@ class BottomSheetViewModel(
             state.progressBtn.value = false
             state.textButton.value = context.getString(R.string.btn_save)
 
-            Toast.makeText(
-                context,
-                context.getString(R.string.toast_data_save_success),
-                Toast.LENGTH_LONG
-            ).show()
-
+            viewModelScope.launch {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.toast_data_save_success),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
             onSuccess()
 
         } else {

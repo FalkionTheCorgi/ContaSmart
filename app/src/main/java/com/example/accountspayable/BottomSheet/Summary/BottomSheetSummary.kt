@@ -3,7 +3,10 @@ package com.example.accountspayable.BottomSheet
 import android.view.KeyEvent
 import android.view.KeyEvent.ACTION_DOWN
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -19,6 +22,7 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -180,42 +184,44 @@ fun BottomSheetSummary(
        Spacer(modifier = Modifier.height(16.dp))
 
        FKButtonProgress(
-           bgColor = MaterialTheme.colors.primary,
            textColor = MaterialTheme.colors.onSecondary,
            textButton = model.state.textButton.value,
-           isProgress = model.state.progressBtn.value
-       ) {
+           isProgress = model.state.progressBtn.value,
+           modifier = Modifier
+               .fillMaxWidth()
+               .height(37.dp)
+               .background(color = MaterialTheme.colors.primary, shape = RoundedCornerShape(4.dp))
+               .testTag(context.getString(R.string.bottomsheet_item_btn_save_tag))
+               .clickable {
+                   scope.launch {
 
-           scope.launch {
+                       if(model.state.textButton.value == context.getString(R.string.btn_save)) {
 
-               if(model.state.textButton.value == context.getString(R.string.btn_save)) {
+                           model.addSummary(
+                               context = context,
+                               month = GlobalVariables.monthSelected.value ?: 1,
+                               year = GlobalVariables.yearSelected.value ?: 2023,
+                               onSuccess = {
+                                   callBack.invoke()
+                               }
+                           )
 
-                   model.addSummary(
-                       context = context,
-                       month = GlobalVariables.monthSelected.value ?: 1,
-                       year = GlobalVariables.yearSelected.value ?: 2023,
-                       onSuccess = {
-                           callBack.invoke()
+                       } else {
+
+                           model.editSummary(
+                               id = id,
+                               context = context,
+                               onSuccess = {
+                                   callBack.invoke()
+                               }
+                           )
+
                        }
-                   )
 
-               } else {
 
-                    model.editSummary(
-                        id = id,
-                        context = context,
-                        onSuccess = {
-                            callBack.invoke()
-                        }
-                    )
-
+                   }
                }
-
-
-           }
-
-
-       }
+       )
 
        Spacer(modifier = Modifier.height(4.dp))
 

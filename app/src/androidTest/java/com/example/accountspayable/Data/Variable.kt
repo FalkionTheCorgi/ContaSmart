@@ -1,5 +1,7 @@
 package com.example.accountspayable.Data
 
+import androidx.compose.runtime.mutableStateListOf
+import com.example.accountspayable.R
 import com.example.accountspayable.Room.Item.ItemEntity
 import com.example.accountspayable.Room.Summary.SummaryEntity
 import com.example.accountspayable.getTodayDate
@@ -66,3 +68,25 @@ val listItems = listOf(
     ITEM_ENTITY_LESS_3DAYS_1,
     ITEM_ENTITY_LESS_3DAYS_2
 )
+
+val years = listOf(
+    "2023",
+    "2024",
+    "2025",
+    "2026",
+    "2027",
+    "2028",
+    "2029",
+    "2030",
+    "2031",
+    "2032",
+    "2033"
+)
+
+val itemsDropDown = listOf("Light", "Water", "Market", "Router", "Card", "Restaurant", "Phone", "House", "Game", "Other")
+
+val ITEM_NAME = "Item Novo Adicionado"
+val ITEM_VALUE = "25.67"
+val ITEM_DEADLINE_CORRECT = "25"
+val ITEM_DEADLINE_ERROR = "76"
+val ITEM_DESCRIPTION = "Descrição do item novo adicionado"

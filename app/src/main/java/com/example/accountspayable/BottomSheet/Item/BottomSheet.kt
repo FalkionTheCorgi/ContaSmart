@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -113,8 +115,6 @@ fun AddItemScreen(
 ){
 
     val model: BottomSheetViewModel = koinViewModel()
-    val listModel: ListAccountsPayableViewModel = koinViewModel()
-    val activityViewModel : MainActivityViewModel = koinViewModel()
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val selectedOption = remember { mutableStateOf<String?>( null ) }
@@ -162,7 +162,9 @@ fun AddItemScreen(
             label = { Text(text = stringResource(id = R.string.bottomsheet_item_name)) },
             placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_item_name_placeholder))},
             keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(context.getString(R.string.bottomsheet_item_name_tag)),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = if (!model.state.redFieldItemName.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) } else { Color.Red },
                 focusedBorderColor = if (!model.state.redFieldItemName.value) { MaterialTheme.colors.primary } else { Color.Red },
@@ -192,7 +194,9 @@ fun AddItemScreen(
             label = { Text(text = stringResource(id = R.string.bottomsheet_item_value)) },
             placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_item_value))},
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .testTag(context.getString(R.string.bottomsheet_item_value_tag)),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = if (!model.state.redFieldItemValue.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) } else { Color.Red },
                 focusedBorderColor = if (!model.state.redFieldItemValue.value) { MaterialTheme.colors.primary } else { Color.Red },
@@ -212,7 +216,9 @@ fun AddItemScreen(
             label = { Text(text = stringResource(id = R.string.bottomsheet_item_deadline)) },
             placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_item_deadline))},
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .testTag(context.getString(R.string.bottomsheet_item_deadline_tag)),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = if (!model.state.redFieldItemDeadline.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) }else { Color.Red },
                 focusedBorderColor = if (!model.state.redFieldItemDeadline.value) { MaterialTheme.colors.primary } else { Color.Red },
@@ -233,7 +239,9 @@ fun AddItemScreen(
         label = { Text(text = stringResource(id = R.string.bottomsheet_item_description)) },
         placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_item_description_placeholder))},
         keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag(context.getString(R.string.bottomsheet_item_description_tag))
     )
 
     Spacer(modifier = Modifier.height(16.dp))
@@ -255,51 +263,55 @@ fun AddItemScreen(
     Spacer(modifier = Modifier.height(16.dp))
 
     FKButtonProgress(
-        bgColor = MaterialTheme.colors.primary,
         textColor = MaterialTheme.colors.onSecondary,
         textButton = model.state.textButton.value,
-        isProgress = model.state.progressBtn.value
-    ) {
+        isProgress = model.state.progressBtn.value,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(37.dp)
+            .background(color = MaterialTheme.colors.primary, shape = RoundedCornerShape(4.dp))
+            .testTag(context.getString(R.string.bottomsheet_item_btn_save_tag))
+            .clickable {
+                if (!model.state.progressBtn.value) {
+                    scope.launch {
 
-        scope.launch {
+                        if(
+                            model.state.textButton.value == context.getString(R.string.btn_save)
+                        ) {
 
-            if(
-                model.state.textButton.value == context.getString(R.string.btn_save)
-            ) {
+                            model.addItem(
+                                context = context,
+                                month = GlobalVariables.monthSelected.value ?: 1,
+                                year = GlobalVariables.yearSelected.value ?: 2023,
+                                onSuccess = {
+                                    callBack.invoke()
+                                },
+                                onFailure = {}
+                            )
 
-                model.addItem(
-                    context = context,
-                    month = GlobalVariables.monthSelected.value ?: 1,
-                    year = GlobalVariables.yearSelected.value ?: 2023,
-                    onSuccess = {
-                        callBack.invoke()
-                    },
-                    onFailure = {}
-                )
+                        } else {
 
-            } else {
+                            model.editItem(
+                                context = context,
+                                id = idItem,
+                                checkBefore1 = check1,
+                                checkBefore2 = check2,
+                                checkBefore3 = check3,
+                                checkBefore4 = check4,
+                                onSuccess = {
+                                    scope.launch {
+                                        callBack.invoke()
+                                    }
+                                },
+                                onFailure = {}
+                            )
 
-                model.editItem(
-                    context = context,
-                    id = idItem,
-                    checkBefore1 = check1,
-                    checkBefore2 = check2,
-                    checkBefore3 = check3,
-                    checkBefore4 = check4,
-                    onSuccess = {
-                        scope.launch {
-                            callBack.invoke()
                         }
-                    },
-                    onFailure = {}
-                )
 
+                    }
+                }
             }
-
-        }
-
-
-    }
+    )
 
     Spacer(modifier = Modifier.height(4.dp))
 
@@ -322,6 +334,7 @@ fun ExposedDropdownMenuBox(
 ) {
 
     val model: BottomSheetViewModel = koinViewModel()
+    val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(model.state.listItemRadioButton[getOptionSelected(iconSelected)]) }
     var textfieldSize by remember { mutableStateOf(Size.Zero)}
@@ -343,7 +356,8 @@ fun ExposedDropdownMenuBox(
                 }
                 .clickable {
                     expanded = !expanded
-                },
+                }
+                .testTag(context.getString(R.string.bottomsheet_item_dropdown_button_tag)),
             label = {Text(stringResource(id = R.string.bottomsheet_item_icon_label))},
             placeholder = { Text(text = stringResource(id = R.string.bottomsheet_item_select))},
             leadingIcon = {
@@ -390,7 +404,9 @@ fun ExposedDropdownMenuBox(
                         )
                         Text(
                             text = getItemDropDown(label),
-                            modifier = Modifier.padding(start = 8.dp)
+                            modifier = Modifier
+                                .padding(start = 8.dp)
+                                .testTag(context.getString(R.string.bottomsheet_item_dropdown_item_tag, label))
                         )
                     }
                 }
@@ -405,6 +421,7 @@ fun CheckBoxPeople(){
 
     val model : BottomSheetViewModel = koinViewModel()
     val modelSummary : CardSummaryViewModel = koinViewModel()
+    val context = LocalContext.current
     val card by modelSummary.state.dataSummary.collectAsState(initial = null)
 
     card?.let {group ->
@@ -426,7 +443,8 @@ fun CheckBoxPeople(){
                                 checked = model.state.checkPerson1.value,
                                 onCheckedChange = {
                                     model.state.checkPerson1.value = it
-                                }
+                                },
+                                modifier = Modifier.testTag(context.getString(R.string.bottomsheet_item_checkbox_person1_item_tag))
                             )
                         }
 
@@ -435,7 +453,9 @@ fun CheckBoxPeople(){
                         group.person1.replaceFirstChar(Char::uppercase).let {
                             Text(
                                 text = it,
-                                modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                                modifier = Modifier
+                                    .padding(top = 2.dp, start = 2.dp)
+                                    .testTag(context.getString(R.string.bottomsheet_item_name_person1_item_tag))
                             )
                         }
 
@@ -455,7 +475,8 @@ fun CheckBoxPeople(){
                                 checked = model.state.checkPerson2.value,
                                 onCheckedChange = {
                                     model.state.checkPerson2.value = it
-                                }
+                                },
+                                modifier = Modifier.testTag(context.getString(R.string.bottomsheet_item_checkbox_person2_item_tag))
                             )
 
                         }
@@ -465,7 +486,9 @@ fun CheckBoxPeople(){
                         group.person2.replaceFirstChar(Char::uppercase).let {
                             Text(
                                 text = it,
-                                modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                                modifier = Modifier
+                                    .padding(top = 2.dp, start = 2.dp)
+                                    .testTag(context.getString(R.string.bottomsheet_item_name_person2_item_tag))
                             )
                         }
 
@@ -485,7 +508,9 @@ fun CheckBoxPeople(){
                                 checked = model.state.checkPerson3.value,
                                 onCheckedChange = {
                                     model.state.checkPerson3.value = it
-                                }
+                                },
+                                modifier = Modifier
+                                    .testTag(context.getString(R.string.bottomsheet_item_checkbox_person3_item_tag))
                             )
 
                         }
@@ -495,7 +520,9 @@ fun CheckBoxPeople(){
                         group.person3.replaceFirstChar(Char::uppercase).let {
                             Text(
                                 text = it,
-                                modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                                modifier = Modifier
+                                    .padding(top = 2.dp, start = 2.dp)
+                                    .testTag(context.getString(R.string.bottomsheet_item_name_person3_item_tag))
                             )
                         }
 
@@ -513,7 +540,8 @@ fun CheckBoxPeople(){
                                 checked = model.state.checkPerson4.value,
                                 onCheckedChange = {
                                     model.state.checkPerson4.value = it
-                                }
+                                },
+                                modifier = Modifier.testTag(context.getString(R.string.bottomsheet_item_checkbox_person4_item_tag))
                             )
 
                         }
@@ -523,7 +551,9 @@ fun CheckBoxPeople(){
                         group.person4.replaceFirstChar(Char::uppercase).let {
                             Text(
                                 text = it,
-                                modifier = Modifier.padding(top = 2.dp, start = 2.dp)
+                                modifier = Modifier
+                                    .padding(top = 2.dp, start = 2.dp)
+                                    .testTag(context.getString(R.string.bottomsheet_item_name_person4_item_tag))
                             )
                         }
 

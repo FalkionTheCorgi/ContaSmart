@@ -23,6 +23,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -352,7 +353,7 @@ class MainActivity : ComponentActivity() {
                         floatingActionButton = {
 
 
-                            FloatingActionButton(
+                            FloatingActionButton(modifier = Modifier.testTag(context.getString(R.string.float_action_button_tag)),
                                 onClick = {
                                     coroutineScope.launch {
                                         if (cardSumModel.state.dataSummary.value != null) {
@@ -364,7 +365,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 },
                                 backgroundColor = MaterialTheme.colors.primaryVariant
-                            ) {
+                            ){
                                 Icon(
                                     imageVector = Icons.Default.Add,
                                     contentDescription = "Add a new group or item",

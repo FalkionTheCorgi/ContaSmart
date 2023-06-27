@@ -10,6 +10,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.accountspayable.Data.*
 import com.example.accountspayable.Room.DataBase
+import com.example.accountspayable.Room.Item.ItemEntity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -134,108 +135,309 @@ class TestListItems {
 
             listItems.forEachIndexed { index, element ->
 
-                clickCardItem(index)
-
-                val item = NodeItem(
-                    index = index,
-                    context = context,
-                    composeRule = composeRule
-                )
-
-                item.itemValue.assertIsDisplayed()
-                item.itemValue.assertTextEquals(
-                    context.getString(
-                        R.string.price_item,
-                        "R$",
-                        String.format("%.2f", element.price)
-                    )
-                )
-
-                /*if (index > 0){
-                    onNodeWithTag(context.getString(R.string.lazy_column_list_tag))
-                        .performScrollToIndex(index)
-                    waitForIdle()
-
-                }*/
-
-                if(element.vencimento > 0) {
-                    item.itemDeadline.assertIsDisplayed()
-                    item.itemDeadline.assertTextEquals(
-                        context.getString(
-                            R.string.day_deadline,
-                            element.vencimento
-                        )
-                    )
-                } else {
-                    item.itemDeadline.assertDoesNotExist()
-                }
-
-                if(element.description.isNotEmpty()) {
-
-                    item.itemDescription.assertIsDisplayed()
-                    item.itemDescription.assertTextEquals(
-                        context.getString(
-                            R.string.description_item,
-                            element.description
-                        )
-                    )
-                }else{
-                    item.itemDescription.assertDoesNotExist()
-                }
-
-                if (element.person1.isNotEmpty()) {
-
-                    item.itemPerson1.assertTextEquals(element.person1)
-                    item.itemPerson1Checkbox.assertIsDisplayed()
-
-                } else {
-
-                    item.itemPerson1.assertDoesNotExist()
-
-                }
-
-                if (element.person2.isNotEmpty()) {
-
-                    item.itemPerson2.assertIsDisplayed()
-                    item.itemPerson2.assertTextEquals(element.person2)
-                    item.itemPerson2Checkbox.assertIsDisplayed()
-
-                } else {
-
-                    item.itemPerson2.assertDoesNotExist()
-
-                }
-
-                if (element.person3.isNotEmpty()) {
-
-                    item.itemPerson3.assertIsDisplayed()
-                    item.itemPerson3.assertTextEquals(element.person3)
-                    item.itemPerson3Checkbox.assertIsDisplayed()
-
-                } else {
-
-                    item.itemPerson3.assertDoesNotExist()
-
-                }
-
-                if (element.person4.isNotEmpty()) {
-
-                    item.itemPerson4.assertIsDisplayed()
-                    item.itemPerson4.assertTextEquals(element.person4)
-                    item.itemPerson4Checkbox.assertIsDisplayed()
-
-                } else {
-
-                    item.itemPerson4.assertDoesNotExist()
-
-                }
-
-                clickCardItem(index)
+                verifyCardItem(element = element, index = index)
 
             }
 
         }
 
+    }
+
+    @Test
+    fun testAdicionarItem(){
+
+        clickFloatActionButton()
+
+        composeRule.apply {
+
+            variables.fieldName.assertIsDisplayed()
+            variables.fieldName.performTextInput(ITEM_NAME)
+
+            variables.fieldValue.assertIsDisplayed()
+            variables.fieldValue.performTextInput(ITEM_VALUE)
+
+            fillBottomSheetItemCommonData()
+
+            variables.fieldName.assertIsNotDisplayed()
+
+            verifyCardItem(
+                element = ItemEntity(
+                    itemName = ITEM_NAME,
+                    price = ITEM_VALUE.toDouble(),
+                    description = ITEM_DESCRIPTION,
+                    icon = itemsDropDown[3],
+                    person1 = "Pessoa1",
+                    checkedPerson1 = false,
+                    person2 = "",
+                    checkedPerson2 = false,
+                    person3 = "Pessoa3",
+                    checkedPerson3 = false,
+                    person4 = "",
+                    checkedPerson4 = false,
+                    priceOfPerson = ITEM_VALUE.toDouble().div(3),
+                    vencimento = ITEM_DEADLINE_CORRECT.toInt(),
+                    month = getTodayDate()?.monthValue ?: -1,
+                    year = getTodayDate()?.year ?: 2023
+                ),
+                index = 2
+            )
+
+        }
+
+
+    }
+
+    @Test
+    fun testAddItemWithNameEmpty(){
+
+        clickFloatActionButton()
+
+        composeRule.apply {
+
+            variables.fieldValue.assertIsDisplayed()
+            variables.fieldValue.performTextInput(ITEM_VALUE)
+
+            fillBottomSheetItemCommonData()
+
+            variables.fieldName.assertIsDisplayed()
+
+        }
+
+    }
+
+    @Test
+    fun testAddItemWithValueEmpty(){
+
+        clickFloatActionButton()
+
+        composeRule.apply {
+
+            variables.fieldName.assertIsDisplayed()
+            variables.fieldName.performTextInput(ITEM_NAME)
+
+            fillBottomSheetItemCommonData()
+
+            variables.fieldName.assertIsDisplayed()
+
+        }
+
+    }
+
+    @Test
+    fun putDeadlineIncorretBottomSheetItem(){
+
+        clickFloatActionButton()
+
+        composeRule.apply {
+
+            variables.fieldName.assertIsDisplayed()
+            variables.fieldName.performTextInput(ITEM_NAME)
+
+            variables.fieldValue.assertIsDisplayed()
+            variables.fieldValue.performTextInput(ITEM_VALUE)
+
+            fillBottomSheetItemCommonData(deadline = ITEM_DEADLINE_ERROR)
+
+            variables.fieldName.assertIsDisplayed()
+
+        }
+
+    }
+
+    @Test
+    fun changeMonthYearAndCreateSummary(){
+        changeMonthAndYear(month = 9, year = 2023)
+    }
+
+    private fun changeMonthAndYear(month: Int, year: Int){
+        composeRule.apply {
+
+            onNodeWithTag(
+                context.getString(R.string.topbar_calendar_icon)
+            ).assertIsDisplayed().performClick()
+
+            variables.fieldBtmSheetMonth.assertIsDisplayed().performClick()
+
+            onNodeWithTag(
+                context.getString(
+                    R.string.bottomsheet_calendar_month_item_tag,
+                    returnMonthById(
+                        context = context,
+                        id = month - 1
+                    ),
+                ),
+                useUnmergedTree = true
+            ).assertIsDisplayed().performClick()
+
+            variables.fieldBtmSheetYear.assertIsDisplayed().performClick()
+
+            onNodeWithTag(
+                context.getString(
+                    R.string.bottomsheet_calendar_year_item_tag,
+                    year.toString()
+                ),
+                useUnmergedTree = true
+            ).assertIsDisplayed().performClick()
+
+            variables.fieldBtmSheetCalendarBtnSave.assertIsDisplayed().performClick()
+
+        }
+    }
+    private fun verifyCardItem(element: ItemEntity, index: Int){
+
+        clickCardItem(index)
+
+        val item = NodeItem(
+            index = index,
+            context = context,
+            composeRule = composeRule
+        )
+
+        item.itemValue.assertIsDisplayed()
+        item.itemValue.assertTextEquals(
+            context.getString(
+                R.string.price_item,
+                "R$",
+                String.format("%.2f", element.price)
+            )
+        )
+
+        if(element.vencimento > 0) {
+            item.itemDeadline.assertIsDisplayed()
+            item.itemDeadline.assertTextEquals(
+                context.getString(
+                    R.string.day_deadline,
+                    element.vencimento
+                )
+            )
+        } else {
+            item.itemDeadline.assertDoesNotExist()
+        }
+
+        if(element.description.isNotEmpty()) {
+
+            item.itemDescription.assertIsDisplayed()
+            item.itemDescription.assertTextEquals(
+                context.getString(
+                    R.string.description_item,
+                    element.description
+                )
+            )
+        }else{
+            item.itemDescription.assertDoesNotExist()
+        }
+
+        if (element.person1.isNotEmpty()) {
+
+            item.itemPerson1.assertTextEquals(element.person1)
+            item.itemPerson1Checkbox.assertIsDisplayed()
+
+        } else {
+
+            item.itemPerson1.assertDoesNotExist()
+
+        }
+
+        if (element.person2.isNotEmpty()) {
+
+            item.itemPerson2.assertIsDisplayed()
+            item.itemPerson2.assertTextEquals(element.person2)
+            item.itemPerson2Checkbox.assertIsDisplayed()
+
+        } else {
+
+            item.itemPerson2.assertDoesNotExist()
+
+        }
+
+        if (element.person3.isNotEmpty()) {
+
+            item.itemPerson3.assertIsDisplayed()
+            item.itemPerson3.assertTextEquals(element.person3)
+            item.itemPerson3Checkbox.assertIsDisplayed()
+
+        } else {
+
+            item.itemPerson3.assertDoesNotExist()
+
+        }
+
+        if (element.person4.isNotEmpty()) {
+
+            item.itemPerson4.assertIsDisplayed()
+            item.itemPerson4.assertTextEquals(element.person4)
+            item.itemPerson4Checkbox.assertIsDisplayed()
+
+        } else {
+
+            item.itemPerson4.assertDoesNotExist()
+
+        }
+
+        clickCardItem(index)
+
+    }
+
+    private fun fillBottomSheetItemCommonData(
+        deadline: String = ITEM_DEADLINE_CORRECT
+    ){
+        variables.fieldDeadline.assertIsDisplayed()
+        variables.fieldDeadline.performTextInput(deadline)
+
+        variables.fieldDescription.assertIsDisplayed()
+        variables.fieldDescription.performTextInput(ITEM_DESCRIPTION)
+
+        variables.fieldIcon.assertIsDisplayed()
+        variables.fieldIcon.performClick()
+
+        variables.fieldIconDropDownItemRouter.assertIsDisplayed()
+        variables.fieldIconDropDownItemRouter.performClick()
+
+        if (SUMMARY_CREATED_TODAY.person1.isNotEmpty()){
+            variables.fieldNameCheckbox1.assertIsDisplayed()
+            variables.fieldNameCheckbox1.assertTextEquals(SUMMARY_CREATED_TODAY.person1)
+            variables.fieldCheckboxItem1.assertIsDisplayed()
+            variables.fieldCheckboxItem1.performClick()
+        } else {
+            variables.fieldNameCheckbox1.assertDoesNotExist()
+            variables.fieldCheckboxItem1.assertDoesNotExist()
+        }
+
+        if (SUMMARY_CREATED_TODAY.person2.isNotEmpty()){
+            variables.fieldNameCheckbox2.assertIsDisplayed()
+            variables.fieldNameCheckbox2.assertTextEquals(SUMMARY_CREATED_TODAY.person2)
+            variables.fieldCheckboxItem2.assertIsDisplayed()
+        }else{
+            variables.fieldNameCheckbox2.assertDoesNotExist()
+            variables.fieldCheckboxItem2.assertDoesNotExist()
+        }
+
+        if (SUMMARY_CREATED_TODAY.person3.isNotEmpty()){
+            variables.fieldNameCheckbox3.assertIsDisplayed()
+            variables.fieldNameCheckbox3.assertTextEquals(SUMMARY_CREATED_TODAY.person3)
+            variables.fieldCheckboxItem3.assertIsDisplayed()
+            variables.fieldCheckboxItem3.performClick()
+        }else{
+            variables.fieldNameCheckbox3.assertDoesNotExist()
+            variables.fieldCheckboxItem3.assertDoesNotExist()
+        }
+
+        if (SUMMARY_CREATED_TODAY.person4.isNotEmpty()){
+            variables.fieldNameCheckbox4.assertIsDisplayed()
+            variables.fieldNameCheckbox4.assertTextEquals(SUMMARY_CREATED_TODAY.person4)
+            variables.fieldCheckboxItem4.assertIsDisplayed()
+        }else{
+            variables.fieldNameCheckbox4.assertDoesNotExist()
+            variables.fieldCheckboxItem4.assertDoesNotExist()
+        }
+
+        variables.fieldBtnSave.assertIsDisplayed()
+        variables.fieldBtnSave.performClick()
+    }
+    private fun clickFloatActionButton(){
+        with(composeRule){
+            onNodeWithTag(context.getString(R.string.float_action_button_tag), useUnmergedTree = true).assertIsDisplayed().performClick()
+        }
     }
 
     private fun clickCardItem(index: Int) {

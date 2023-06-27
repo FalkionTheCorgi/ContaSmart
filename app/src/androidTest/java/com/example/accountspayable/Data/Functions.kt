@@ -63,6 +63,42 @@ fun returnSummaryValueByPerson(
 
 }
 
+fun returnMonth(context: Context): List<String> {
+    return listOf(
+        context.getString(R.string.january),
+        context.getString(R.string.february),
+        context.getString(R.string.march),
+        context.getString(R.string.april),
+        context.getString(R.string.may),
+        context.getString(R.string.june),
+        context.getString(R.string.july),
+        context.getString(R.string.august),
+        context.getString(R.string.september),
+        context.getString(R.string.october),
+        context.getString(R.string.november),
+        context.getString(R.string.december)
+    )
+}
+
+fun returnMonthById(context: Context, id: Int): String {
+    val list = listOf(
+        context.getString(R.string.january),
+        context.getString(R.string.february),
+        context.getString(R.string.march),
+        context.getString(R.string.april),
+        context.getString(R.string.may),
+        context.getString(R.string.june),
+        context.getString(R.string.july),
+        context.getString(R.string.august),
+        context.getString(R.string.september),
+        context.getString(R.string.october),
+        context.getString(R.string.november),
+        context.getString(R.string.december)
+    )
+
+    return list[id]
+}
+
 fun ComposeContentTestRule.waitUntilTimeout(
     timeoutMillis: Long
 ) {

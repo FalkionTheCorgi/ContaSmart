@@ -223,5 +223,27 @@
     <string name="card_item_person3_checkbox_tag" translatable="false">card_item_person3_checkbox_tag</string>
     <string name="card_item_person4_tag" translatable="false">card_item_person4_tag</string>
     <string name="card_item_person4_checkbox_tag" translatable="false">card_item_person4_checkbox_tag</string>
+    <string name="float_action_button_tag" translatable="false">float_action_button_tag</string>
+    <string name="bottomsheet_item_name_tag" translatable="false">bottomsheet_item_name_tag</string>
+    <string name="bottomsheet_item_value_tag" translatable="false">bottomsheet_item_value_tag</string>
+    <string name="bottomsheet_item_deadline_tag" translatable="false">bottomsheet_item_deadline_tag</string>
+    <string name="bottomsheet_item_description_tag" translatable="false">bottomsheet_item_description_tag</string>
+    <string name="bottomsheet_item_dropdown_button_tag" translatable="false">bottomsheet_item_dropdown_button_tag</string>
+    <string name="bottomsheet_item_dropdown_item_tag" translatable="false">bottomsheet_item_dropdown_item_%1$s_tag</string>
+    <string name="bottomsheet_item_checkbox_person1_item_tag" translatable="false">bottomsheet_item_checkbox_person1_item_tag</string>
+    <string name="bottomsheet_item_checkbox_person2_item_tag" translatable="false">bottomsheet_item_checkbox_person2_item_tag</string>
+    <string name="bottomsheet_item_checkbox_person3_item_tag" translatable="false">bottomsheet_item_checkbox_person3_item_tag</string>
+    <string name="bottomsheet_item_checkbox_person4_item_tag" translatable="false">bottomsheet_item_checkbox_person4_item_tag</string>
+    <string name="bottomsheet_item_name_person1_item_tag" translatable="false">bottomsheet_item_name_person1_item_tag</string>
+    <string name="bottomsheet_item_name_person2_item_tag" translatable="false">bottomsheet_item_name_person2_item_tag</string>
+    <string name="bottomsheet_item_name_person3_item_tag" translatable="false">bottomsheet_item_name_person3_item_tag</string>
+    <string name="bottomsheet_item_name_person4_item_tag" translatable="false">bottomsheet_item_name_person4_item_tag</string>
+    <string name="bottomsheet_item_btn_save_tag" translatable="false">bottomsheet_item_btn_save_tag</string>
+    <string name="bottomsheet_calendar_month_btn_tag" translatable="false">bottomsheet_calendar_month_btn_tag</string>
+    <string name="bottomsheet_calendar_year_btn_tag" translatable="false">bottomsheet_calendar_year_btn_tag</string>
+    <string name="bottomsheet_calendar_month_item_tag" translatable="false">bottomsheet_calendar_month_%1$s_tag</string>
+    <string name="bottomsheet_calendar_year_item_tag" translatable="false">bottomsheet_calendar_year_%1$s_tag</string>
+    <string name="bottomsheet_calendar_btn_save_tag" translatable="false">bottomsheet_calendar_btn_save_tag</string>
+    <string name="topbar_calendar_icon" translatable="false">topbar_calendar_icon</string>
 
 </resources>

@@ -1,16 +1,14 @@
 package com.example.accountspayable.Components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,23 +16,14 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun FKButtonProgress(
-    bgColor: Color,
     textColor: Color,
     textButton: String,
     isProgress: Boolean = false,
-    callBack: () -> Unit
+    modifier: Modifier,
 ){
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(37.dp)
-            .background(color = bgColor, shape = RoundedCornerShape(4.dp))
-            .clickable {
-                if (!isProgress) {
-                    callBack.invoke()
-                }
-            },
+        modifier = modifier,
         horizontalArrangement = Arrangement.Center
     ) {
         if(isProgress) {
@@ -69,11 +58,14 @@ fun FKButtonProgress(
 fun ShowFKButtonProgress(){
 
     FKButtonProgress(
-        bgColor = Color.Blue,
         textColor = Color.White,
         textButton = "CLICK ME",
         isProgress = false,
-        callBack = {}
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(37.dp)
+            .background(color = MaterialTheme.colors.primary, shape = RoundedCornerShape(4.dp))
+            .clickable { }
     )
 
 }
