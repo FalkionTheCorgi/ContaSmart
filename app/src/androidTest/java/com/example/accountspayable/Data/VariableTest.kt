@@ -442,6 +442,36 @@ class VariableTest(
         useUnmergedTree = true
     )
 
+    val fieldBtmSheetSummaryRevenue = composeRule.onNodeWithTag(
+        context.getString(R.string.bottomsheet_summary_revenue_tag),
+        useUnmergedTree = true
+    )
+
+    val fieldBtmSheetSummaryPerson1 = composeRule.onNodeWithTag(
+        context.getString(R.string.bottomsheet_summary_person1_tag),
+        useUnmergedTree = true
+    )
+
+    val fieldBtmSheetSummaryPerson2 = composeRule.onNodeWithTag(
+        context.getString(R.string.bottomsheet_summary_person2_tag),
+        useUnmergedTree = true
+    )
+
+    val fieldBtmSheetSummaryPerson3 = composeRule.onNodeWithTag(
+        context.getString(R.string.bottomsheet_summary_person3_tag),
+        useUnmergedTree = true
+    )
+
+    val fieldBtmSheetSummaryPerson4 = composeRule.onNodeWithTag(
+        context.getString(R.string.bottomsheet_summary_person4_tag),
+        useUnmergedTree = true
+    )
+
+    val fieldBtmSheetSummaryBtnSave = composeRule.onNodeWithTag(
+        context.getString(R.string.bottomsheet_summary_btn_save_tag),
+        useUnmergedTree = true
+    )
+
 }
 
 class NodeItem(

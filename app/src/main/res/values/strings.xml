@@ -244,6 +244,13 @@
     <string name="bottomsheet_calendar_month_item_tag" translatable="false">bottomsheet_calendar_month_%1$s_tag</string>
     <string name="bottomsheet_calendar_year_item_tag" translatable="false">bottomsheet_calendar_year_%1$s_tag</string>
     <string name="bottomsheet_calendar_btn_save_tag" translatable="false">bottomsheet_calendar_btn_save_tag</string>
-    <string name="topbar_calendar_icon" translatable="false">topbar_calendar_icon</string>
+    <string name="topbar_calendar_icon_tag" translatable="false">topbar_calendar_icon</string>
+    <string name="card_summary_non_exist_btn_create_tag" translatable="false">card_summary_non_exist_btn_create</string>
+    <string name="bottomsheet_summary_revenue_tag" translatable="false">bottomsheet_summary_revenue_tag</string>
+    <string name="bottomsheet_summary_person1_tag" translatable="false">bottomsheet_summary_person1_tag</string>
+    <string name="bottomsheet_summary_person2_tag" translatable="false">bottomsheet_summary_person2_tag</string>
+    <string name="bottomsheet_summary_person3_tag" translatable="false">bottomsheet_summary_person3_tag</string>
+    <string name="bottomsheet_summary_person4_tag" translatable="false">bottomsheet_summary_person4_tag</string>
+    <string name="bottomsheet_summary_btn_save_tag" translatable="false">bottomsheet_summary_btn_save_tag</string>
 
 </resources>

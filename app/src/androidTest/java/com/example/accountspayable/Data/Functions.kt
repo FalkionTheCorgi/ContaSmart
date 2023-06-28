@@ -6,8 +6,12 @@ import java.util.*
 import kotlin.concurrent.schedule
 import kotlin.math.roundToLong
 import com.example.accountspayable.R
+import com.example.accountspayable.Room.Item.ItemEntity
 
-fun returnRevenueToExpenditure(): String {
+fun returnRevenueToExpenditure(
+    revenue: Double,
+    listItems: List<ItemEntity>
+): String {
 
     var aux = 0.0
 
@@ -15,7 +19,7 @@ fun returnRevenueToExpenditure(): String {
         aux += it.price
     }
 
-    return String.format("%.2f",SUMMARY_CREATED_TODAY.revenue - aux)
+    return String.format("%.2f", revenue - aux)
 
 }
 
@@ -24,7 +28,8 @@ fun returnSummaryValueByPerson(
     p1: Boolean = false,
     p2: Boolean = false,
     p3: Boolean = false,
-    p4: Boolean = false
+    p4: Boolean = false,
+    listItems: List<ItemEntity>
 ): String {
 
     var priceOfPerson1 = 0.0

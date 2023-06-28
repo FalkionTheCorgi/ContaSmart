@@ -95,7 +95,11 @@ fun CardSummaryNotExist(){
                     model.bottomSheetType.value = BottomSheetTypes.SUMMARYADD
                 }) {
 
-                    Text(text = stringResource(id = R.string.btn_register), color = MaterialTheme.colors.primary)
+                    Text(
+                        text = stringResource(id = R.string.btn_register),
+                        color = MaterialTheme.colors.primary,
+                        modifier = Modifier.testTag(context.getString(R.string.card_summary_non_exist_btn_create_tag))
+                    )
 
                 }
 

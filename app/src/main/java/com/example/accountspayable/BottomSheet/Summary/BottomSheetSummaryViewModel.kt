@@ -4,10 +4,12 @@ import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.accountspayable.R
 import com.example.accountspayable.Room.DataBase
 import com.example.accountspayable.Room.Summary.SummaryEntity
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class BottomSheetSummaryViewModel(
     application: Application
@@ -73,21 +75,26 @@ class BottomSheetSummaryViewModel(
             state.progressBtn.value = false
             state.textButton.value = context.getString(R.string.btn_save)
 
-            Toast.makeText(
-                context,
-                context.getString(R.string.toast_data_save_success),
-                Toast.LENGTH_LONG
-            ).show()
+            viewModelScope.launch {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.toast_data_save_success),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
 
             onSuccess()
 
         } else {
 
-            Toast.makeText(
-                context,
-                context.getString(R.string.toast_data_check_red_fields),
-                Toast.LENGTH_LONG
-            ).show()
+            viewModelScope.launch {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.toast_data_check_red_fields),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
 
             state.progressBtn.value = false
             state.textButton.value = context.getString(R.string.btn_save)

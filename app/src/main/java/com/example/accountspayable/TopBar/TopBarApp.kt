@@ -44,7 +44,7 @@ fun TopBarApp(
                     }
                     .testTag(
                         context.getString(
-                            R.string.topbar_calendar_icon
+                            R.string.topbar_calendar_icon_tag
                         )
                     ),
                 tint = Color.White

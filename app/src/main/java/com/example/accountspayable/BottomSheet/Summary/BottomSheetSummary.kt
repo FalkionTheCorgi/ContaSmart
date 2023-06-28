@@ -91,12 +91,15 @@ fun BottomSheetSummary(
             label = { Text(text = stringResource(id = R.string.bottomsheet_summary_receipt)) },
             placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_receipt_placeholder)) },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(context.getString(R.string.bottomsheet_summary_revenue_tag)),
             leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_cash), contentDescription = stringResource(
                 id = R.string.bottomsheet_summary_receipt_icon
             ), modifier = Modifier
                 .width(24.dp)
-                .height(24.dp)) },
+                .height(24.dp)
+            ) },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = if (!model.state.redFieldRevenue.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) } else { Color.Red },
                 focusedBorderColor = if (!model.state.redFieldRevenue.value) { MaterialTheme.colors.primary } else { Color.Red },
@@ -118,12 +121,16 @@ fun BottomSheetSummary(
            label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_1)) },
            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_1_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
-           modifier = Modifier.fillMaxWidth(),
+           modifier = Modifier
+               .fillMaxWidth()
+               .testTag(context.getString(R.string.bottomsheet_summary_person1_tag)),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = stringResource(
                id = R.string.bottomsheet_summary_add_person_1_icon
            ), modifier = Modifier
                .width(24.dp)
-               .height(24.dp)) }
+               .height(24.dp)
+           )
+           }
 
        )
 
@@ -136,12 +143,15 @@ fun BottomSheetSummary(
            label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_2)) },
            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_2_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
-           modifier = Modifier.fillMaxWidth(),
+           modifier = Modifier
+               .fillMaxWidth()
+               .testTag(context.getString(R.string.bottomsheet_summary_person2_tag)),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = stringResource(
                id = R.string.bottomsheet_summary_add_person_2_icon
            ), modifier = Modifier
                .width(24.dp)
-               .height(24.dp)) }
+               .height(24.dp)
+           ) }
 
        )
 
@@ -154,12 +164,15 @@ fun BottomSheetSummary(
            label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_3)) },
            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_3_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
-           modifier = Modifier.fillMaxWidth(),
+           modifier = Modifier
+               .fillMaxWidth()
+               .testTag(context.getString(R.string.bottomsheet_summary_person3_tag)),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = stringResource(
                id = R.string.bottomsheet_summary_add_person_3_icon
            ), modifier = Modifier
                .width(24.dp)
-               .height(24.dp)) }
+               .height(24.dp)
+           ) }
 
        )
 
@@ -172,12 +185,15 @@ fun BottomSheetSummary(
            label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_4)) },
            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_4_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text),
-           modifier = Modifier.fillMaxWidth(),
+           modifier = Modifier
+               .fillMaxWidth()
+               .testTag(context.getString(R.string.bottomsheet_summary_person4_tag)),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = stringResource(
                id = R.string.bottomsheet_summary_add_person_4_icon
            ), modifier = Modifier
                .width(24.dp)
-               .height(24.dp)) }
+               .height(24.dp)
+           ) }
 
        )
 
@@ -191,7 +207,7 @@ fun BottomSheetSummary(
                .fillMaxWidth()
                .height(37.dp)
                .background(color = MaterialTheme.colors.primary, shape = RoundedCornerShape(4.dp))
-               .testTag(context.getString(R.string.bottomsheet_item_btn_save_tag))
+               .testTag(context.getString(R.string.bottomsheet_summary_btn_save_tag))
                .clickable {
                    scope.launch {
 
