@@ -40,7 +40,7 @@ abstract class DataBase : RoomDatabase(){
                     context.applicationContext,
                     DataBase::class.java,
                     "databaseContaSmart"
-                ).fallbackToDestructiveMigration().build()
+                ).build()
                 Instance = instance
                 instance
             }
