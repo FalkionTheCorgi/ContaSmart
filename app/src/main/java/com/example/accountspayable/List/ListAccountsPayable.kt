@@ -3,19 +3,25 @@ package com.example.accountspayable.List
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.example.accountspayable.BuildConfig
 import com.example.accountspayable.MainActivityViewModel
 import org.koin.androidx.compose.koinViewModel
 import com.example.accountspayable.R
+import com.example.accountspayable.isScrolledToEnd
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 
 @Composable
 fun ListAccountsPayable(){
@@ -24,6 +30,12 @@ fun ListAccountsPayable(){
     val activityViewModel: MainActivityViewModel = koinViewModel()
     val items by model.state.dataItem.collectAsState(initial = emptyList())
     val context = LocalContext.current
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(listState.canScrollForward, listState.canScrollBackward){
+        activityViewModel.showFloatingActionButton.value =
+            !(!listState.canScrollForward && listState.canScrollBackward)
+    }
 
 
     Column(
@@ -50,7 +62,8 @@ fun ListAccountsPayable(){
             LazyColumn(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .testTag(context.getString(R.string.lazy_column_list_tag))
+                    .testTag(context.getString(R.string.lazy_column_list_tag)),
+                state = listState
             ) {
 
                 items(items = items,

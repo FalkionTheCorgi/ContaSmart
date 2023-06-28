@@ -13,8 +13,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -348,29 +347,39 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         topBar = { TopBarApp(title = "ContaSmart") },
                         content = {
-                            NavigationView(navController = navController)
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(
+                                        bottom = it.calculateBottomPadding()
+                                    )
+                                //.padding(it) // <<-- or simply this
+                            ) {
+                                NavigationView(navController = navController)
+                            }
                         },
                         floatingActionButton = {
-
-
-                            FloatingActionButton(modifier = Modifier.testTag(context.getString(R.string.float_action_button_tag)),
-                                onClick = {
-                                    coroutineScope.launch {
-                                        if (cardSumModel.state.dataSummary.value != null) {
-                                            model.bottomSheetType.value = BottomSheetTypes.ADD
-                                            bottomSheetState.show()
-                                        } else {
-                                            model.openAlert.value = AlertTypes.CREATESUMMARY
+                            if (model.showFloatingActionButton.value) {
+                                FloatingActionButton(
+                                    modifier = Modifier.testTag(context.getString(R.string.float_action_button_tag)),
+                                    onClick = {
+                                        coroutineScope.launch {
+                                            if (cardSumModel.state.dataSummary.value != null) {
+                                                model.bottomSheetType.value = BottomSheetTypes.ADD
+                                                bottomSheetState.show()
+                                            } else {
+                                                model.openAlert.value = AlertTypes.CREATESUMMARY
+                                            }
                                         }
-                                    }
-                                },
-                                backgroundColor = MaterialTheme.colors.primaryVariant
-                            ){
-                                Icon(
-                                    imageVector = Icons.Default.Add,
-                                    contentDescription = "Add a new group or item",
-                                    tint = MaterialTheme.colors.onSecondary
-                                )
+                                    },
+                                    backgroundColor = MaterialTheme.colors.primaryVariant
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Add,
+                                        contentDescription = "Add a new group or item",
+                                        tint = MaterialTheme.colors.onSecondary
+                                    )
+                                }
                             }
 
                         },

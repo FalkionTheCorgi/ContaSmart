@@ -58,6 +58,7 @@ class MainActivityViewModel: ViewModel(){
     var backupData = mutableStateOf(false)
     var permissionStorage = mutableStateOf(false)
     val isLoading = mutableStateOf(false)
+    val showFloatingActionButton = mutableStateOf(true)
 
 
 
