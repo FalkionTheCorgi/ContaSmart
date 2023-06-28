@@ -322,7 +322,11 @@ fun TextButtonsEditDelete(
             activityViewModel.bottomSheetType.value = BottomSheetTypes.SUMMARYEDIT
         }) {
 
-            Text(text = stringResource(id = R.string.edit), color = MaterialTheme.colors.primary)
+            Text(
+                text = stringResource(id = R.string.edit),
+                color = MaterialTheme.colors.primary,
+                modifier = Modifier.testTag(context.getString(R.string.card_summary_exist_btn_edit_tag))
+            )
 
         }
 
@@ -330,7 +334,11 @@ fun TextButtonsEditDelete(
 
         TextButton(onClick = { openDialog.value = true }) {
 
-            Text(text = stringResource(id = R.string.delete), color = MaterialTheme.colors.primary)
+            Text(
+                text = stringResource(id = R.string.delete),
+                color = MaterialTheme.colors.primary,
+                modifier = Modifier.testTag(context.getString(R.string.card_summary_exist_btn_delete_tag))
+            )
 
         }
 

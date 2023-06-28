@@ -207,7 +207,11 @@ fun CardItemPayable(
                                     BottomSheetTypes.EDIT
                             }
                         }) {
-                            Text(stringResource(id = R.string.edit), color = MaterialTheme.colors.primary)
+                            Text(
+                                stringResource(id = R.string.edit),
+                                color = MaterialTheme.colors.primary,
+                                modifier = Modifier.testTag(context.getString(R.string.card_item_btn_edit_tag))
+                            )
                         }
 
                         Spacer(modifier = Modifier.weight(1f))
@@ -218,9 +222,14 @@ fun CardItemPayable(
                                     context = context,
                                     id = idCard
                                 )
+                                expandItem = false
                             }
                         }) {
-                            Text(stringResource(id = R.string.delete), color = MaterialTheme.colors.primary)
+                            Text(
+                                stringResource(id = R.string.delete),
+                                color = MaterialTheme.colors.primary,
+                                modifier = Modifier.testTag(context.getString(R.string.card_item_btn_delete_tag))
+                            )
                         }
 
                     }

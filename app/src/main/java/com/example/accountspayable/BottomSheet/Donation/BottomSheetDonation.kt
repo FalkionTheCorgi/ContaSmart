@@ -86,8 +86,6 @@ fun BottomSheetDonation(
             Text(text = stringResource(id = R.string.btn_donate), color = MaterialTheme.colors.onSecondary)
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
         Button(
             onClick = { callBack.invoke() },
             modifier = Modifier.fillMaxWidth(),

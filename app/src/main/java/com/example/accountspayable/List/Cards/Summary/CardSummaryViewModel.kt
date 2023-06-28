@@ -156,7 +156,9 @@ class CardSummaryViewModel(
 
         success()
 
-        Toast.makeText(context, context.getString(R.string.toast_delete_summary), Toast.LENGTH_LONG).show()
+        viewModelScope.launch {
+            Toast.makeText(context, context.getString(R.string.toast_delete_summary), Toast.LENGTH_LONG).show()
+        }
 
     }
 

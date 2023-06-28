@@ -8,20 +8,13 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import com.example.accountspayable.BuildConfig
 import com.example.accountspayable.MainActivityViewModel
 import org.koin.androidx.compose.koinViewModel
 import com.example.accountspayable.R
-import com.example.accountspayable.isScrolledToEnd
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
 
 @Composable
 fun ListAccountsPayable(){

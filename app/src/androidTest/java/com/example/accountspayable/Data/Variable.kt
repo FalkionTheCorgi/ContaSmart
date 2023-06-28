@@ -44,6 +44,64 @@ val ITEM_ENTITY_LESS_3DAYS_2 = ItemEntity(
     year = getTodayDate()?.year ?: 2023
 )
 
+val ITEM_ENTITY_LESS_3DAYS_1_AFTER_EDIT = ItemEntity(
+    itemName = "Item1",
+    price = 33.0,
+    description = "desc1",
+    icon = "Light",
+    person1 = "Teste1",
+    checkedPerson1 = false,
+    person2 = "",
+    checkedPerson2 = false,
+    person3 = "Teste3",
+    checkedPerson3 = false,
+    person4 = "",
+    checkedPerson4 = false,
+    priceOfPerson = 11.0,
+    vencimento = 4,
+    month = getTodayDate()?.monthValue ?: -1,
+    year = getTodayDate()?.year ?: 2023
+)
+
+val ITEM_ENTITY_LESS_3DAYS_2_AFTER_EDIT = ItemEntity(
+    itemName = "Item2",
+    price = 60.0,
+    description = "desc2",
+    icon = "Water",
+    person1 = "",
+    checkedPerson1 = false,
+    person2 = "Teste2",
+    checkedPerson2 = false,
+    person3 = "",
+    checkedPerson3 = false,
+    person4 = "Teste4",
+    checkedPerson4 = false,
+    priceOfPerson = 20.0,
+    vencimento = 23,
+    month = getTodayDate()?.monthValue ?: -1,
+    year = getTodayDate()?.year ?: 2023
+)
+
+val ITEM_ENTITY_EDIT = ItemEntity(
+    itemName = "Item Edit",
+    price = 25.0,
+    description = "description edit",
+    icon = "Router",
+    person1 = "",
+    checkedPerson1 = false,
+    person2 = "",
+    checkedPerson2 = false,
+    person3 = "",
+    checkedPerson3 = false,
+    person4 = "Pessoa4",
+    checkedPerson4 = false,
+    priceOfPerson = 12.50,
+    vencimento = 22,
+    month = getTodayDate()?.monthValue ?: -1,
+    year = getTodayDate()?.year ?: 2023
+)
+
+
 val SUMMARY_CREATED_TODAY = SummaryEntity(
     revenue = 332.0f,
     month = getTodayDate()?.monthValue ?: 1,
@@ -68,6 +126,13 @@ val listItems = listOf(
     ITEM_ENTITY_LESS_3DAYS_1,
     ITEM_ENTITY_LESS_3DAYS_2
 )
+
+val listItemsAfterEdit = listOf(
+    ITEM_ENTITY_LESS_3DAYS_1_AFTER_EDIT,
+    ITEM_ENTITY_LESS_3DAYS_2_AFTER_EDIT
+)
+
+
 
 val years = listOf(
     "2023",
@@ -96,3 +161,9 @@ val SUMMARY_PERSON1 = "Pessoa1"
 val SUMMARY_PERSON2 = "Pessoa2"
 val SUMMARY_PERSON3 = "Pessoa3"
 val SUMMARY_PERSON4 = "Pessoa4"
+
+val SUMMARY_REVENUE_EDIT = "701.57"
+val SUMMARY_PERSON1_EDIT = "Teste1"
+val SUMMARY_PERSON2_EDIT= "Teste2"
+val SUMMARY_PERSON3_EDIT = "Teste3"
+val SUMMARY_PERSON4_EDIT = "Teste4"

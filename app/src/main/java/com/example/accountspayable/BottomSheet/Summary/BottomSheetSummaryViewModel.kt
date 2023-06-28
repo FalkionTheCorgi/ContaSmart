@@ -152,21 +152,25 @@ class BottomSheetSummaryViewModel(
             state.progressBtn.value = false
             state.textButton.value = context.getString(R.string.btn_edit)
 
-            Toast.makeText(
-                context,
-                context.getString(R.string.toast_data_edit_success),
-                Toast.LENGTH_LONG
-            ).show()
+            viewModelScope.launch {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.toast_data_edit_success),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
 
             onSuccess()
 
         } else {
 
-            Toast.makeText(
-                context,
-                context.getString(R.string.toast_data_check_red_fields),
-                Toast.LENGTH_LONG
-            ).show()
+            viewModelScope.launch {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.toast_data_check_red_fields),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
 
             state.progressBtn.value = false
             state.textButton.value = context.getString(R.string.btn_edit)

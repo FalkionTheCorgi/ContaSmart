@@ -223,6 +223,8 @@
     <string name="card_item_person3_checkbox_tag" translatable="false">card_item_person3_checkbox_tag</string>
     <string name="card_item_person4_tag" translatable="false">card_item_person4_tag</string>
     <string name="card_item_person4_checkbox_tag" translatable="false">card_item_person4_checkbox_tag</string>
+    <string name="card_item_btn_edit_tag" translatable="false">card_item_btn_edit_tag</string>
+    <string name="card_item_btn_delete_tag" translatable="false">card_item_btn_delete_tag</string>
     <string name="float_action_button_tag" translatable="false">float_action_button_tag</string>
     <string name="bottomsheet_item_name_tag" translatable="false">bottomsheet_item_name_tag</string>
     <string name="bottomsheet_item_value_tag" translatable="false">bottomsheet_item_value_tag</string>
@@ -238,6 +240,8 @@
     <string name="bottomsheet_item_name_person2_item_tag" translatable="false">bottomsheet_item_name_person2_item_tag</string>
     <string name="bottomsheet_item_name_person3_item_tag" translatable="false">bottomsheet_item_name_person3_item_tag</string>
     <string name="bottomsheet_item_name_person4_item_tag" translatable="false">bottomsheet_item_name_person4_item_tag</string>
+    <string name="bottomsheet_item_name_btn_delete_item_tag" translatable="false">bottomsheet_item_name_btn_delete_item_tag</string>
+    <string name="bottomsheet_item_name_btn_edit_item_tag" translatable="false">bottomsheet_item_name_btn_edit_item_tag</string>
     <string name="bottomsheet_item_btn_save_tag" translatable="false">bottomsheet_item_btn_save_tag</string>
     <string name="bottomsheet_calendar_month_btn_tag" translatable="false">bottomsheet_calendar_month_btn_tag</string>
     <string name="bottomsheet_calendar_year_btn_tag" translatable="false">bottomsheet_calendar_year_btn_tag</string>
@@ -246,11 +250,14 @@
     <string name="bottomsheet_calendar_btn_save_tag" translatable="false">bottomsheet_calendar_btn_save_tag</string>
     <string name="topbar_calendar_icon_tag" translatable="false">topbar_calendar_icon</string>
     <string name="card_summary_non_exist_btn_create_tag" translatable="false">card_summary_non_exist_btn_create</string>
+    <string name="card_summary_exist_btn_edit_tag" translatable="false">card_summary_exist_btn_edit_tag</string>
+    <string name="card_summary_exist_btn_delete_tag" translatable="false">card_summary_exist_btn_delete_tag</string>
     <string name="bottomsheet_summary_revenue_tag" translatable="false">bottomsheet_summary_revenue_tag</string>
     <string name="bottomsheet_summary_person1_tag" translatable="false">bottomsheet_summary_person1_tag</string>
     <string name="bottomsheet_summary_person2_tag" translatable="false">bottomsheet_summary_person2_tag</string>
     <string name="bottomsheet_summary_person3_tag" translatable="false">bottomsheet_summary_person3_tag</string>
     <string name="bottomsheet_summary_person4_tag" translatable="false">bottomsheet_summary_person4_tag</string>
     <string name="bottomsheet_summary_btn_save_tag" translatable="false">bottomsheet_summary_btn_save_tag</string>
+    <string name="alert_summary_delete_btn_tag" translatable="false">alert_summary_delete_btn_tag</string>
 
 </resources>

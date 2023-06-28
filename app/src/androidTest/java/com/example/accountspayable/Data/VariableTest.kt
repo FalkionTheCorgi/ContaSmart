@@ -1,9 +1,7 @@
 package com.example.accountspayable.Data
 
 import android.content.Context
-import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
-import androidx.compose.ui.test.onAllNodesWithTag
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.*
 import com.example.accountspayable.R
 
 class VariableTest(
@@ -472,6 +470,27 @@ class VariableTest(
         useUnmergedTree = true
     )
 
+    val cardSummaryBtnDelete = composeRule.onNodeWithTag(
+        context.getString(R.string.card_summary_exist_btn_delete_tag),
+        useUnmergedTree = true
+    )
+
+    val cardSummaryBtnEdit = composeRule.onNodeWithTag(
+        context.getString(R.string.card_summary_exist_btn_edit_tag),
+        useUnmergedTree = true
+    )
+
+    val alertSummaryBtnDelete = composeRule.onNodeWithTag(
+        context.getString(R.string.alert_summary_delete_btn_tag),
+        useUnmergedTree = true
+    )
+
+    val cardSummaryNonExistBtnRegister = composeRule.onNodeWithTag(
+        context.getString(R.string.card_summary_non_exist_btn_create_tag),
+        useUnmergedTree = true
+    )
+
+
 }
 
 class NodeItem(
@@ -533,4 +552,15 @@ class NodeItem(
         context.getString(R.string.card_item_person4_checkbox_tag),
         useUnmergedTree = true
     )
+
+    val itemBtnDelete = composeRule.onNodeWithTag(
+        context.getString(R.string.card_item_btn_delete_tag),
+        useUnmergedTree = true
+    )
+
+    val itemBtnEdit = composeRule.onNodeWithTag(
+        context.getString(R.string.card_item_btn_edit_tag),
+        useUnmergedTree = true
+    )
+
 }

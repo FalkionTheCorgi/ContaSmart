@@ -9,14 +9,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.accountspayable.Data.*
 import com.example.accountspayable.Room.DataBase
 import com.example.accountspayable.Room.Item.ItemEntity
-import com.google.android.datatransport.cct.StringMerger
-import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 import java.util.*
 
@@ -29,7 +24,6 @@ class TestListItems {
     val composeRule = createAndroidComposeRule(MainActivity::class.java)
 
     val variables = VariableTest(context, composeRule)
-
 
     @Before
     fun setup(){
@@ -386,6 +380,143 @@ class TestListItems {
         }
     }
 
+    @Test
+    fun test_editar_sumario(){
+
+        clickCardSummary()
+
+        variables.cardSummaryBtnEdit.assertIsDisplayed()
+        variables.cardSummaryBtnEdit.performClick()
+
+        variables.fieldBtmSheetSummaryRevenue.assertIsDisplayed()
+        variables.fieldBtmSheetSummaryRevenue.performTextClearance()
+        variables.fieldBtmSheetSummaryRevenue.performTextInput(SUMMARY_REVENUE_EDIT)
+
+        variables.fieldBtmSheetSummaryPerson1.assertIsDisplayed()
+        variables.fieldBtmSheetSummaryPerson1.performTextClearance()
+        variables.fieldBtmSheetSummaryPerson1.performTextInput(SUMMARY_PERSON1_EDIT)
+
+        variables.fieldBtmSheetSummaryPerson2.assertIsDisplayed()
+        variables.fieldBtmSheetSummaryPerson2.performTextClearance()
+        variables.fieldBtmSheetSummaryPerson2.performTextInput(SUMMARY_PERSON2_EDIT)
+
+        variables.fieldBtmSheetSummaryPerson3.assertIsDisplayed()
+        variables.fieldBtmSheetSummaryPerson3.performTextClearance()
+        variables.fieldBtmSheetSummaryPerson3.performTextInput(SUMMARY_PERSON3_EDIT)
+
+        variables.fieldBtmSheetSummaryPerson4.assertIsDisplayed()
+        variables.fieldBtmSheetSummaryPerson4.performTextClearance()
+        variables.fieldBtmSheetSummaryPerson4.performTextInput(SUMMARY_PERSON4_EDIT)
+
+        variables.fieldBtmSheetSummaryBtnSave.assertIsDisplayed()
+        variables.fieldBtmSheetSummaryBtnSave.performClick()
+
+        verifyCardSummary(
+            revenue = String.format("%.2f", SUMMARY_REVENUE_EDIT.toDouble()),
+            price = String.format("%.2f", listItems[0].price + listItems[1].price),
+            revenueToExpenditure = returnRevenueToExpenditure(SUMMARY_REVENUE_EDIT.toDouble(), listItems),
+            person1 = SUMMARY_PERSON1_EDIT,
+            person2 = SUMMARY_PERSON2_EDIT,
+            person3 = SUMMARY_PERSON3_EDIT,
+            person4 = SUMMARY_PERSON4_EDIT,
+            list = listItems
+        )
+
+        listItemsAfterEdit.forEachIndexed { index, element ->
+
+            verifyCardItem(element = element, index = index)
+
+        }
+
+    }
+
+    @Test
+    fun test_delete_sumario(){
+
+        clickCardSummary()
+
+        variables.cardSummaryBtnDelete.assertIsDisplayed()
+        variables.cardSummaryBtnDelete.performClick()
+
+        variables.alertSummaryBtnDelete.assertIsDisplayed()
+        variables.alertSummaryBtnDelete.performClick()
+
+        variables.cardSummaryNonExistBtnRegister.assertIsDisplayed()
+
+    }
+
+    @Test
+    fun test_edit_item(){
+
+        verifyCardItem(listItems.first(), 0)
+
+        clickCardItem(0)
+
+        val node = NodeItem(
+            index = 0,
+            context = context,
+            composeRule = composeRule
+        )
+
+        node.itemBtnEdit.assertIsDisplayed()
+        node.itemBtnEdit.performClick()
+
+        variables.fieldName.performTextReplacement(ITEM_ENTITY_EDIT.itemName)
+        variables.fieldValue.performTextReplacement(ITEM_ENTITY_EDIT.price.toString())
+        variables.fieldDescription.performTextClearance()
+        variables.fieldDeadline.performTextClearance()
+
+        fillBottomSheetItemCommonData(
+            deadline = ITEM_ENTITY_EDIT.vencimento.toString(),
+            itemDescription = ITEM_ENTITY_EDIT.description,
+            person1 = SUMMARY_PERSON1,
+            person3 = SUMMARY_PERSON3,
+            person4 = SUMMARY_PERSON4,
+            checkPerson1 = true,
+            checkPerson3 = true,
+            checkPerson4 = true,
+        )
+
+        clickCardItem(0)
+
+        verifyCardItem(ITEM_ENTITY_EDIT, 0)
+
+        clickCardSummary()
+
+        verifyCardSummary(
+            revenue = String.format("%.2f", SUMMARY_CREATED_TODAY.revenue),
+            price = String.format("%.2f", ITEM_ENTITY_EDIT.price + ITEM_ENTITY_LESS_3DAYS_2.price),
+            revenueToExpenditure = returnRevenueToExpenditure(
+                revenue = SUMMARY_CREATED_TODAY.revenue.toDouble(),
+                listItems = listOf(ITEM_ENTITY_EDIT, ITEM_ENTITY_LESS_3DAYS_2)
+            ),
+            person1 = SUMMARY_CREATED_TODAY.person1,
+            person2 = SUMMARY_CREATED_TODAY.person2,
+            person3 = SUMMARY_CREATED_TODAY.person3,
+            person4 = SUMMARY_CREATED_TODAY.person4,
+            list = listOf(ITEM_ENTITY_EDIT, ITEM_ENTITY_LESS_3DAYS_2)
+        )
+
+    }
+
+    @Test
+    fun test_delete_item(){
+        verifyCardItem(listItems.first(), 0)
+
+        clickCardItem(0)
+
+        val node = NodeItem(
+            index = 0,
+            context = context,
+            composeRule = composeRule
+        )
+
+        node.itemBtnDelete.assertIsDisplayed()
+        node.itemBtnDelete.performClick()
+
+        verifyCardItem(ITEM_ENTITY_LESS_3DAYS_2, 0)
+    }
+
     private fun changeMonthAndYear(month: Int, year: Int){
         composeRule.apply {
 
@@ -608,6 +739,11 @@ class TestListItems {
 
     private fun fillBottomSheetItemCommonData(
         deadline: String = ITEM_DEADLINE_CORRECT,
+        itemDescription: String = ITEM_DESCRIPTION,
+        person1: String = SUMMARY_CREATED_TODAY.person1,
+        person2: String = SUMMARY_CREATED_TODAY.person2,
+        person3: String = SUMMARY_CREATED_TODAY.person3,
+        person4: String = SUMMARY_CREATED_TODAY.person4,
         checkPerson1: Boolean = false,
         checkPerson2: Boolean = false,
         checkPerson3: Boolean = false,
@@ -618,7 +754,7 @@ class TestListItems {
         variables.fieldDeadline.performTextInput(deadline)
 
         variables.fieldDescription.assertIsDisplayed()
-        variables.fieldDescription.performTextInput(ITEM_DESCRIPTION)
+        variables.fieldDescription.performTextInput(itemDescription)
 
         variables.fieldIcon.assertIsDisplayed()
         variables.fieldIcon.performClick()
@@ -629,7 +765,7 @@ class TestListItems {
         if (SUMMARY_CREATED_TODAY.person1.isNotEmpty()){
             if (checkPerson1) {
                 variables.fieldNameCheckbox1.assertIsDisplayed()
-                variables.fieldNameCheckbox1.assertTextEquals(SUMMARY_CREATED_TODAY.person1)
+                variables.fieldNameCheckbox1.assertTextEquals(person1)
                 variables.fieldCheckboxItem1.assertIsDisplayed()
                 variables.fieldCheckboxItem1.performClick()
             }
@@ -641,7 +777,7 @@ class TestListItems {
         if (SUMMARY_CREATED_TODAY.person2.isNotEmpty()){
             if (checkPerson2) {
                 variables.fieldNameCheckbox2.assertIsDisplayed()
-                variables.fieldNameCheckbox2.assertTextEquals(SUMMARY_CREATED_TODAY.person2)
+                variables.fieldNameCheckbox2.assertTextEquals(person2)
                 variables.fieldCheckboxItem2.assertIsDisplayed()
                 variables.fieldCheckboxItem2.performClick()
             }
@@ -653,7 +789,7 @@ class TestListItems {
         if (SUMMARY_CREATED_TODAY.person3.isNotEmpty()){
             if (checkPerson3) {
                 variables.fieldNameCheckbox3.assertIsDisplayed()
-                variables.fieldNameCheckbox3.assertTextEquals(SUMMARY_CREATED_TODAY.person3)
+                variables.fieldNameCheckbox3.assertTextEquals(person3)
                 variables.fieldCheckboxItem3.assertIsDisplayed()
                 variables.fieldCheckboxItem3.performClick()
             }
@@ -665,7 +801,7 @@ class TestListItems {
         if (SUMMARY_CREATED_TODAY.person4.isNotEmpty()){
             if (checkPerson4) {
                 variables.fieldNameCheckbox4.assertIsDisplayed()
-                variables.fieldNameCheckbox4.assertTextEquals(SUMMARY_CREATED_TODAY.person4)
+                variables.fieldNameCheckbox4.assertTextEquals(person4)
                 variables.fieldCheckboxItem4.assertIsDisplayed()
                 variables.fieldCheckboxItem4.performClick()
             }

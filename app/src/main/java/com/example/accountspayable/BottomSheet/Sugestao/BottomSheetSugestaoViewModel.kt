@@ -6,7 +6,9 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.accountspayable.R
+import kotlinx.coroutines.launch
 
 class BottomSheetSugestaoViewModel: ViewModel() {
 
@@ -31,12 +33,14 @@ class BottomSheetSugestaoViewModel: ViewModel() {
                 context.startActivity(mIntent)
 
             } catch (e: java.lang.Exception) {
-
-                Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
-
+                viewModelScope.launch {
+                    Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+                }
             }
         }else{
-            Toast.makeText(context, context.getString(R.string.toast_please_digit_message), Toast.LENGTH_LONG).show()
+            viewModelScope.launch {
+                Toast.makeText(context, context.getString(R.string.toast_please_digit_message), Toast.LENGTH_LONG).show()
+            }
         }
 
     }

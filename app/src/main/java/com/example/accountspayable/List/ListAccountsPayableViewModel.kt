@@ -53,7 +53,11 @@ class ListAccountsPayableViewModel(
             id = id
         )
 
-        Toast.makeText(context, context.getText(R.string.removed_success), Toast.LENGTH_LONG).show()
+        viewModelScope.launch {
+            Toast.makeText(context, context.getText(R.string.removed_success), Toast.LENGTH_LONG).show()
+        }
+
+
     }
 
 
