@@ -1,15 +1,15 @@
 package com.example.accountspayable.BottomSheet.Summary
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import android.content.LocusId
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.accountspayable.R
 import com.example.accountspayable.Room.DataBase
 import com.example.accountspayable.Room.Summary.SummaryEntity
-import com.example.accountspayable.getTodayDate
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class BottomSheetSummaryViewModel(
     application: Application
@@ -19,11 +19,9 @@ class BottomSheetSummaryViewModel(
         application
     )
 
-    @SuppressLint("StaticFieldLeak")
-    val context = application.applicationContext
-
 
     fun onAppearBtmSheetSummary(
+        context: Context,
         isEdit : Boolean,
         revenue: String,
         person1: String = "",
@@ -77,21 +75,26 @@ class BottomSheetSummaryViewModel(
             state.progressBtn.value = false
             state.textButton.value = context.getString(R.string.btn_save)
 
-            Toast.makeText(
-                context,
-                context.getString(R.string.toast_data_save_success),
-                Toast.LENGTH_LONG
-            ).show()
+            viewModelScope.launch {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.toast_data_save_success),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
 
             onSuccess()
 
         } else {
 
-            Toast.makeText(
-                context,
-                context.getString(R.string.toast_data_check_red_fields),
-                Toast.LENGTH_LONG
-            ).show()
+            viewModelScope.launch {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.toast_data_check_red_fields),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
 
             state.progressBtn.value = false
             state.textButton.value = context.getString(R.string.btn_save)
@@ -123,29 +126,28 @@ class BottomSheetSummaryViewModel(
                 person4 = state.person4.value
             )
 
-            val items = dataBaseItem.getAllItems()
+            val items = dataBaseItem.getAllItems().first()
 
             items.forEach {  item ->
-
-               dataBaseItem.updateItem(
-                   id = item.id,
-                   name = item.itemName,
-                   price = item.price,
-                   description = item.description,
-                   icon = item.icon,
-                   vencimento = item.vencimento,
-                   person1 = if(item.person1.isNotEmpty()){ state.person1.value } else { "" },
-                   person2 = if(item.person2.isNotEmpty()){ state.person2.value } else { "" },
-                   person3 = if(item.person3.isNotEmpty()){ state.person3.value } else { "" },
-                   person4 = if(item.person4.isNotEmpty()){ state.person4.value } else { "" },
-                   priceOfPerson = item.priceOfPerson,
-                   checkedPerson1 = item.checkedPerson1,
-                   checkedPerson2 = item.checkedPerson2,
-                   checkedPerson3 = item.checkedPerson3,
-                   checkedPerson4 = item.checkedPerson4
-               )
-
+                dataBaseItem.updateItem(
+                    id = item.id,
+                    name = item.itemName,
+                    price = item.price,
+                    description = item.description,
+                    icon = item.icon,
+                    vencimento = item.vencimento,
+                    person1 = if(item.person1.isNotEmpty()){ state.person1.value } else { "" },
+                    person2 = if(item.person2.isNotEmpty()){ state.person2.value } else { "" },
+                    person3 = if(item.person3.isNotEmpty()){ state.person3.value } else { "" },
+                    person4 = if(item.person4.isNotEmpty()){ state.person4.value } else { "" },
+                    priceOfPerson = item.priceOfPerson,
+                    checkedPerson1 = item.checkedPerson1,
+                    checkedPerson2 = item.checkedPerson2,
+                    checkedPerson3 = item.checkedPerson3,
+                    checkedPerson4 = item.checkedPerson4
+                )
             }
+
 
             state.progressBtn.value = false
             state.textButton.value = context.getString(R.string.btn_edit)

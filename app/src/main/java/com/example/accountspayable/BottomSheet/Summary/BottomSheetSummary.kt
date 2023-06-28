@@ -3,7 +3,10 @@ package com.example.accountspayable.BottomSheet
 import android.view.KeyEvent
 import android.view.KeyEvent.ACTION_DOWN
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -19,6 +22,7 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -28,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.accountspayable.BottomSheet.Summary.BottomSheetSummaryViewModel
 import com.example.accountspayable.Components.FKButtonProgress
+import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
 import com.example.accountspayable.MainActivityViewModel
 import com.example.accountspayable.R
@@ -47,8 +52,6 @@ fun BottomSheetSummary(
 ){
 
     val model: BottomSheetSummaryViewModel = koinViewModel()
-    val modelCard: CardSummaryViewModel = koinViewModel()
-    val activityViewModel: MainActivityViewModel = koinViewModel()
 
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -56,6 +59,7 @@ fun BottomSheetSummary(
     LaunchedEffect(true){
 
         model.onAppearBtmSheetSummary(
+            context = context,
             isEdit = isEdit,
             revenue = revenue,
             person1 = person1,
@@ -87,12 +91,15 @@ fun BottomSheetSummary(
             label = { Text(text = stringResource(id = R.string.bottomsheet_summary_receipt)) },
             placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_receipt_placeholder)) },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(context.getString(R.string.bottomsheet_summary_revenue_tag)),
             leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_cash), contentDescription = stringResource(
                 id = R.string.bottomsheet_summary_receipt_icon
             ), modifier = Modifier
                 .width(24.dp)
-                .height(24.dp)) },
+                .height(24.dp)
+            ) },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = if (!model.state.redFieldRevenue.value) { MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled) } else { Color.Red },
                 focusedBorderColor = if (!model.state.redFieldRevenue.value) { MaterialTheme.colors.primary } else { Color.Red },
@@ -114,12 +121,16 @@ fun BottomSheetSummary(
            label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_1)) },
            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_1_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
-           modifier = Modifier.fillMaxWidth(),
+           modifier = Modifier
+               .fillMaxWidth()
+               .testTag(context.getString(R.string.bottomsheet_summary_person1_tag)),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = stringResource(
                id = R.string.bottomsheet_summary_add_person_1_icon
            ), modifier = Modifier
                .width(24.dp)
-               .height(24.dp)) }
+               .height(24.dp)
+           )
+           }
 
        )
 
@@ -132,12 +143,15 @@ fun BottomSheetSummary(
            label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_2)) },
            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_2_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
-           modifier = Modifier.fillMaxWidth(),
+           modifier = Modifier
+               .fillMaxWidth()
+               .testTag(context.getString(R.string.bottomsheet_summary_person2_tag)),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = stringResource(
                id = R.string.bottomsheet_summary_add_person_2_icon
            ), modifier = Modifier
                .width(24.dp)
-               .height(24.dp)) }
+               .height(24.dp)
+           ) }
 
        )
 
@@ -150,12 +164,15 @@ fun BottomSheetSummary(
            label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_3)) },
            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_3_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
-           modifier = Modifier.fillMaxWidth(),
+           modifier = Modifier
+               .fillMaxWidth()
+               .testTag(context.getString(R.string.bottomsheet_summary_person3_tag)),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = stringResource(
                id = R.string.bottomsheet_summary_add_person_3_icon
            ), modifier = Modifier
                .width(24.dp)
-               .height(24.dp)) }
+               .height(24.dp)
+           ) }
 
        )
 
@@ -168,62 +185,59 @@ fun BottomSheetSummary(
            label = { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_4)) },
            placeholder =  { Text(text = stringResource(id = R.string.bottomsheet_summary_add_person_4_placeholder)) },
            keyboardOptions = KeyboardOptions.Default.copy(KeyboardCapitalization.Words, keyboardType = KeyboardType.Text),
-           modifier = Modifier.fillMaxWidth(),
+           modifier = Modifier
+               .fillMaxWidth()
+               .testTag(context.getString(R.string.bottomsheet_summary_person4_tag)),
            leadingIcon = { Image(painter = painterResource(id = R.drawable.icon_person), contentDescription = stringResource(
                id = R.string.bottomsheet_summary_add_person_4_icon
            ), modifier = Modifier
                .width(24.dp)
-               .height(24.dp)) }
+               .height(24.dp)
+           ) }
 
        )
 
        Spacer(modifier = Modifier.height(16.dp))
 
        FKButtonProgress(
-           bgColor = MaterialTheme.colors.primary,
            textColor = MaterialTheme.colors.onSecondary,
            textButton = model.state.textButton.value,
-           isProgress = model.state.progressBtn.value
-       ) {
+           isProgress = model.state.progressBtn.value,
+           modifier = Modifier
+               .fillMaxWidth()
+               .height(37.dp)
+               .background(color = MaterialTheme.colors.primary, shape = RoundedCornerShape(4.dp))
+               .testTag(context.getString(R.string.bottomsheet_summary_btn_save_tag))
+               .clickable {
+                   scope.launch {
 
-           scope.launch {
+                       if(model.state.textButton.value == context.getString(R.string.btn_save)) {
 
-               if(model.state.textButton.value == context.getString(R.string.btn_save)) {
+                           model.addSummary(
+                               context = context,
+                               month = GlobalVariables.monthSelected.value ?: 1,
+                               year = GlobalVariables.yearSelected.value ?: 2023,
+                               onSuccess = {
+                                   callBack.invoke()
+                               }
+                           )
 
-                   model.addSummary(
-                       context = context,
-                       month = activityViewModel.monthSelected.value ?: 1,
-                       year = activityViewModel.yearSelected.value ?: 2023,
-                       onSuccess = {
-                           scope.launch {
-                               modelCard.onAppearCardSummary(
-                                   context = context,
-                                   year = activityViewModel.yearSelected.value ?: 2023,
-                                   month = activityViewModel.monthSelected.value ?: 1
-                               )
-                           }
-                           callBack.invoke()
+                       } else {
+
+                           model.editSummary(
+                               id = id,
+                               context = context,
+                               onSuccess = {
+                                   callBack.invoke()
+                               }
+                           )
+
                        }
-                   )
 
-               } else {
 
-                    model.editSummary(
-                        id = id,
-                        context = context,
-                        onSuccess = {
-                            activityViewModel.resetCardSummary.value = true
-                            callBack.invoke()
-                        }
-                    )
-
+                   }
                }
-
-
-           }
-
-
-       }
+       )
 
        Spacer(modifier = Modifier.height(4.dp))
 

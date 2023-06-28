@@ -1,6 +1,7 @@
 package com.example.accountspayable.List
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -8,21 +9,20 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.accountspayable.*
 import com.example.accountspayable.List.Cards.Item.CardItemPayableViewModel
 import com.example.accountspayable.R
 import com.example.accountspayable.Room.Data.DataItem
 import com.example.accountspayable.Room.Data.MonthYear
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.get
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -51,39 +51,14 @@ fun CardItemPayable(
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    val cardModel: CardItemPayableViewModel = koinViewModel()
     val model: ListAccountsPayableViewModel = koinViewModel()
     val activityViewModel: MainActivityViewModel = koinViewModel()
-
-    LaunchedEffect(true){
-
-        cardModel.fillCheckPerson(
-            check1 = check1,
-            check2 = check2,
-            check3 = check3,
-            check4 = check4
-        )
-
-    }
-
-    LaunchedEffect(activityViewModel.updateBottomSheet.value){
-
-        if (activityViewModel.updateBottomSheet.value) {
-            cardModel.fillCheckPerson(
-                check1 = check1,
-                check2 = check2,
-                check3 = check3,
-                check4 = check4
-            )
-            activityViewModel.updateBottomSheet.value = false
-        }
-
-    }
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp)
+            .testTag(context.getString(R.string.card_item_tag))
             .clickable {
                 expandItem = !expandItem
             },
@@ -114,7 +89,9 @@ fun CardItemPayable(
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    modifier = Modifier.padding(top = 6.dp),
+                    modifier = Modifier
+                        .padding(top = 6.dp)
+                        .testTag(context.getString(R.string.card_item_value_tag)),
                     text = stringResource(id = R.string.price_item, "R$", String.format("%.2f", valor)),
                     color = MaterialTheme.colors.secondary
                 )
@@ -142,7 +119,9 @@ fun CardItemPayable(
                             Spacer(modifier = Modifier.width(2.dp))
 
                             Text(
-                                modifier = Modifier.padding(start = 6.dp, top =6.dp),
+                                modifier = Modifier
+                                    .padding(start = 6.dp, top =6.dp)
+                                    .testTag(context.getString(R.string.card_item_deadline_tag)),
                                 text = stringResource(id = R.string.day_deadline, vencimento),
                                 color = MaterialTheme.colors.secondary
                             )
@@ -170,7 +149,9 @@ fun CardItemPayable(
                             Spacer(modifier = Modifier.width(2.dp))
 
                             Text(
-                                modifier = Modifier.padding(start = 6.dp, top =6.dp),
+                                modifier = Modifier
+                                    .padding(start = 6.dp, top =6.dp)
+                                    .testTag(context.getString(R.string.card_item_description_tag)),
                                 text = stringResource(id = R.string.description_item, descricao),
                                 color = MaterialTheme.colors.secondary
                             )
@@ -205,7 +186,7 @@ fun CardItemPayable(
                                 activityViewModel.editCardObj.value = DataItem(
                                     id = idCard,
                                     name = title,
-                                    valor = valor.toDouble(),
+                                    valor = valor,
                                     descricao = descricao,
                                     icon = icon,
                                     person1 = person1,
@@ -237,7 +218,6 @@ fun CardItemPayable(
                                     context = context,
                                     id = idCard
                                 )
-                                activityViewModel.resetCardSummary.value = true
                             }
                         }) {
                             Text(stringResource(id = R.string.delete), color = MaterialTheme.colors.primary)
@@ -263,11 +243,19 @@ fun Dividido(
     person4: String
 ){
 
-    val model: CardItemPayableViewModel = koinViewModel()
-    val activityViewModel: MainActivityViewModel = koinViewModel()
+    val model: CardItemPayableViewModel = get()
 
     val scope = rememberCoroutineScope()
     val context =  LocalContext.current
+
+    LaunchedEffect(true){
+
+        model.fillCheckPerson(
+            id = idCard,
+            context = context
+        )
+
+    }
 
     Row(
         modifier = Modifier.fillMaxWidth()
@@ -322,7 +310,9 @@ fun Dividido(
 
             Text(
                 text = person1.replaceFirstChar(Char::uppercase),
-                modifier = Modifier.padding(top = 2.dp, start = 2.dp),
+                modifier = Modifier
+                    .padding(top = 2.dp, start = 2.dp)
+                    .testTag(context.getString(R.string.card_item_person1_tag)),
                 color = MaterialTheme.colors.secondary
             )
 
@@ -338,10 +328,12 @@ fun Dividido(
                                 context = context,
                                 id = idCard
                             )
-                            activityViewModel.updateSummaryPerson1.value = true
+                            Log.d("ENDEREÇO CHECKBOX", model.state.checkBoxPerson1.toString())
                         }
                     },
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .testTag(context.getString(R.string.card_item_person1_checkbox_tag))
                 )
             }
         }
@@ -368,7 +360,9 @@ fun Dividido(
 
             Text(
                 text = person2.replaceFirstChar(Char::uppercase),
-                modifier = Modifier.padding(top = 2.dp, start = 2.dp),
+                modifier = Modifier
+                    .padding(top = 2.dp, start = 2.dp)
+                    .testTag(context.getString(R.string.card_item_person2_tag)),
                 color = MaterialTheme.colors.secondary
             )
 
@@ -385,10 +379,11 @@ fun Dividido(
                                 context = context,
                                 id = idCard
                             )
-                            activityViewModel.updateSummaryPerson2.value = true
                         }
                     },
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .testTag(context.getString(R.string.card_item_person2_checkbox_tag))
                 )
 
             }
@@ -417,7 +412,9 @@ fun Dividido(
 
             Text(
                 text = person3.replaceFirstChar(Char::uppercase),
-                modifier = Modifier.padding(top = 2.dp, start = 2.dp),
+                modifier = Modifier
+                    .padding(top = 2.dp, start = 2.dp)
+                    .testTag(context.getString(R.string.card_item_person3_tag)),
                 color = MaterialTheme.colors.secondary
             )
 
@@ -434,10 +431,11 @@ fun Dividido(
                                 context = context,
                                 id = idCard
                             )
-                            activityViewModel.updateSummaryPerson3.value = true
                         }
                     },
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .testTag(context.getString(R.string.card_item_person3_checkbox_tag))
                 )
 
             }
@@ -464,7 +462,9 @@ fun Dividido(
 
             Text(
                 text = person4.replaceFirstChar(Char::uppercase),
-                modifier = Modifier.padding(top = 2.dp, start = 2.dp),
+                modifier = Modifier
+                    .padding(top = 2.dp, start = 2.dp)
+                    .testTag(context.getString(R.string.card_item_person4_tag)),
                 color = MaterialTheme.colors.secondary
             )
 
@@ -481,10 +481,11 @@ fun Dividido(
                                 context = context,
                                 id = idCard
                             )
-                            activityViewModel.updateSummaryPerson4.value = true
                         }
                     },
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .testTag(context.getString(R.string.card_item_person4_checkbox_tag))
                 )
 
             }

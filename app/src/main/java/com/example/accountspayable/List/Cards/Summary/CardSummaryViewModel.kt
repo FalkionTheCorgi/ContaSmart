@@ -3,195 +3,134 @@ package com.example.accountspayable.List.Cards.Summary
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.R
-import com.example.accountspayable.Room.Data.DataSummary
-import com.example.accountspayable.Room.Data.MonthYear
 import com.example.accountspayable.Room.DataBase
-import kotlin.math.ceil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import kotlin.math.roundToLong
+@OptIn(ExperimentalCoroutinesApi::class)
+class CardSummaryViewModel(
+    context: Context
+) : ViewModel() {
 
-class CardSummaryViewModel : ViewModel() {
+    val state = CardSummaryState(
+        context = context
+    )
 
-    val state = CardSummaryState()
+    init {
+        getSummary(context)
+        updateAllValuesOfPerson(context)
+        updateExpenditure(context)
+    }
 
-    suspend fun onAppearCardSummary(
-        context: Context,
-        month: Int,
-        year: Int
-    ){
+    fun getSummary(context: Context) {
 
-        state.dataSummary.clear()
+        viewModelScope.launch {
+            GlobalVariables.monthSelected.combine(GlobalVariables.yearSelected) { month, year ->
+                month to year
+            }.flatMapLatest { (month, year) ->
+                DataBase.getDataBase(context).summary().getASummaryByMonthAndYear(month!!, year!!)
+            }.collect { summary ->
+                state.dataSummary.value = summary
+            }
+        }
 
-        val summaryDao = DataBase.getDataBase(context).summary()
+    }
 
-        val summary = summaryDao.getASummaryByMonthAndYear(
-            month = month,
-            year = year
-        )
+    fun updateAllValuesOfPerson(context: Context) {
 
-        if (summary.isNotEmpty()) {
 
-            state.dataSummary.add(
-                DataSummary(
-                    id = summary[0].id,
-                    revenue = summary[0].revenue,
-                    person1 = summary[0].person1,
-                    person2 = summary[0].person2,
-                    person3 = summary[0].person3,
-                    person4 = summary[0].person4,
-                    mYear = MonthYear(
-                        month = summary[0].month,
-                        year = summary[0].year,
-                        vencimento = 0
-                    )
+        viewModelScope.launch {
+            GlobalVariables.monthSelected.combine(GlobalVariables.yearSelected) { month, year ->
+                month to year
+            }.flatMapLatest { (month, year) ->
+                 /*DataBase.getDataBase(context).item().getAllItemsByPersonChecked(
+                    month = month!!,
+                    year = year!!,
+                    checkedPerson1 = false,
+                    person1 = state.dataSummary.value?.person1 ?: "",
+                    checkedPerson2 = false,
+                    person2 = state.dataSummary.value?.person2 ?: "",
+                    checkedPerson3 = false,
+                    person3 = state.dataSummary.value?.person3 ?: "",
+                    checkedPerson4 = false,
+                    person4 = state.dataSummary.value?.person4 ?: ""
+                )*/
+                DataBase.getDataBase(context).item().getAllItemsByMonthAndYear(
+                    month = GlobalVariables.monthSelected.value ?: 1,
+                    year = GlobalVariables.yearSelected.value ?: 1
                 )
+            }.collect { list ->
+                state.priceOfPerson1.value = 0.0
+                state.priceOfPerson2.value = 0.0
+                state.priceOfPerson3.value = 0.0
+                state.priceOfPerson4.value = 0.0
+
+                list.forEach {item ->
+
+                    if(!item.checkedPerson1 && item.person1.isNotEmpty()) {
+                        state.priceOfPerson1.value += ((item.priceOfPerson * 100.0).roundToLong() / 100.0)
+                    }
+                    if(!item.checkedPerson2 && item.person2.isNotEmpty()) {
+                        state.priceOfPerson2.value += ((item.priceOfPerson * 100.0).roundToLong() / 100.0)
+                    }
+                    if(!item.checkedPerson3 && item.person3.isNotEmpty()) {
+                        state.priceOfPerson3.value += ((item.priceOfPerson * 100.0).roundToLong() / 100.0)
+                    }
+                    if(!item.checkedPerson4 && item.person4.isNotEmpty()) {
+                        state.priceOfPerson4.value += ((item.priceOfPerson * 100.0).roundToLong() / 100.0)
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    fun updateExpenditure(context: Context){
+
+        viewModelScope.launch {
+
+            DataBase.getDataBase(context).item().getAllItemsByMonthAndYear(
+                month = GlobalVariables.monthSelected.value ?: 1,
+                year = GlobalVariables.yearSelected.value ?: 1
             )
+                .flowOn(Dispatchers.IO)
+                .catch { }
+                .collect{ items ->
+                    state.expenditure.value = 0.0
+                    items.forEach {item ->
 
-            updateAllValuesOfPerson(
-                context = context,
-                month = month,
-                year = year
-            )
+                        state.expenditure.value += item.price
+
+                    }
+
+                }
+
 
         }
 
-    }
+        viewModelScope.launch {
+            GlobalVariables.monthSelected.combine(GlobalVariables.yearSelected) { month, year ->
+                month to year
+            }.flatMapLatest { (month, year) ->
+                DataBase.getDataBase(context).item().getAllItemsByMonthAndYear(
+                    month = month!!,
+                    year = year!!
+                )
+            }.collect { items ->
+                state.expenditure.value = 0.0
+                items.forEach {item ->
 
-    suspend fun updateAllValuesOfPerson(
-        context: Context,
-        month: Int,
-        year: Int
-    ) {
+                    state.expenditure.value += item.price
 
-        updateValueOfPerson1(
-            context = context,
-            month = month,
-            year = year
-        )
-
-        updateValueOfPerson2(
-            context = context,
-            month = month,
-            year = year
-        )
-
-        updateValueOfPerson3(
-            context = context,
-            month = month,
-            year = year
-        )
-
-        updateValueOfPerson4(
-            context = context,
-            month = month,
-            year = year
-        )
-
-    }
-
-    suspend fun updateValueOfPerson1(
-        context: Context,
-        month: Int,
-        year: Int
-    ){
-
-        state.priceOfPerson1.value = 0.0
-
-        val dataBase = DataBase.getDataBase(context).item()
-
-        val list = dataBase.getAllItemsByPersonChecked1(
-            month = month,
-            year = year,
-            checkedPerson1 = false,
-            person1 = if(state.dataSummary.isNotEmpty()) { state.dataSummary.first().person1 } else { "" }
-        )
-
-        list.forEach {
-
-            state.priceOfPerson1.value += (Math.round(it.priceOfPerson * 100.0) / 100.0)
+                }
+            }
         }
-
-
-
-    }
-
-    suspend fun updateValueOfPerson2(
-        context: Context,
-        month: Int,
-        year: Int
-    ){
-
-        state.priceOfPerson2.value = 0.0
-
-        val dataBase = DataBase.getDataBase(context).item()
-
-        val list = dataBase.getAllItemsByPersonChecked2(
-            month = month,
-            year = year,
-            checkedPerson2 = false,
-            person2 = if(state.dataSummary.isNotEmpty()) { state.dataSummary.first().person2 } else { "" }
-        )
-
-        list.forEach {
-
-            state.priceOfPerson2.value += (Math.round(it.priceOfPerson * 100.0) / 100.0)
-
-        }
-
-
-
-    }
-
-    suspend fun updateValueOfPerson3(
-        context: Context,
-        month: Int,
-        year: Int
-    ){
-
-        state.priceOfPerson3.value = 0.0
-
-        val dataBase = DataBase.getDataBase(context).item()
-
-        val list = dataBase.getAllItemsByPersonChecked3(
-            month = month,
-            year = year,
-            checkedPerson3 = false,
-            person3 = if(state.dataSummary.isNotEmpty()) { state.dataSummary.first().person3 } else { "" }
-        )
-
-        list.forEach {
-
-            state.priceOfPerson3.value += (Math.round(it.priceOfPerson * 100.0) / 100.0)
-
-        }
-
-
-
-    }
-
-    suspend fun updateValueOfPerson4(
-        context: Context,
-        month: Int,
-        year: Int
-    ){
-
-        state.priceOfPerson4.value = 0.0
-
-        val dataBase = DataBase.getDataBase(context).item()
-
-        val list = dataBase.getAllItemsByPersonChecked4(
-            month = month,
-            year = year,
-            checkedPerson4 = false,
-            person4 = if(state.dataSummary.isNotEmpty()) { state.dataSummary.first().person4 } else { "" }
-        )
-
-        list.forEach {
-
-            state.priceOfPerson4.value += (Math.round(it.priceOfPerson * 100.0) / 100.0)
-
-        }
-
-
 
     }
 
@@ -235,7 +174,9 @@ class CardSummaryViewModel : ViewModel() {
 
     fun revenueLess(despesa: Double): String {
 
-        return String.format("%.2f", state.dataSummary.first().revenue.toDouble() - despesa)
+
+        return String.format("%.2f", (state.dataSummary.value?.revenue?.toDouble() ?: 0.0) - despesa)
+
 
     }
 

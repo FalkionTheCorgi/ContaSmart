@@ -6,9 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager.*
-import com.example.accountspayable.Data.ITEM_ENTITY_LESS_3DAYS
 import com.example.accountspayable.DataStore.DataStore
-import com.example.accountspayable.Room.DataBase
 import com.example.accountspayable.WorkManager.UploadDataBase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking

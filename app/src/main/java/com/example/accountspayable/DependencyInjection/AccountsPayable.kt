@@ -15,6 +15,7 @@ class AccountsPayable: Application(){
 
             androidContext(this@AccountsPayable)
             modules(appModule)
+            modules(viewModelModule)
 
         }
     }

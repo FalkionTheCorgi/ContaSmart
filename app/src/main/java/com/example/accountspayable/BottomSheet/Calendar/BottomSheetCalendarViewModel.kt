@@ -3,23 +3,22 @@ package com.example.accountspayable.BottomSheet.Calendar
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.R
+import org.koin.androidx.compose.get
 
 class BottomSheetCalendarViewModel(
     application: Application
 ): ViewModel() {
 
-    @SuppressLint("StaticFieldLeak")
-    val context = application.applicationContext
+    val state = BottomSheetCalendarState(application)
 
-    val state = BottomSheetCalendarState(
-        application
-    )
-
-
-
-    fun returnMonth(str: String): Int {
+    fun returnMonth(
+        context: Context,
+        str: String
+    ): Int {
 
         return when(str){
 

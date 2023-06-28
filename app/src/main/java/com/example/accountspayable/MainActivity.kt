@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -24,6 +23,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -41,7 +41,6 @@ import com.example.accountspayable.GoogleDrive.GoogleDriveService
 import com.example.accountspayable.List.BottomSheetAddItem
 import com.example.accountspayable.List.Cards.Item.AlertDialogCreateSummary
 import com.example.accountspayable.List.Cards.Summary.CardSummaryViewModel
-import com.example.accountspayable.List.ListAccountsPayableViewModel
 import com.example.accountspayable.Payment.Payment
 import com.example.accountspayable.TopBar.AlertImportData
 import com.example.accountspayable.TopBar.TopBarApp
@@ -354,10 +353,10 @@ class MainActivity : ComponentActivity() {
                         floatingActionButton = {
 
 
-                            FloatingActionButton(
+                            FloatingActionButton(modifier = Modifier.testTag(context.getString(R.string.float_action_button_tag)),
                                 onClick = {
                                     coroutineScope.launch {
-                                        if (cardSumModel.state.dataSummary.isNotEmpty()) {
+                                        if (cardSumModel.state.dataSummary.value != null) {
                                             model.bottomSheetType.value = BottomSheetTypes.ADD
                                             bottomSheetState.show()
                                         } else {
@@ -366,7 +365,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 },
                                 backgroundColor = MaterialTheme.colors.primaryVariant
-                            ) {
+                            ){
                                 Icon(
                                     imageVector = Icons.Default.Add,
                                     contentDescription = "Add a new group or item",
@@ -428,7 +427,6 @@ class MainActivity : ComponentActivity() {
                                             runOnUiThread {
                                                 Toast.makeText(context, R.string.toast_please_import_data_finished, Toast.LENGTH_LONG).show()
                                             }
-                                            model.resetCardSummary.value = true
                                             model.isLoading.value = false
                                             model.openAlert.value = AlertTypes.NONE
                                         },
@@ -461,7 +459,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun requestPermission(){
+    private fun requestPermission(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
             //Android is 11(R) or above
             try {

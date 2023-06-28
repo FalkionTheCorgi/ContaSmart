@@ -6,6 +6,7 @@ import com.example.accountspayable.BottomSheet.Donation.BottomSheetDonationViewM
 import com.example.accountspayable.BottomSheet.Item.BottomSheetViewModel
 import com.example.accountspayable.BottomSheet.Sugestao.BottomSheetSugestaoViewModel
 import com.example.accountspayable.BottomSheet.Summary.BottomSheetSummaryViewModel
+import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.DataStore.DataStore
 import com.example.accountspayable.GoogleDrive.GoogleDriveService
 import com.example.accountspayable.List.Cards.Item.CardItemPayableViewModel
@@ -23,7 +24,9 @@ import org.koin.dsl.module
 val appModule = module {
 
     single {
-        ListAccountsPayableViewModel()
+        ListAccountsPayableViewModel(
+            androidContext()
+        )
     }
 
     single {
@@ -31,7 +34,9 @@ val appModule = module {
     }
 
     single{
-        CardSummaryViewModel()
+        CardSummaryViewModel(
+            context = androidContext()
+        )
     }
 
     single {
@@ -56,40 +61,10 @@ val appModule = module {
         )
     }
 
-    single{
-        BottomSheetCalendarViewModel(
-            androidApplication()
-        )
-    }
-
-
     single {
         GoogleDriveService(
             androidContext()
         )
-    }
-
-    viewModel {
-          CardItemPayableViewModel()
-    }
-
-    viewModel{
-        BottomSheetViewModel(
-            androidApplication()
-        )
-    }
-
-    viewModel{
-        BottomSheetSummaryViewModel(
-            androidApplication()
-        )
-    }
-
-    viewModel {
-        BottomSheetSugestaoViewModel()
-    }
-    viewModel {
-        BottomSheetDonationViewModel()
     }
 
 }

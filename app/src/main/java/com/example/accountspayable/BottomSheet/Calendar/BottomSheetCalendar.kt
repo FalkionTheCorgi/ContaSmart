@@ -13,10 +13,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
+import com.example.accountspayable.Data.GlobalVariables
 import com.example.accountspayable.MainActivityViewModel
 import com.example.accountspayable.R
 import com.example.accountspayable.returnMonthString
@@ -28,8 +30,8 @@ fun BottomSheetCalendar(
     callBack: () -> Unit
 ) {
 
-    val activityViewModel: MainActivityViewModel = koinViewModel()
     val model: BottomSheetCalendarViewModel = koinViewModel()
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -63,12 +65,17 @@ fun BottomSheetCalendar(
 
         Button(
             onClick = {
-                activityViewModel.monthSelected.value = model.state.monthSelected.value
-                activityViewModel.yearSelected.value = model.state.yearSelected.value
-                activityViewModel.resetCardSummary.value = true
+                GlobalVariables.monthSelected.value = model.state.monthSelected.value
+                GlobalVariables.yearSelected.value = model.state.yearSelected.value
                 callBack.invoke()
             },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag(
+                    context.getString(
+                        R.string.bottomsheet_calendar_btn_save_tag
+                    )
+                ),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
         ) {
             Text(text = stringResource(id = R.string.btn_select), color = MaterialTheme.colors.onSecondary)
@@ -90,7 +97,6 @@ fun BottomSheetCalendar(
 fun ExposedDropdownMenuMonth() {
 
     val model: BottomSheetCalendarViewModel = koinViewModel()
-    val activityViewModel: MainActivityViewModel = koinViewModel()
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(model.state.months[0]) }
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
@@ -102,7 +108,7 @@ fun ExposedDropdownMenuMonth() {
 
     LaunchedEffect(true){
 
-        selectedText = returnMonthString(context = context,activityViewModel.monthSelected.value ?: 1)
+        selectedText = returnMonthString(context = context,GlobalVariables.monthSelected.value ?: 1)
 
     }
 
@@ -119,7 +125,8 @@ fun ExposedDropdownMenuMonth() {
                 }
                 .clickable {
                     expanded = !expanded
-                },
+                }
+                .testTag(context.getString(R.string.bottomsheet_calendar_month_btn_tag)),
             label = { Text(stringResource(id = R.string.bottomsheet_calendar_month)) },
             placeholder = { Text(text = stringResource(id = R.string.bottomsheet_calendar_select)) },
             trailingIcon = {
@@ -142,13 +149,20 @@ fun ExposedDropdownMenuMonth() {
             model.state.months.forEach { label ->
                 DropdownMenuItem(onClick = {
                     selectedText = label
-                    model.state.monthSelected.value = model.returnMonth(label)
+                    model.state.monthSelected.value = model.returnMonth(context, label)
                     expanded = false
                 }) {
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             text = label,
-                            modifier = Modifier.padding(start = 8.dp)
+                            modifier = Modifier
+                                .padding(start = 8.dp)
+                                .testTag(
+                                    context.getString(
+                                        R.string.bottomsheet_calendar_month_item_tag,
+                                        label
+                                    )
+                                )
                         )
                     }
                 }
@@ -161,7 +175,7 @@ fun ExposedDropdownMenuMonth() {
 fun ExposedDropdownMenuYear() {
 
     val model: BottomSheetCalendarViewModel = koinViewModel()
-    val activityViewModel: MainActivityViewModel = koinViewModel()
+    val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(model.state.years[0]) }
     var textfieldSize by remember { mutableStateOf(Size.Zero) }
@@ -172,7 +186,7 @@ fun ExposedDropdownMenuYear() {
 
     LaunchedEffect(true){
 
-        selectedText = activityViewModel.yearSelected.value.toString()
+        selectedText = GlobalVariables.yearSelected.value.toString()
 
     }
 
@@ -189,7 +203,12 @@ fun ExposedDropdownMenuYear() {
                 }
                 .clickable {
                     expanded = !expanded
-                },
+                }
+                .testTag(
+                    context.getString(
+                        R.string.bottomsheet_calendar_year_btn_tag
+                    )
+                ),
             label = { Text(stringResource(id = R.string.bottomsheet_calendar_year)) },
             placeholder = { Text(text = stringResource(id = R.string.bottomsheet_calendar_select)) },
             trailingIcon = {
@@ -218,7 +237,14 @@ fun ExposedDropdownMenuYear() {
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             text = label,
-                            modifier = Modifier.padding(start = 8.dp)
+                            modifier = Modifier
+                                .padding(start = 8.dp)
+                                .testTag(
+                                    context.getString(
+                                        R.string.bottomsheet_calendar_year_item_tag,
+                                        label
+                                    )
+                                )
                         )
                     }
                 }

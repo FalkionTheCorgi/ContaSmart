@@ -10,6 +10,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.accountspayable.AlertTypes
@@ -25,6 +27,7 @@ fun TopBarApp(
 
     val activityViewModel: MainActivityViewModel = koinViewModel()
     var showMenu = remember{ mutableStateOf(false) }
+    val context = LocalContext.current
 
     TopAppBar(
         title = {
@@ -38,7 +41,12 @@ fun TopBarApp(
                     .padding(16.dp)
                     .clickable {
                         activityViewModel.bottomSheetType.value = BottomSheetTypes.CALENDAR
-                    },
+                    }
+                    .testTag(
+                        context.getString(
+                            R.string.topbar_calendar_icon_tag
+                        )
+                    ),
                 tint = Color.White
             )
             IconButton(onClick = { showMenu.value = !showMenu.value }) {

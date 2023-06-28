@@ -1,12 +1,10 @@
 package com.example.accountspayable.List
 
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import com.example.accountspayable.Room.Data.DataItem
-import com.example.accountspayable.Room.Data.DataSummary
+import com.example.accountspayable.Room.Item.ItemEntity
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class ListAccounstPayableState {
 
-    var dataItem = mutableStateListOf<DataItem?>()
+    val dataItem: MutableStateFlow<List<ItemEntity>> = MutableStateFlow(emptyList())
 
 }

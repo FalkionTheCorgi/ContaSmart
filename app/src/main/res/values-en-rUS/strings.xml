@@ -90,7 +90,7 @@
 
     <!-- TopBar -->
     <string name= "bottomsheet_ajustes_dark_mode">Dark Mode</string>
-    <string name= "bottomsheet_ajustes_save_data">Save my data on the phone</string>
+    <string name= "bottomsheet_ajustes_save_data">Save my data in the Google Drive</string>
     <string name= "bottomsheet_ajustes_receive_notification">Receive notifications</string>
 
     <!-- AlertPermissionStorage -->

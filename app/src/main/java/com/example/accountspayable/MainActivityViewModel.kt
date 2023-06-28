@@ -53,17 +53,7 @@ class MainActivityViewModel: ViewModel(){
         )
     )
 
-    var updateSummaryPerson1 = mutableStateOf(false)
-    var updateSummaryPerson2 = mutableStateOf(false)
-    var updateSummaryPerson3 = mutableStateOf(false)
-    var updateSummaryPerson4 = mutableStateOf(false)
-    var updateSummaryAllPerson = mutableStateOf(false)
-    var resetCardSummary = mutableStateOf(false)
-    var updateBottomSheet = mutableStateOf(false)
-    var monthSelected = mutableStateOf(getTodayDate()?.monthValue)
-    var yearSelected = mutableStateOf(getTodayDate()?.year)
     var openAlert = mutableStateOf(AlertTypes.NONE)
-
     var darkMode = mutableStateOf(false)
     var backupData = mutableStateOf(false)
     var permissionStorage = mutableStateOf(false)

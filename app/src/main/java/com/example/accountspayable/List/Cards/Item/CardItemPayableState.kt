@@ -1,8 +1,6 @@
 package com.example.accountspayable.List.Cards.Item
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import com.example.accountspayable.Room.Data.DataSummary
 
 class CardItemPayableState {
 
