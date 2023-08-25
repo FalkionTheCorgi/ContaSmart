@@ -1,0 +1,263 @@
+<resources>
+
+    <!-- config app -->
+    <string name="app_name">ContaSmart</string>
+    <string name="admob_id">ca-app-pub-7979390513759902~7612850148</string>
+    <string name="contato_support">contatocontasmart@gmail.com</string>
+    <string name="database_name">databaseContaSmart</string>
+
+
+    <!-- retorno de toast -->
+    <string name="removed_success">Removido com sucesso</string>
+    <string name="toast_delete_summary">Sumário e itens deletados com sucesso!</string>
+    <string name="toast_data_save_success">Dados salvos com sucesso.</string>
+    <string name="toast_data_check_red_fields">Por favor verifique os campos em vermelho.</string>
+    <string name="toast_data_edit_success">Dados editados com sucesso.</string>
+    <string name="toast_please_digit_message">Por favor digite uma mensagem.</string>
+    <string name="toast_please_import_data_start">Importando dados...</string>
+    <string name="toast_please_import_data_finished">Dados importados com sucesso.</string>
+    <string name="toast_google_login_error">Erro ao fazer login com o Google!</string>
+    <string name="toast_no_archive_google_drive">Sem dados salvos na sua conta do Google Drive!</string>
+    <string name="toast_archive_import_wait">Aguarde</string>
+
+    <!-- BillingClient -->
+    <string name = "billing_client_process">Processando...</string>
+    <string name = "billing_client_cancel_purchase">Compra cancelada</string>
+    <string name = "billing_client_purchase_problem">Ocorreu um problema ao tentar fazer a doação</string>
+    <string name = "billing_client_purchase_sucessfully">Obrigado por nos ajudar com o projeto :)</string>
+
+    <!-- AlertDialog -->
+    <string name = "notice">Aviso</string>
+    <string name = "btn_create">Criar</string>
+    <string name = "btn_cancel">Cancelar</string>
+    <string name = "btn_confirm">Confirmar</string>
+    <string name = "btn_register">CADASTRAR</string>
+    <string name = "btn_close">FECHAR</string>
+    <string name = "btn_accept">Aceitar</string>
+    <string name = "btn_select">SELECIONAR</string>
+    <string name = "btn_donate">DOAR</string>
+    <string name = "btn_save">SALVAR</string>
+    <string name = "btn_wait">AGUARDAR</string>
+    <string name = "btn_edit">EDITAR</string>
+    <string name = "btn_send">ENVIAR</string>
+    <string name = "btn_allow">Permitir</string>
+
+    <!-- AlertDialogCreateSummary -->
+    <string name="subtitle_create_summary">É preciso cadastrar o sumário do mês antes de adicionar um item a lista.</string>
+
+    <!-- CardItemPayble -->
+    <string name="choose_icon_item">icone escolhido: %1$s</string>
+    <string name="price_item">%1$s %2$s</string>
+    <string name="icon_deadline">Icone de Vencimento da Conta</string>
+    <string name="day_deadline">Vencimento: %1$s</string>
+    <string name="icon_description">Icone de Descrição da Conta</string>
+    <string name="description_item">Descrição: %1$s</string>
+    <string name="icon_group_people">Icone de Grupo de Pessoas</string>
+    <string name="group_people_text">Dividido com:</string>
+    <string name="group_people_status">Pago?</string>
+    <string name="icon_people">Icone de Pessoa</string>
+
+    <!-- AlertDialogCreateSummary -->
+    <string name="subtitle_summary">Ao deletar o sumário todos os itens também serão deletados. Você tem certeza?</string>
+
+    <!-- CardSummary -->
+    <string name="summary_title_without">Sumário mensal</string>
+    <string name="summary_title">Sumário</string>
+    <string name="summary_month_year">%1$s/%2$s</string>
+    <string name="summary_receipt">Receita: %1$s</string>
+    <string name="icon_summary_receipt">Icone de Receita</string>
+    <string name="icon_summary_expenditure">Icone de Despesa</string>
+    <string name="summary_expenditure">Despesas: %1$s</string>
+    <string name="icon_remaining_revenue">Icone de Receita Restante</string>
+    <string name="summary_remaining">Restante: %1$s</string>
+    <string name="summary_value">Valor</string>
+    <string name="summary_pay">Pago</string>
+
+    <!-- TopBar -->
+    <string name= "topbar_calendar">Calendário</string>
+    <string name= "topbar_more_itens">Mais itens</string>
+    <string name= "topbar_icon_settings">Icone de Ajustes</string>
+    <string name= "topbar_settings">Ajustes</string>
+    <string name= "topbar_icon_suggestion">Icone de Sugestão</string>
+    <string name="topbar_suggestion">Sugestão</string>
+    <string name= "topbar_icon_donation">Icone de Apoio</string>
+    <string name= "topbar_donation">Apoie</string>
+    <string name= "topbar_import">Importar</string>
+    <string name= "topbar_icon_import">Icone de Importar</string>
+
+    <!-- AlertImportData -->
+    <string name= "alert_import_data_subtitle">Para realizar o download dos arquivos contendo os dados necessários, o nosso aplicativo precisa acessar o Google Drive. Essa permissão é solicitada para garantir que possamos recuperar os arquivos de maneira segura e eficiente, proporcionando a melhor experiência para você, lembrando que todos os dados atuais podem ser apagados no aplicativo, essa ação é irreversível, deseja permitir?</string>
+
+    <!-- TopBar -->
+    <string name= "bottomsheet_ajustes_dark_mode">Modo Escuro</string>
+    <string name= "bottomsheet_ajustes_save_data">Salvar meus dados no Google Drive</string>
+    <string name= "bottomsheet_ajustes_receive_notification">Receber notificações</string>
+
+    <!-- AlertPermissionStorage -->
+    <string name= "alert_permission_storage_subtext">É preciso ativar a permissão para o aplicativo salvar os seus dados</string>
+
+    <!-- BottomSheetCalendar -->
+    <string name="bottomsheet_calendar_month">Mês</string>
+    <string name="bottomsheet_calendar_select">Selecione</string>
+    <string name="bottomsheet_calendar_open_close">Abrir ou Fechar opções de mês</string>
+    <string name="bottomsheet_calendar_open_close_year">Abrir ou Fechar opções de ano</string>
+    <string name="bottomsheet_calendar_year">Ano</string>
+
+    <!-- BottomSheetDonation -->
+    <string name="bottomsheet_donation_title">Doação</string>
+    <string name="bottomsheet_donation_subtitle">Olá! Estamos em busca de apoio para o nosso aplicativo que tem como objetivo ajudar as pessoas a organizarem suas contas de forma prática e eficiente. Se você acredita na importância da educação financeira e deseja contribuir para que mais pessoas tenham uma vida financeira mais saudável, pedimos a sua generosa doação. Com o seu suporte, poderemos continuar desenvolvendo e aprimorando essa ferramenta que pode fazer a diferença na vida de muitas pessoas. Junte-se a nós nessa missão. Sua contribuição é fundamental para o sucesso do nosso projeto. Muito obrigado</string>
+
+    <!-- BottomSheetItem -->
+    <string name="bottomsheet_item_name">Item</string>
+    <string name="bottomsheet_item_name_placeholder">Entre com o nome</string>
+    <string name="bottomsheet_item_value">Valor</string>
+    <string name="bottomsheet_item_deadline">Vencimento</string>
+    <string name="bottomsheet_item_description">Descrição</string>
+    <string name="bottomsheet_item_description_placeholder">Descrição(Opcional)</string>
+    <string name="bottomsheet_item_icon">Escolha o Icone</string>
+    <string name="bottomsheet_item_share_account">Vai dividir essa conta com alguem?</string>
+    <string name="bottomsheet_item_icon_label">Icone</string>
+    <string name="bottomsheet_item_select">Selecione</string>
+    <string name="bottomsheet_item_icon_expand">botão de expandir ou esconder icones</string>
+    <string name="bottomsheet_item_icon_dropdown">icone selecionado: %1$s</string>
+    <string name="bottomsheet_item_water_account">Conta de Água</string>
+    <string name="bottomsheet_item_light_account">Conta de Luz</string>
+    <string name="bottomsheet_item_supermarket">Supermercado</string>
+    <string name="bottomsheet_item_router">Internet</string>
+    <string name="bottomsheet_item_card">Cartão de Crédito</string>
+    <string name="bottomsheet_item_restaurant">Restaurante</string>
+    <string name="bottomsheet_item_phone">Celular</string>
+    <string name="bottomsheet_item_house">Aluguel</string>
+    <string name="bottomsheet_item_game">Jogo</string>
+    <string name="bottomsheet_item_other">Outros</string>
+
+    <!-- BottomSheetSuggestion -->
+    <string name="bottomsheet_suggestion_title">Sugestão/Dúvida</string>
+    <string name="bottomsheet_suggestion_message">Mensagem</string>
+
+    <!-- BottomSheetSummary -->
+    <string name="bottomsheet_summary_receipt">Receita</string>
+    <string name="bottomsheet_summary_receipt_icon">Icone de receita</string>
+    <string name="bottomsheet_summary_receipt_placeholder">Adicione sua receita mensal</string>
+    <string name="bottomsheet_summary_add_person_title">Deseja adicionar quantas pessoas que vão dividir as contas com você esse mês?</string>
+    <string name="bottomsheet_summary_add_person_1">Pessoa 1</string>
+    <string name="bottomsheet_summary_add_person_1_icon">icone do campo Pessoa 1</string>
+    <string name="bottomsheet_summary_add_person_1_placeholder">Adicione primeira pessoa</string>
+    <string name="bottomsheet_summary_add_person_2">Pessoa 2</string>
+    <string name="bottomsheet_summary_add_person_2_icon">icone do campo Pessoa 2</string>
+    <string name="bottomsheet_summary_add_person_2_placeholder">Adicione segunda pessoa</string>
+    <string name="bottomsheet_summary_add_person_3">Pessoa 3</string>
+    <string name="bottomsheet_summary_add_person_3_icon">icone do campo Pessoa 3</string>
+    <string name="bottomsheet_summary_add_person_3_placeholder">Adicione terceira pessoa</string>
+    <string name="bottomsheet_summary_add_person_4">Pessoa 4</string>
+    <string name="bottomsheet_summary_add_person_4_icon">icone do campo Pessoa 4</string>
+    <string name="bottomsheet_summary_add_person_4_placeholder">Adicione quarta pessoa</string>
+
+
+
+    <!-- Extension -->
+    <string name="water">Água</string>
+    <string name="light">Lâmpada</string>
+    <string name="market">Mercado</string>
+    <string name="router">Internet</string>
+    <string name="card">Cartão de crédito</string>
+    <string name="restaurant">Restaurante</string>
+    <string name="house">Aluguel</string>
+    <string name="game">Jogos</string>
+    <string name="phone">Celular</string>
+    <string name="other">Outros</string>
+    <string name="edit">EDITAR</string>
+    <string name="delete">DELETAR</string>
+    <string name="january">Janeiro</string>
+    <string name="february">Fevereiro</string>
+    <string name="march">Março</string>
+    <string name="april">Abril</string>
+    <string name="may">Maio</string>
+    <string name="june">Junho</string>
+    <string name="july">Julho</string>
+    <string name="august">Agosto</string>
+    <string name="september">Setembro</string>
+    <string name="october">Outubro</string>
+    <string name="november">Novembro</string>
+    <string name="december">Dezembro</string>
+
+    <!-- Google Drive API Helper -->
+    <string name="database_conta_smart" translatable="false">databaseContaSmart</string>
+    <string name="database_conta_smart_shm" translatable="false">databaseContaSmart-shm</string>
+    <string name="database_conta_smart_wal" translatable="false">databaseContaSmart-wal</string>
+    <string name="google_app_measurement_local" translatable="false">google_app_measurement_local.db</string>
+    <string name="com_google_android_datatransport_events" translatable="false">com.google.android.datatransport.events</string>
+    <string name="mime_type_folder" translatable="false">application/vnd.google-apps.folder</string>
+
+    <!-- Notification Worker -->
+    <string name="deadline_text_warning">Você tem contas próximas a data de vencimento</string>
+    <string name="channel_text_description">Notificação usada para alertar ao usuário sobre data de vencimento</string>
+
+    <!-- Test Tags -->
+    <string name="card_summary_exist_tag" translatable="false">card_summary_exist_tag</string>
+    <string name="card_summary_non_exist_tag" translatable="false">card_summary_non_exist_tag</string>
+    <string name="column_list_tag" translatable="false">column_list</string>
+    <string name="lazy_column_list_tag" translatable="false">lazy_column_list</string>
+    <string name="progress_tag" translatable="false">progress_tag</string>
+    <string name="card_summary_exist_data_tag" translatable="false">card_summary_data_tag</string>
+    <string name="card_summary_exist_receipt_tag" translatable="false">card_summary_receipt_tag</string>
+    <string name="card_summary_exist_expenditure_tag" translatable="false">card_summary_expenditure_tag</string>
+    <string name="card_summary_exist_remainder_tag" translatable="false">card_summary_remainder_tag</string>
+    <string name="card_summary_exist_person1_tag" translatable="false">card_summary_person1_tag</string>
+    <string name="card_summary_exist_person2_tag" translatable="false">card_summary_person2_tag</string>
+    <string name="card_summary_exist_person3_tag" translatable="false">card_summary_person3_tag</string>
+    <string name="card_summary_exist_person4_tag" translatable="false">card_summary_person4_tag</string>
+    <string name="card_summary_exist_person1_value_tag" translatable="false">card_summary_exist_person1_value_tag</string>
+    <string name="card_summary_exist_person2_value_tag" translatable="false">card_summary_exist_person2_value_tag</string>
+    <string name="card_summary_exist_person3_value_tag" translatable="false">card_summary_exist_person3_value_tag</string>
+    <string name="card_summary_exist_person4_value_tag" translatable="false">card_summary_exist_person4_value_tag</string>
+    <string name="card_item_tag" translatable="false">card_item_tag</string>
+    <string name="card_item_value_tag" translatable="false">card_item_value_tag</string>
+    <string name="card_item_deadline_tag" translatable="false">card_item_deadline_tag</string>
+    <string name="card_item_description_tag" translatable="false">card_item_description_tag</string>
+    <string name="card_item_person1_tag" translatable="false">card_item_person1_tag</string>
+    <string name="card_item_person1_checkbox_tag" translatable="false">card_item_person1_checkbox_tag</string>
+    <string name="card_item_person2_tag" translatable="false">card_item_person2_tag</string>
+    <string name="card_item_person2_checkbox_tag" translatable="false">card_item_person2_checkbox_tag</string>
+    <string name="card_item_person3_tag" translatable="false">card_item_person3_tag</string>
+    <string name="card_item_person3_checkbox_tag" translatable="false">card_item_person3_checkbox_tag</string>
+    <string name="card_item_person4_tag" translatable="false">card_item_person4_tag</string>
+    <string name="card_item_person4_checkbox_tag" translatable="false">card_item_person4_checkbox_tag</string>
+    <string name="card_item_btn_edit_tag" translatable="false">card_item_btn_edit_tag</string>
+    <string name="card_item_btn_delete_tag" translatable="false">card_item_btn_delete_tag</string>
+    <string name="float_action_button_tag" translatable="false">float_action_button_tag</string>
+    <string name="bottomsheet_item_name_tag" translatable="false">bottomsheet_item_name_tag</string>
+    <string name="bottomsheet_item_value_tag" translatable="false">bottomsheet_item_value_tag</string>
+    <string name="bottomsheet_item_deadline_tag" translatable="false">bottomsheet_item_deadline_tag</string>
+    <string name="bottomsheet_item_description_tag" translatable="false">bottomsheet_item_description_tag</string>
+    <string name="bottomsheet_item_dropdown_button_tag" translatable="false">bottomsheet_item_dropdown_button_tag</string>
+    <string name="bottomsheet_item_dropdown_item_tag" translatable="false">bottomsheet_item_dropdown_item_%1$s_tag</string>
+    <string name="bottomsheet_item_checkbox_person1_item_tag" translatable="false">bottomsheet_item_checkbox_person1_item_tag</string>
+    <string name="bottomsheet_item_checkbox_person2_item_tag" translatable="false">bottomsheet_item_checkbox_person2_item_tag</string>
+    <string name="bottomsheet_item_checkbox_person3_item_tag" translatable="false">bottomsheet_item_checkbox_person3_item_tag</string>
+    <string name="bottomsheet_item_checkbox_person4_item_tag" translatable="false">bottomsheet_item_checkbox_person4_item_tag</string>
+    <string name="bottomsheet_item_name_person1_item_tag" translatable="false">bottomsheet_item_name_person1_item_tag</string>
+    <string name="bottomsheet_item_name_person2_item_tag" translatable="false">bottomsheet_item_name_person2_item_tag</string>
+    <string name="bottomsheet_item_name_person3_item_tag" translatable="false">bottomsheet_item_name_person3_item_tag</string>
+    <string name="bottomsheet_item_name_person4_item_tag" translatable="false">bottomsheet_item_name_person4_item_tag</string>
+    <string name="bottomsheet_item_name_btn_delete_item_tag" translatable="false">bottomsheet_item_name_btn_delete_item_tag</string>
+    <string name="bottomsheet_item_name_btn_edit_item_tag" translatable="false">bottomsheet_item_name_btn_edit_item_tag</string>
+    <string name="bottomsheet_item_btn_save_tag" translatable="false">bottomsheet_item_btn_save_tag</string>
+    <string name="bottomsheet_calendar_month_btn_tag" translatable="false">bottomsheet_calendar_month_btn_tag</string>
+    <string name="bottomsheet_calendar_year_btn_tag" translatable="false">bottomsheet_calendar_year_btn_tag</string>
+    <string name="bottomsheet_calendar_month_item_tag" translatable="false">bottomsheet_calendar_month_%1$s_tag</string>
+    <string name="bottomsheet_calendar_year_item_tag" translatable="false">bottomsheet_calendar_year_%1$s_tag</string>
+    <string name="bottomsheet_calendar_btn_save_tag" translatable="false">bottomsheet_calendar_btn_save_tag</string>
+    <string name="topbar_calendar_icon_tag" translatable="false">topbar_calendar_icon</string>
+    <string name="card_summary_non_exist_btn_create_tag" translatable="false">card_summary_non_exist_btn_create</string>
+    <string name="card_summary_exist_btn_edit_tag" translatable="false">card_summary_exist_btn_edit_tag</string>
+    <string name="card_summary_exist_btn_delete_tag" translatable="false">card_summary_exist_btn_delete_tag</string>
+    <string name="bottomsheet_summary_revenue_tag" translatable="false">bottomsheet_summary_revenue_tag</string>
+    <string name="bottomsheet_summary_person1_tag" translatable="false">bottomsheet_summary_person1_tag</string>
+    <string name="bottomsheet_summary_person2_tag" translatable="false">bottomsheet_summary_person2_tag</string>
+    <string name="bottomsheet_summary_person3_tag" translatable="false">bottomsheet_summary_person3_tag</string>
+    <string name="bottomsheet_summary_person4_tag" translatable="false">bottomsheet_summary_person4_tag</string>
+    <string name="bottomsheet_summary_btn_save_tag" translatable="false">bottomsheet_summary_btn_save_tag</string>
+    <string name="alert_summary_delete_btn_tag" translatable="false">alert_summary_delete_btn_tag</string>
+
+</resources>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "879180185556",
+    "project_id": "contasmartstg",
+    "storage_bucket": "contasmartstg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879180185556:android:577a69530d61c570b9a041",
+        "android_client_info": {
+          "package_name": "com.finance.contasmart.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879180185556-d0jkpjhbsiq874mmtgjqie3g02tkgrhf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.finance.contasmart.staging",
+            "certificate_hash": "949264cbfd2006b4cc1d1363f922bb749ee01bb7"
+          }
+        },
+        {
+          "client_id": "879180185556-qi0h78oso6g1vf0as5eamkuf7jh4u7bg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9qcpCNQUufqCAGqcrAM0w8w_KfHuaQdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879180185556-qi0h78oso6g1vf0as5eamkuf7jh4u7bg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
