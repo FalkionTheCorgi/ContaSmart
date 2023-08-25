@@ -10,7 +10,7 @@ plugins {
 android {
     signingConfigs {
         release {
-            storeFile file('D:\\ContaSmart\\conta-smart-keystore.jks')
+            storeFile file('E:\\ContaSmart\\conta-smart-keystore.jks')
             storePassword '\'Y.d^A=nw!E2W6*z'
             keyAlias 'ContaSmart'
             keyPassword '\'Y.d^A=nw!E2W6*z'
