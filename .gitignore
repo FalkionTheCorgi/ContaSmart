@@ -13,7 +13,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-/app/dev/google-services.json
-/app/release/google-services.json
-/app/staging/google-services.json
-/app/release/app-release.aab
